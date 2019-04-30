@@ -19,10 +19,10 @@ public class Machine extends Player {
     private int depth;
 
     /**
-     *
-     * @param name
-     * @param color
-     * @param depth
+     * Machine constructor, which gives its name, color and depth
+     * @param name: the name of the Machine
+     * @param color: the color of the Machine
+     * @param depth: the depth of the Machine used for minimax
      */
 
     public Machine(String name, Color color, int depth) {
@@ -31,9 +31,9 @@ public class Machine extends Player {
     }
 
     /**
-     *
-     * @param board
-     * @param color
+     * In this case, the computer has to decide which move to make, so we added the minimax AI to make it happen
+     * @param board: the Board in which the Machine plays
+     * @param color: the color of the pieces of Machine
      */
 
     @Override
@@ -88,14 +88,15 @@ public class Machine extends Player {
         System.out.println("value = "+value);
         System.out.println("Moving "+move.getPiece().toString()+" from ("+move.getPiece().getPosition().getX()+", "+move.getPiece().getPosition().getY()+") to: ("+move.getPiece().getPosition().add(move.getFinalPos()).getX()+", "+move.getPiece().getPosition().add(move.getFinalPos()).getY()+")");
         board.movePiece(move.getPiece(), move.getPiece().getPosition().add(move.getFinalPos()));
-        //promptEnterKey();
         long finish = System.currentTimeMillis();
         long elapsedTime = finish - start;
         System.out.println(elapsedTime);
     }
 
     /**
-     *
+     * This is the function that makes the Machine think. It uses the minimax algorithm to make a decision on which
+     * piece to move where, depending on how the board will be evaluated after doing the move. Black pieces look for
+     * the board evaluation to be as small as possible. White pieces look for the board evaluation to be as big as possible
      * @param board
      * @param piece
      * @param movement

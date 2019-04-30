@@ -18,13 +18,11 @@ public class BoardDriver {
         FEN = s.nextLine().split(" ");
         FENBoard = FEN[0];
         FENTurn = FEN[1];
-        FENCastling = FEN[2];
-        FENCapture = FEN[3];
-        FENCaptureN = FEN[4];
-        FENTurnN = FEN[5];
         Board board = new Board(FENBoard);
         while (true) {
             board.printBoard();
+            System.out.println("Printing resulting board in FEN: ");
+            System.out.println(board.toFEN());
             System.out.println("Select the coordinates of the piece to move [x y]: ");
 
             s = new Scanner(System.in);

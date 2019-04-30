@@ -10,9 +10,9 @@ public class Coord {
     private int y;
 
     /**
-     *
-     * @param x
-     * @param y
+     * Coord constructor with given x, y coordinates
+     * @param x: x coordinate
+     * @param y: y coordinate
      */
 
     public Coord(int x, int y) {
@@ -21,8 +21,8 @@ public class Coord {
     }
 
     /**
-     *
-     * @param position
+     * Coord constructor copy with another Cooord
+     * @param position: the Coord to copy
      */
 
     public Coord(Coord position) {
@@ -31,8 +31,8 @@ public class Coord {
     }
 
     /**
-     *
-     * @param realCoord
+     * Coord constructor with real board coordinates
+     * @param realCoord: String with the row-column values (realCoord.size() = 2), for example "e8"
      */
 
     public Coord(String realCoord) {
@@ -41,8 +41,8 @@ public class Coord {
     }
 
     /**
-     *
-     * @return
+     * X coordinate getter
+     * @return returns the x coordinate
      */
 
     public int getX() {
@@ -50,17 +50,8 @@ public class Coord {
     }
 
     /**
-     *
-     * @param x
-     */
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    /**
-     *
-     * @return
+     * Y coordinate getter
+     * @return the y coordinate
      */
 
     public int getY() {
@@ -68,18 +59,9 @@ public class Coord {
     }
 
     /**
-     *
-     * @param y
-     */
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    /**
-     *
-     * @param position
-     * @return
+     * This function is used to add the coordinates of this Coord to the position parameter
+     * @param position: the Coord to add the coordinates
+     * @return the resulting added Coord
      */
 
     public Coord add(Coord position) {
@@ -87,9 +69,9 @@ public class Coord {
     }
 
     /**
-     *
-     * @param o
-     * @return
+     * Used  to compare 2 Coords
+     * @param o: it would be the Coord to compare to
+     * @return true if this x, y coordinates are equal to the given Coord's x, y coordinates, false otherwise
      */
 
     @Override

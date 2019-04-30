@@ -34,9 +34,10 @@ public class Rook extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a Rook are the straight moves. It can move left, up, down or right. A Rook can't jump
+     * through a Piece.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the Rook can do
      */
 
     @Override
@@ -93,9 +94,17 @@ public class Rook extends Piece {
         return possibleMoves;
     }
 
+    @Override
+    public String toFEN() {
+        if (color == Color.WHITE)
+            return "R";
+        else
+            return "r";
+    }
+
     /**
-     *
-     * @return
+     * It prints the Rook as a String
+     * @return the Unicode symbol for the Rook, depending on its color
      */
 
     @Override

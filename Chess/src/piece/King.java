@@ -14,19 +14,14 @@ import static board.Board.inBounds;
 public class King extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * King constructor
+     * @param position: the position to put the King to
+     * @param color: the color the King will have
      */
 
     public King(Coord position, Color color) {
         super(position, PieceValues.KING_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {
@@ -34,9 +29,9 @@ public class King extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a King are the 1 step moves. It can move only one tile at a time.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the King can do
      */
 
     @Override
@@ -104,9 +99,17 @@ public class King extends Piece {
         return possibleMoves;
     }
 
+    @Override
+    public String toFEN() {
+        if (color == Color.WHITE)
+            return "K";
+        else
+            return "k";
+    }
+
     /**
-     *
-     * @return
+     * It prints the King as a String
+     * @return the Unicode symbol for the King, depending on its color
      */
 
     @Override

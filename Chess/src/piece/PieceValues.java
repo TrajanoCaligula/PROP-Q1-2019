@@ -5,7 +5,8 @@ package piece;
  */
 
 /**
- *
+ * We use this enum to know how much is the value of a certain Piece. It is mainly used in the Machine class to evaluate
+ * the Board's position. It can also be used to calculate the Score of a Player in a Match
  */
 
 public enum PieceValues {
@@ -20,8 +21,8 @@ public enum PieceValues {
     private final int value;
 
     /**
-     *
-     * @param newValue
+     * This function is used so you can modify a Piece's value with any other one from the enum
+     * @param newValue: the value to change to
      */
 
     PieceValues(final int newValue) {
@@ -29,8 +30,8 @@ public enum PieceValues {
     }
 
     /**
-     *
-     * @return
+     * A getter that returns the value of a Piece
+     * @return it returns its value
      */
 
     public int getValue() { return value; }

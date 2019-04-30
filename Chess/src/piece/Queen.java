@@ -14,19 +14,14 @@ import static board.Board.inBounds;
 public class Queen extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * Queen constructor
+     * @param position: the position to put the Queen to
+     * @param color: the color the Queen will have
      */
 
     public Queen(Coord position, Color color) {
         super(position, PieceValues.QUEEN_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {
@@ -34,8 +29,8 @@ public class Queen extends Piece {
     }
 
     /**
-     *
-     * @param pawn
+     * Queen constructor for promoting a Pawn
+     * @param pawn: the Pawn to promote
      */
 
     public Queen(Pawn pawn) {
@@ -43,9 +38,10 @@ public class Queen extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a Queen are the diagonal moves and the straight moves. It can move left, up, down, right
+     * and diagonally in any direction. A Queen can't jump through a Piece.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the Queen can do
      */
 
     @Override
@@ -147,9 +143,17 @@ public class Queen extends Piece {
         return possibleMoves;
     }
 
+    @Override
+    public String toFEN() {
+        if (color == Color.WHITE)
+            return "Q";
+        else
+            return "q";
+    }
+
     /**
-     *
-     * @return
+     * It prints the Queen as a String
+     * @return the Unicode symbol for the Queen, depending on its color
      */
 
     @Override

@@ -3,7 +3,6 @@ package piece;
 import board.Board;
 import board.Coord;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +16,10 @@ public abstract class Piece {
     protected Color color;
 
     /**
-     *
-     * @param position
-     * @param value
-     * @param color
+     * Piece constructor, it is given its position, its value and its color
+     * @param position: the position on the board
+     * @param value: the value of the piece
+     * @param color: the color of the piece
      */
 
     public Piece(Coord position, int value, Color color) {
@@ -30,15 +29,15 @@ public abstract class Piece {
     }
 
     /**
-     *
-     * @return
+     * This function is made so we can copy a certain piece and make a new one from that piece
+     * @return the new copied Piece
      */
 
     public abstract Piece copy();
 
     /**
-     *
-     * @return
+     * This function gets the position of the Piece on the board
+     * @return the position on the board
      */
 
     public Coord getPosition() {
@@ -46,7 +45,7 @@ public abstract class Piece {
     }
 
     /**
-     *
+     * Used to set a given position to the Piece
      * @param position
      */
 
@@ -56,8 +55,8 @@ public abstract class Piece {
     }
 
     /**
-     *
-     * @return
+     * Used to get the Piece's value
+     * @return the Piece's value
      */
 
     public int getValue() {
@@ -65,8 +64,8 @@ public abstract class Piece {
     }
 
     /**
-     *
-     * @return
+     * Used to get the Piece's color
+     * @return the Piece's color
      */
 
     public Color getColor() {
@@ -74,9 +73,9 @@ public abstract class Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * This function has been made to know which moves can a specific Piece in a specific Coord can do
+     * @param board the Board in which the Piece is
+     * @return return all the possible moves that the Piece can do
      */
 
     public abstract ArrayList<Coord> getPossibleMoves(Board board);
@@ -86,9 +85,10 @@ public abstract class Piece {
     //TODO getPossibleMoveWithWall
 
     /**
-     *
-     * @param board
-     * @return
+     * This function is used as a filter for getPossibleMoves, because it is needed to know if the player is in check
+     * and has to defend the King or not
+     * @param board: the board in which the Piece is
+     * @return returns all the legal moves that the Piece can do
      */
 
     public ArrayList<Coord> getLegalMoves(Board board) {
@@ -106,4 +106,11 @@ public abstract class Piece {
         }
         return legalMoves;
     }
+
+    /**
+     * This function returns a String with the character that represents the respective Piece in the Board
+     * @return UpperCase identifier for whitePiece and LoweCase identifier for blackPiece
+     */
+
+    public abstract String toFEN();
 }

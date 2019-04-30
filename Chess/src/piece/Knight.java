@@ -14,19 +14,14 @@ import static board.Board.inBounds;
 public class Knight extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * Knight constructor
+     * @param position: the position to put the Knight to
+     * @param color: the color the Knight will have
      */
 
     public Knight(Coord position, Color color) {
         super(position, PieceValues.KNIGHT_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {
@@ -34,9 +29,9 @@ public class Knight extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a Knight are the moves that draw an L. A Knight can jump through a Piece.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the Knight can do
      */
 
     @Override
@@ -111,9 +106,17 @@ public class Knight extends Piece {
         return possibleMoves;
     }
 
+    @Override
+    public String toFEN() {
+        if (color == Color.WHITE)
+            return "N";
+        else
+            return "n";
+    }
+
     /**
-     *
-     * @return
+     * It prints the Knight as a String
+     * @return the Unicode symbol for the Knight, depending on its color
      */
 
     @Override

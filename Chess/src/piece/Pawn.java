@@ -14,19 +14,14 @@ import static board.Board.inBounds;
 public class Pawn extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * Pawn constructor
+     * @param position: the position to put the Pawn to
+     * @param color: the color the Pawn will have
      */
 
     public Pawn(Coord position, Color color) {
         super(position, PieceValues.PAWN_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {
@@ -34,9 +29,10 @@ public class Pawn extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a Pawn are the one step forward moves, the two step forward moves if the Pawn is at it's original position, ore one step diagonally forward to attack an enemy Piece.
+     * A Pawn can't jump through a Piece.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the Pawn can do
      */
 
     @Override
@@ -126,9 +122,17 @@ public class Pawn extends Piece {
 
     }
 
+    @Override
+    public String toFEN() {
+        if (color == Color.WHITE)
+            return "P";
+        else
+            return "p";
+    }
+
     /**
-     *
-     * @return
+     * It looks if the Pawn can do the two step forward move. If it's in its original place it would be a possible move
+     * @return true if it has moved (so it won't do the two step forward move), or false otherwise
      */
 
     private boolean hasMoved() {
@@ -136,8 +140,8 @@ public class Pawn extends Piece {
     }
 
     /**
-     *
-     * @return
+     * It prints the Pawn as a String
+     * @return the Unicode symbol for the Pawn, depending on its color
      */
 
     @Override

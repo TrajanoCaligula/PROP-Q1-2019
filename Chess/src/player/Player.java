@@ -13,9 +13,9 @@ public abstract class Player {
     protected Color color;
 
     /**
-     *
-     * @param name
-     * @param color
+     * Player constructor. It takes it's name and color
+     * @param name: the name of the Player
+     * @param color: the color of the Player
      */
 
     public Player(String name, Color color) {
@@ -24,16 +24,16 @@ public abstract class Player {
     }
 
     /**
-     *
-     * @param board
-     * @param color
+     * The function to make the player play. It differs depending of which type of Player has to play
+     * @param board: the Board to play to
+     * @param color: the Color of the pieces to play with
      */
 
     public abstract void play(Board board, Color color);
 
     /**
-     *
-     * @return
+     * Getter to get the name of the Player
+     * @return the name of the Player
      */
 
     public String getName() {
@@ -41,8 +41,8 @@ public abstract class Player {
     }
 
     /**
-     *
-     * @return
+     * To convert the Player into String it is returned it's name
+     * @return the name of the Player
      */
 
     @Override

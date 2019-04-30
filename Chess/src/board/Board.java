@@ -380,4 +380,34 @@ public class Board {
         }
         return true;
     }
+
+    /**
+     * This function prints the Board into its FEN notation
+     * @return FEN String of the Board
+     */
+
+    public String toFEN() {
+        String FEN = new String();
+        Piece piece;
+        int emptyTiles = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                piece = getPieceInCoord(new Coord(j, i));
+                if (piece != null) {
+                    if (emptyTiles > 0)
+                        FEN += Integer.toString(emptyTiles);
+                    FEN += piece.toFEN();
+                    emptyTiles = 0;
+                }
+                else
+                    emptyTiles++;
+            }
+            if (emptyTiles > 0)
+                FEN += Integer.toString(emptyTiles);
+            emptyTiles = 0;
+            if (i < 7)
+                FEN += "/";
+        }
+        return FEN;
+    }
 }

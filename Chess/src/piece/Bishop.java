@@ -14,19 +14,14 @@ import static board.Board.inBounds;
 public class Bishop extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * Bishop constructor
+     * @param position: the position to put the Bishop to
+     * @param color: the color the Bishop will have
      */
 
     public Bishop(Coord position, Color color) {
         super(position, PieceValues.BISHOP_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {
@@ -34,9 +29,9 @@ public class Bishop extends Piece {
     }
 
     /**
-     *
-     * @param board
-     * @return
+     * The possible moves from a Bishop are the diagonal moves. A Bishop can't jump through a Piece.
+     * @param board the Board in which the Piece is
+     * @return all the possible moves that the Bishop can do
      */
 
     @Override
@@ -93,9 +88,17 @@ public class Bishop extends Piece {
         return possibleMoves;
     }
 
+    @Override
+    public String toFEN() {
+        if(color == Color.WHITE)
+            return "B";
+        else
+            return "b";
+    }
+
     /**
-     *
-     * @return
+     * It prints the Bishop as a String
+     * @return the Unicode symbol for the Bishop, depending on its color
      */
 
     @Override

@@ -19,12 +19,12 @@ public class Match {
     private Color firstColor;
 
     /**
-     *
-     * @param whitePlayer
-     * @param blackPlayer
-     * @param board
-     * @param round
-     * @param firstColor
+     * Match standard constructor
+     * @param whitePlayer: the Player which is going to move the whitePieces from the board
+     * @param blackPlayer: the Player which is going to move the blackPieces from the board
+     * @param board: the Board to play with
+     * @param round: the round that the players are in
+     * @param firstColor: the first color to move
      */
 
     public Match(Player whitePlayer, Player blackPlayer, Board board, Integer round, Color firstColor) {
@@ -36,8 +36,8 @@ public class Match {
     }
 
     /**
-     *
-     * @return
+     * returns the Player which plays the whitePieces from the board
+     * @return whitePlayer
      */
 
     public Player getWhitePlayer() {
@@ -45,8 +45,8 @@ public class Match {
     }
 
     /**
-     *
-     * @return
+     * returns the Player which plays the blackPieces from the board
+     * @return blackPlayer
      */
 
     public Player getBlackPlayer() {
@@ -54,8 +54,8 @@ public class Match {
     }
 
     /**
-     *
-     * @return
+     * returns the board in which is being played the match
+     * @return board
      */
 
     public Board getBoard() {
@@ -63,8 +63,9 @@ public class Match {
     }
 
     /**
-     *
-     * @param color
+     * This function makes the match play. If the parameter color is BLACK, it's blackPlayer's turn to move,
+     * else if the parameter color is WHITE, it's whitePlayer's turn to move. It also gets the match's round number.
+     * @param color: indicates who has to play
      */
 
     public void playGame(Color color) {
@@ -80,13 +81,12 @@ public class Match {
             if (firstColor == Color.WHITE)
                 round++;
         }
-        round++;
     }
 
     /**
-     *
-     * @param color
-     * @return
+     * This function looks if a certain color if checkmated or not
+     * @param color: the color to look for
+     * @return true if the color is checkmated, false otherwise
      */
 
     public boolean checkmated(Color color) {

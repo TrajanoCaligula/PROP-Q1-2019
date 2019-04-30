@@ -1,5 +1,13 @@
 package piece;
 
+/**
+ * @author jaumeMalgosa
+ */
+
+/**
+ *
+ */
+
 public enum PieceValues {
 
     PAWN_VALUE(1),
@@ -11,9 +19,19 @@ public enum PieceValues {
 
     private final int value;
 
+    /**
+     *
+     * @param newValue
+     */
+
     PieceValues(final int newValue) {
         value = newValue;
     }
+
+    /**
+     *
+     * @return
+     */
 
     public int getValue() { return value; }
 

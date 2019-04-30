@@ -7,15 +7,28 @@ import java.util.ArrayList;
 
 import static java.lang.Character.*;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 public class Board {
 
     private ArrayList<Piece> whitePieces;
     private ArrayList<Piece> blackPieces;
 
+    /**
+     * Standard Board constructor, it creates a Board with no pieces.
+     */
+
     public Board() {
         whitePieces = new ArrayList<Piece>();
         blackPieces = new ArrayList<Piece>();
     }
+
+    /**
+     * Board copy constructor, it copies the the board parameter to this board
+     * @param board: the board to copy
+     */
 
     public Board(Board board){
         this.whitePieces = new ArrayList<Piece>();
@@ -28,6 +41,11 @@ public class Board {
             this.blackPieces.add(blackPiece.copy());
         }
     }
+
+    /**
+     * Board constructor with FEN parameter. It creates a Board based on the FEN given
+     * @param FEN: it contains the FEN information to create the new board
+     */
 
     public Board(String FEN) {
         whitePieces = new ArrayList<Piece>();
@@ -76,6 +94,12 @@ public class Board {
         }
     }
 
+    /**
+     * It's used to send to the Machine class the evaluation of the Board, which is >0 if whites are winning and is <0
+     * if the blacks are winning.
+     * @return the evaluation of the board
+     */
+
     public int getEvaluation() {
         int score = 0;
         //System.out.print("Evaluation = ");
@@ -88,13 +112,44 @@ public class Board {
             score -= blackPiece.getValue();
             //System.out.print(" - "+blackPiece.getValue()+"("+blackPiece.toString()+")");
         }
+        ArrayList<Coord> legalMoves;
+        boolean blackIsChekMate = true, whiteIsCheckMate = true;
+        for (Piece whitePiece : whitePieces) {
+            if (!whitePiece.getLegalMoves(this).isEmpty()) {
+                whiteIsCheckMate = false;
+                break;
+            }
+
+        }
+        for (Piece blackPiece : blackPieces) {
+            if (!blackPiece.getLegalMoves(this).isEmpty()) {
+                blackIsChekMate = false;
+                break;
+            }
+        }
         //System.out.println(" = "+score);
+        if (whiteIsCheckMate)
+            score -= 9000;
+        else if (blackIsChekMate)
+            score += 9000;
         return score;
     }
+
+    /**
+     * It's used in the FEN constructor to know when to pass to the next row of the Board
+     * @param c: the character to compare
+     * @return true if c is a dash, false otherwise
+     */
 
     private boolean isDash(char c) {
         return (c == '/');
     }
+
+    /**
+     * It gives the piece which is located in a certain position
+     * @param position: the position the user wants to get a Piece from
+     * @return it returns a Piece if there is one, null otherwise
+     */
 
     @Nullable
     public Piece getPieceInCoord(Coord position) {
@@ -111,9 +166,22 @@ public class Board {
         return null;
     }
 
+    /**
+     * It says if a position is in bounds of the Board
+     * @param position: the position to compare
+     * @return it return true if the position is in bounds, false otherwise
+     */
+
     public static boolean inBounds(Coord position) {
         return(position.getX() >= 0 && position.getX() <= 7 && position.getY() >= 0 && position.getY() <= 7);
     }
+
+    /**
+     * This function is used to move a Piece to another position of the board
+     * @param piece: the piece to move (not null)
+     * @param finalPos: the position where we want to move the piece. If there is another piece in that position, it is
+     *                  removed
+     */
 
     public void movePiece(Piece piece, Coord finalPos) {
         Piece finalPiece = getPieceInCoord(finalPos);
@@ -125,6 +193,11 @@ public class Board {
         }
     }
 
+    /**
+     * Used to remove a piece from whitePieces or blackPieces
+     * @param piece: the piece to remove (not null)
+     */
+
     public void removePiece(Piece piece) {
         if(piece.getColor() == Color.WHITE) {
             whitePieces.remove(piece);
@@ -134,11 +207,22 @@ public class Board {
         }
     }
 
+    /**
+     * Used to promote a pawn. For the moment it can only be promoted to a Queen (the best choice)
+     * @param pawn: the pawn to be promoted (not null)
+     */
+
     public void promotePawn(Pawn pawn) {
         Queen queen = new Queen(pawn);
         whitePieces.add(queen);
         removePiece(pawn);
     }
+
+    /**
+     * Says if a certain color of the board is in check or not
+     * @param color: the color to compare
+     * @return return true if the color is in check and false otherwise
+     */
 
     public boolean isCheck(Color color) {
         Coord kingPosition = new Coord(-1, -1); //Inicializado a -1, -1 por si no hay rey
@@ -183,21 +267,28 @@ public class Board {
 
     //Getters and Setters
 
+
+    /**
+     * Used to get all the whitePieces from the Board
+     * @return whitePieces
+     */
+
     public ArrayList<Piece> getWhitePieces() {
         return whitePieces;
     }
 
-    public void setWhitePieces(ArrayList<Piece> whitePieces) {
-        this.whitePieces = whitePieces;
-    }
+    /**
+     * Used to get all the blackPieces from the Board
+     * @return blackPieces
+     */
 
     public ArrayList<Piece> getBlackPieces() {
         return blackPieces;
     }
 
-    public void setBlackPieces(ArrayList<Piece> blackPieces) {
-        this.blackPieces = blackPieces;
-    }
+    /**
+     * It prints the Board, having in mind the 1-8 and a-h coordinates
+     */
 
     public void printBoard() {
         int fila = 8;
@@ -228,6 +319,13 @@ public class Board {
         System.out.println("   a|b|c|d|e|f|g|h");
     }
 
+    /**
+     * It gets a black piece from a certain position x, y
+     * @param x: the x coordinate to look to
+     * @param y: the y coordinate to look to
+     * @return returns a black piece if there is one and null if there isn't (null if it's white)
+     */
+
     private Piece getBlackPiece(int x, int y) {
         Piece piece = null;
         Coord position = new Coord(x, y);
@@ -239,6 +337,13 @@ public class Board {
         }
         return piece;
     }
+
+    /**
+     * It gets a white piece from a certain position x, y
+     * @param x: the x coordinate to look to
+     * @param y: the y coordinate to look to
+     * @return returns a white piece if there is one and null if there isn't (null if it's black)
+     */
 
     private Piece getWhitePiece(int x, int y) {
         Piece piece = null;
@@ -252,6 +357,11 @@ public class Board {
         return piece;
     }
 
+    /**
+     * Says if the given color has lost the game or not
+     * @param color: the color to compare
+     * @return returns true if the color has lost, false otherwise
+     */
 
     public boolean isGameOver(Color color) {
         if (color == Color.WHITE) {

@@ -7,16 +7,37 @@ import java.util.ArrayList;
 
 import static board.Board.inBounds;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 public class Rook extends Piece {
+
+    /**
+     *
+     * @param position
+     * @param color
+     */
 
     public Rook(Coord position, Color color) {
         super(position, PieceValues.ROOK_VALUE.getValue(), color);
     }
 
+    /**
+     *
+     * @return
+     */
+
     @Override
     public Piece copy() {
         return new Rook(this.position, this.color);
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     @Override
     public ArrayList<Coord> getPossibleMoves(Board board) {
@@ -71,6 +92,11 @@ public class Rook extends Piece {
         }
         return possibleMoves;
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

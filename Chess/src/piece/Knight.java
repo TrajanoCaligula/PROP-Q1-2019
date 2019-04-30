@@ -5,18 +5,39 @@ import board.Coord;
 
 import java.util.ArrayList;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 import static board.Board.inBounds;
 
 public class Knight extends Piece {
+
+    /**
+     *
+     * @param position
+     * @param color
+     */
 
     public Knight(Coord position, Color color) {
         super(position, PieceValues.KNIGHT_VALUE.getValue(), color);
     }
 
+    /**
+     *
+     * @return
+     */
+
     @Override
     public Piece copy() {
         return new Knight(this.position, this.color);
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     @Override
     public ArrayList<Coord> getPossibleMoves(Board board) {
@@ -89,6 +110,11 @@ public class Knight extends Piece {
 
         return possibleMoves;
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

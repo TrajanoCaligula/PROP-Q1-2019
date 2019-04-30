@@ -7,20 +7,46 @@ import java.util.ArrayList;
 
 import static board.Board.inBounds;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 public class Queen extends Piece {
+
+    /**
+     *
+     * @param position
+     * @param color
+     */
 
     public Queen(Coord position, Color color) {
         super(position, PieceValues.QUEEN_VALUE.getValue(), color);
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public Piece copy() {
         return new Queen(this.position, this.color);
     }
 
+    /**
+     *
+     * @param pawn
+     */
+
     public Queen(Pawn pawn) {
         super(pawn.getPosition(), PieceValues.QUEEN_VALUE.getValue(), pawn.getColor());
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     @Override
     public ArrayList<Coord> getPossibleMoves(Board board) {
@@ -120,6 +146,11 @@ public class Queen extends Piece {
         }
         return possibleMoves;
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

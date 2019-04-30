@@ -7,16 +7,37 @@ import java.util.ArrayList;
 
 import static board.Board.inBounds;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 public class Pawn extends Piece {
+
+    /**
+     *
+     * @param position
+     * @param color
+     */
 
     public Pawn(Coord position, Color color) {
         super(position, PieceValues.PAWN_VALUE.getValue(), color);
     }
 
+    /**
+     *
+     * @return
+     */
+
     @Override
     public Piece copy() {
         return new Pawn(this.position, this.color);
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     @Override
     public ArrayList<Coord> getPossibleMoves(Board board) {
@@ -105,9 +126,19 @@ public class Pawn extends Piece {
 
     }
 
+    /**
+     *
+     * @return
+     */
+
     private boolean hasMoved() {
         return !((color == Color.WHITE && position.getY() == 6) || (color == Color.BLACK && position.getY() == 1));
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

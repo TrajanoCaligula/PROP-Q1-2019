@@ -68,18 +68,19 @@ public class MatchDriver {
         }
         System.out.println("Insert a board in FEN notation: ");
         String[] FEN = new String[6];
-        String FENBoard, FENTurn, FENCastling, FENCapture, FENCaptureN, FENRoundN;
+        String FENBoard, FENTurn;
         s = new Scanner(System.in);
         FEN = s.nextLine().split(" ");
         FENBoard = FEN[0];
         FENTurn = FEN[1];
-        FENCastling = FEN[2];
-        FENCapture = FEN[3];
-        FENCaptureN = FEN[4];
-        FENRoundN = FEN[5];
-        Integer round = Integer.parseInt(FENRoundN);
+        Color firstColor;
+        if (FENTurn.equals("w"))
+            firstColor = Color.WHITE;
+        else    //if (FENTurn.equals("b")
+            firstColor = Color.BLACK;
+        Integer round = 1;
         Board board = new Board(FENBoard);
-        Match match = new Match(whitePlayer, blackPlayer, board, round);
+        Match match = new Match(whitePlayer, blackPlayer, board, round, firstColor);
         Color color;
         if (FENTurn.equals("w"))
             color = Color.WHITE;

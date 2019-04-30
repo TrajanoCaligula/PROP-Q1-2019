@@ -4,8 +4,11 @@ import board.Board;
 import board.Coord;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+/**
+ * @author jaumeMalgosa
+ */
 
 public abstract class Piece {
 
@@ -13,29 +16,68 @@ public abstract class Piece {
     protected int value;
     protected Color color;
 
+    /**
+     *
+     * @param position
+     * @param value
+     * @param color
+     */
+
     public Piece(Coord position, int value, Color color) {
         this.position = position;
         this.value = value;
         this.color = color;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public abstract Piece copy();
+
+    /**
+     *
+     * @return
+     */
 
     public Coord getPosition() {
         return position;
     }
 
+    /**
+     *
+     * @param position
+     */
+
+
     public void setPosition(Coord position) {
         this.position = position;
     }
+
+    /**
+     *
+     * @return
+     */
 
     public int getValue() {
         return value;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public Color getColor() {
         return color;
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     public abstract ArrayList<Coord> getPossibleMoves(Board board);
 
@@ -43,18 +85,13 @@ public abstract class Piece {
 
     //TODO getPossibleMoveWithWall
 
-    public static void promptEnterKey(){
-        System.out.println("Press \"ENTER\" to continue...");
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     public ArrayList<Coord> getLegalMoves(Board board) {
-
-
         ArrayList<Coord> possibleMoves = this.getPossibleMoves(board);
         ArrayList<Coord> legalMoves = new ArrayList<Coord>();
         Board imaginaryBoard;
@@ -67,8 +104,6 @@ public abstract class Piece {
 
             this.setPosition(initPos);
         }
-
         return legalMoves;
-
     }
 }

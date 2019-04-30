@@ -7,16 +7,37 @@ import java.util.ArrayList;
 
 import static board.Board.inBounds;
 
+/**
+ * @author jaumeMalgosa
+ */
+
 public class Bishop extends Piece {
+
+    /**
+     *
+     * @param position
+     * @param color
+     */
 
     public Bishop(Coord position, Color color) {
         super(position, PieceValues.BISHOP_VALUE.getValue(), color);
     }
 
+    /**
+     *
+     * @return
+     */
+
     @Override
     public Piece copy() {
         return new Bishop(this.position, this.color);
     }
+
+    /**
+     *
+     * @param board
+     * @return
+     */
 
     @Override
     public ArrayList<Coord> getPossibleMoves(Board board) {
@@ -71,6 +92,11 @@ public class Bishop extends Piece {
         }
         return possibleMoves;
     }
+
+    /**
+     *
+     * @return
+     */
 
     @Override
     public String toString() {

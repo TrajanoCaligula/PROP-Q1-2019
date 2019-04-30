@@ -5,30 +5,36 @@ import board.Coord;
 import piece.Color;
 import piece.Piece;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Integer.*;
 
+/**
+ * @author calinPirau
+ */
+
 public class Machine extends Player {
 
     private int depth;
 
-    public static void promptEnterKey(){
-        System.out.println("Press \"ENTER\" to continue...");
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    /**
+     *
+     * @param name
+     * @param color
+     * @param depth
+     */
 
     public Machine(String name, Color color, int depth) {
         super(name, color);
         this.depth = depth;
     }
+
+    /**
+     *
+     * @param board
+     * @param color
+     */
 
     @Override
     public void play(Board board, Color color) {
@@ -87,6 +93,16 @@ public class Machine extends Player {
         long elapsedTime = finish - start;
         System.out.println(elapsedTime);
     }
+
+    /**
+     *
+     * @param board
+     * @param piece
+     * @param movement
+     * @param isMaximizing
+     * @param depth
+     * @return
+     */
 
     private int minimax(Board board, Piece piece, Coord movement, boolean isMaximizing, int depth) {
         Board imaginaryBoard = new Board(board);

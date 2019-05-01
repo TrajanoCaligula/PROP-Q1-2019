@@ -1,12 +1,14 @@
 package Pau;
 
+import Calin.Human;
+
 public class Score implements Comparable<Score> {
-    private String player;
+    private Human player;
     private int score;
     //Constructors
 
-    public Score(String playerScore, int puntuacioPartida){
-        this.player = playerScore;
+    public Score(Human player, int puntuacioPartida){
+        this.player = player;
         this.score = puntuacioPartida;
     }
 
@@ -14,7 +16,7 @@ public class Score implements Comparable<Score> {
         return this.score;
     }
 
-    public String getPlayer(){ return player; }
+    public Human getPlayer(){ return player; }
 
     @Override
     public int compareTo(Score score2){

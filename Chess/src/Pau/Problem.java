@@ -183,7 +183,7 @@ public class Problem{
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
     public void saveProblem(){
-        problemFile = new File("./Chess/src/DataBase/Problems/Problem" +  this.id + ".txt");
+        problemFile = new File("./Chess/src/DataBase/Problems/" +  this.id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
             writer.write(this.toString());
@@ -203,11 +203,12 @@ public class Problem{
      */
     public static boolean existsProblem(int idPR){
         boolean trobat = false;
-        File[] files = new File("./Chess/src/DataBase/Problems/Problem").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
                 if (fileName[0].equals(Integer.toString(idPR))) {
+                    System.out.println(file.getName());
                     trobat = true;
                 }
             }

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="Reversed changes in Score.">
+    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/src/DataBase/Problems/Problem904918.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/Ranking.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/Ranking.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +18,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Problem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="291" column="63" selection-start-line="291" selection-start-column="63" selection-end-line="291" selection-end-column="63" />
+            <state relative-caret-position="228">
+              <caret line="207" column="50" selection-start-line="207" selection-start-column="50" selection-end-line="207" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Ranking.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/DataBase/Rankings/R-430764.txt">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,12 +171,12 @@
         <option value="$PROJECT_DIR$/Chess/src/Jaume/Rook.java" />
         <option value="$PROJECT_DIR$/Chess/src/Jaume/King.java" />
         <option value="$PROJECT_DIR$/Chess/src/Jaume/PieceDriver.java" />
-        <option value="$PROJECT_DIR$/Chess/src/Pau/Ranking.java" />
         <option value="$PROJECT_DIR$/Chess/src/Pau/Score.java" />
         <option value="$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/Jaume/Board.java" />
         <option value="$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/Pau/Problem.java" />
+        <option value="$PROJECT_DIR$/Chess/src/Pau/Ranking.java" />
       </list>
     </option>
   </component>
@@ -165,6 +208,36 @@
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DataBase" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DataBase" type="462c0819:PsiDirectoryNode" />
+              <item name="Problems" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DataBase" type="462c0819:PsiDirectoryNode" />
+              <item name="Rankings" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Pau" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -192,7 +265,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ProblemDriver">
+  <component name="RunManager" selected="Application.RankingDriver">
     <configuration name="CoordDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Jaume.CoordDriver" />
       <module name="PROP4" />
@@ -208,19 +281,6 @@
     </configuration>
     <configuration name="MoveDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="drivers.MoveDriver" />
-      <module name="PROP4" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Jaume.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PieceDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="drivers.PieceDriver" />
       <module name="PROP4" />
       <extension name="coverage">
         <pattern>
@@ -258,13 +318,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RankingDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Pau.RankingDriver" />
+      <module name="PROP4" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Pau.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RankingDriver" />
         <item itemvalue="Application.ProblemDriver" />
         <item itemvalue="Application.MoveDriver" />
         <item itemvalue="Application.CoordDriver" />
         <item itemvalue="Application.PlayerDriver" />
-        <item itemvalue="Application.PieceDriver" />
       </list>
     </recent_temporary>
   </component>
@@ -307,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556727661522</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated database files in problem + added DataBase directory to save rankings and problems">
+      <created>1556739048860</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556739048861</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -319,7 +399,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25402635" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25402635" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32970452" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -327,7 +407,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.33240613" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.33240613" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -347,10 +427,10 @@
     <MESSAGE value="Changed -string Player- for class Human." />
     <MESSAGE value="Reversed changes in Score." />
     <MESSAGE value="Added problemDriver and RankingDriver in Pau folder." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added problemDriver and RankingDriver in Pau folder." />
+    <MESSAGE value="Updated database files in problem + added DataBase directory to save rankings and problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated database files in problem + added DataBase directory to save rankings and problems" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/jdk1.8.0_211/src.zip!/java/lang/Runtime.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/match/Match.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/tests/MatchDriverTest">
       <provider selected="true" editor-type-id="text-editor">
@@ -593,20 +673,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Ranking.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/King.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/Board.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        <state relative-caret-position="6240">
+          <caret line="431" column="5" selection-start-line="431" selection-start-column="5" selection-end-line="431" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="8" lean-forward="true" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -615,35 +699,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Problem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="291" column="63" selection-start-line="291" selection-start-column="63" selection-end-line="291" selection-end-column="63" />
+        <state relative-caret-position="228">
+          <caret line="207" column="50" selection-start-line="207" selection-start-column="50" selection-end-line="207" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/King.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Ranking.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="26" column="45" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="45" />
+        <state relative-caret-position="337">
+          <caret line="28" column="47" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/Board.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/DataBase/Rankings/R-430764.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6240">
-          <caret line="431" column="5" selection-start-line="431" selection-start-column="5" selection-end-line="431" selection-end-column="5" />
+        <state relative-caret-position="231">
+          <caret line="21" column="35" lean-forward="true" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

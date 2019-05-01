@@ -27,7 +27,7 @@ public class Ranking{
 		this.idProblemRanking = idProblem;
 		try {
 			if(Problem.existsProblem(idProblem)) {
-				rankingFile = new File("../Chess/Rankings/" + "R-" + this.idProblemRanking + ".txt");
+				rankingFile = new File("./Chess/src/DataBase/Rankings/" + "R-" + this.idProblemRanking + ".txt");
 				if (!rankingFile.createNewFile()) {
 					ArrayList<Score> scoresRankingLD = loadScores(rankingFile);
 					setScores(scoresRankingLD);
@@ -123,7 +123,7 @@ public class Ranking{
 	 */
 	public static boolean resetRanking(int idPR){
 		boolean trobat = false;
-		File[] files = new File("../Chess/Rankings").listFiles();
+		File[] files = new File("./Chess/src/DataBase/Rankings").listFiles();
 		for(File file : files) {
 			if (file.getName().charAt(0) != '.') {
 				String[] fileName = file.getName().split("\\.");
@@ -152,7 +152,7 @@ public class Ranking{
 	 */
 	public static boolean deleteRanking(int idPR){
 		boolean trobat = false;
-		File[] files = new File("../Chess/Rankings").listFiles();
+		File[] files = new File("./Chess/src/DataBase/Rankings").listFiles();
 		for(File file : files) {
 			if (file.getName().charAt(0) != '.') {
 				String[] fileName = file.getName().split("\\.");
@@ -170,7 +170,7 @@ public class Ranking{
 	 * Prints every ranking saved in our directory.
 	 */
 	public static void printRankings(){
-		File[] files = new File("../Chess/Rankings").listFiles();
+		File[] files = new File("./Chess/src/DataBase/Rankings").listFiles();
 		for(File file : files){
 			String[] fileName = file.getName().split("\\.");
 			if(file.getName().charAt(0) != '.') {

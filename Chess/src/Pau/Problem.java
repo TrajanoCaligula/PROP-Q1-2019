@@ -183,7 +183,7 @@ public class Problem{
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
     public void saveProblem(){
-        problemFile = new File("../Chess/FONTS/Problems/" +  this.id + ".txt");
+        problemFile = new File("./Chess/src/DataBase/Problems/Problem" +  this.id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
             writer.write(this.toString());
@@ -203,7 +203,7 @@ public class Problem{
      */
     public static boolean existsProblem(int idPR){
         boolean trobat = false;
-        File[] files = new File("../Chess/FONTS/Problems/").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems/Problem").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -224,7 +224,7 @@ public class Problem{
         Problem clone = null;
 
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/FONTS/Problems/").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems").listFiles();
         for(File file : files){
             String[] fileName = file.getName().split("\\.");
             if(fileName[0].equals(Integer.toString(idProblemToClone))){
@@ -252,7 +252,7 @@ public class Problem{
      */
     private static ArrayList<Problem> listProblems(){
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/FONTS/Problems").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 Problem probToAdd = new Problem(file);
@@ -270,7 +270,7 @@ public class Problem{
      */
     public static boolean deleteProblem(int id){
         boolean trobat = false;
-        File[] files = new File("../Chess/FONTS/Problems").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -288,8 +288,12 @@ public class Problem{
      */
     public static void printProblems(){
         ArrayList<Problem> problemList = listProblems();
-        for(Problem problema : problemList){
-            System.out.println(problema);
+        if(problemList.isEmpty()){
+            System.out.println("No problems in our database! \nSelect option 1 to create a problem and add it to our DB");
+        } else {
+            for (Problem problema : problemList) {
+                System.out.println(problema);
+            }
         }
     }
 
@@ -300,7 +304,7 @@ public class Problem{
      */
     public static Problem loadProblem(int id){
         Problem problemLoaded = null;
-        File[] files = new File("../Chess/FONTS/Problems").listFiles();
+        File[] files = new File("./Chess/src/DataBase/Problems").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");

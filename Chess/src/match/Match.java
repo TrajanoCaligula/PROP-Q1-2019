@@ -69,6 +69,8 @@ public class Match {
      */
 
     public void playGame(Color color) {
+        if (board.isCheck(color))
+            System.out.println("You are in check!");
         if (color == Color.WHITE) {
             whitePlayer.play(board, color);
             color = Color.BLACK;
@@ -111,5 +113,23 @@ public class Match {
             }
         }
             return true;
+    }
+
+    /**
+     * Getter of the first color to move
+     * @return firstColor
+     */
+
+    public Color getFirstColor() {
+        return firstColor;
+    }
+
+    /**
+     * Getter of the round number of the match
+     * @return round
+     */
+
+    public Integer getRound() {
+        return round;
     }
 }

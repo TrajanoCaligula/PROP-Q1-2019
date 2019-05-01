@@ -402,7 +402,7 @@ public class Board {
     }
 
     /**
-     * This function prints the Board into its FEN notation
+     * This function returns the Board into its FEN notation
      * @return FEN String of the Board
      */
 

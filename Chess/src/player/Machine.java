@@ -134,4 +134,13 @@ public class Machine extends Player {
             return minEval;
         }
     }
+
+    /**
+     * Getter to get the Machine's depth
+     * @return the Machine's depth
+     */
+
+    public int getDepth() {
+        return depth;
+    }
 }

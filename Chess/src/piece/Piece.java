@@ -108,6 +108,15 @@ public abstract class Piece {
     }
 
     /**
+     * Used to change a Piece's color (only in PieceDriver)
+     * @param color: the color to change the Piece to
+     */
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
      * This function returns a String with the character that represents the respective Piece in the Board
      * @return UpperCase identifier for whitePiece and LoweCase identifier for blackPiece
      */

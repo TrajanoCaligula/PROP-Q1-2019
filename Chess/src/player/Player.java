@@ -41,6 +41,15 @@ public abstract class Player {
     }
 
     /**
+     * Getter to get the color of the Player
+     * @return the color of the Player
+     */
+
+    public Color getColor() {
+        return color;
+    }
+
+    /**
      * To convert the Player into String it is returned it's name
      * @return the name of the Player
      */

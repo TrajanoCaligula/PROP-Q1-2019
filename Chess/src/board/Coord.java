@@ -83,4 +83,12 @@ public class Coord {
                 y == coord.y;
     }
 
+    public String toRealCoord() {
+        String realCoord = new String();
+        char cx = (char) ('a' + x);
+        char cy = (char) ('8' - y);
+        realCoord += cx;
+        realCoord += cy;
+        return realCoord;
+    }
 }

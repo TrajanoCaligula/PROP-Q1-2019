@@ -293,6 +293,7 @@ public class Board {
     public void printBoard() {
         int fila = 8;
         int tile = 0;
+        System.out.println();
         for (int y = 0; y < 8; y++) {
             System.out.print(fila+" |");
             fila--;
@@ -317,6 +318,7 @@ public class Board {
             System.out.println();
         }
         System.out.println("   a|b|c|d|e|f|g|h");
+        System.out.println();
     }
 
     /**
@@ -355,6 +357,24 @@ public class Board {
             }
         }
         return piece;
+    }
+
+    /**
+     * This setter is used to add a white piece in the board
+     * @param whitePiece: the white piece to add
+     */
+
+    public void setWhitePiece(Piece whitePiece) {
+        this.whitePieces.add(whitePiece);
+    }
+
+    /**
+     * This setter is used to add a black piece in the board
+     * @param blackPiece: the black piece to add
+     */
+
+    public void setBlackPiece(Piece blackPiece) {
+        this.blackPieces.add(blackPiece);
     }
 
     /**

@@ -1,6 +1,5 @@
-package drivers;
+package Jaume;
 
-import model.*;
 
 import java.util.Scanner;
 

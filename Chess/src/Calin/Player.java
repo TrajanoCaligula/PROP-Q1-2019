@@ -1,10 +1,11 @@
-package model;
+package Calin;
 
 
 /**
  * @author calinPirau
  */
 
+import Jaume.*;
 public abstract class Player {
 
     private final String name;

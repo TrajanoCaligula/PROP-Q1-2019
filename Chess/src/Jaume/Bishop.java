@@ -1,9 +1,9 @@
-package model;
+package Jaume;
 
 
 import java.util.ArrayList;
 
-import static model.Board.inBounds;
+import static Jaume.Board.inBounds;
 
 /**
  * @author jaumeMalgosa

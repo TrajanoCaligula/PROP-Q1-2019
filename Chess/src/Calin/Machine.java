@@ -1,6 +1,6 @@
-package model;
+package Calin;
 
-
+import Jaume.*;
 import java.util.ArrayList;
 import java.util.Random;
 

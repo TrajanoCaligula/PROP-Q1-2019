@@ -1,8 +1,8 @@
-package drivers;
+package Jaume;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import model.*;
+
 
 public class BoardDriver {
 

@@ -1,9 +1,9 @@
-package model;
+package Pau;
 
 import java.io.*;
 import java.util.*;
-import model.Coord;
-import model.Pair;
+
+import Jaume.*;
 
 public class Problem{
 
@@ -12,8 +12,8 @@ public class Problem{
     private String FEN;
     private boolean problemDifficulty;
     private String firstPlayer;
-    private ArrayList<Pair<Character, Coord>> whitePieces = new ArrayList<Pair<Character, Coord>>();
-    private ArrayList<Pair<Character, Coord>> blackPieces = new ArrayList<Pair<Character, Coord>>();
+    private ArrayList<Piece> whitePieces = new ArrayList<Piece>();
+    private ArrayList<Piece> blackPieces = new ArrayList<Piece>();
     private int N; //We get n from theme - (ex: Mat en 2 --> N = 2 )
     public File problemFile;
 
@@ -39,6 +39,7 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
+        this.N = 4;
         if(!validateFen(FEN)){
             throw new IllegalArgumentException("This FEN is invalid!");
         }
@@ -58,8 +59,6 @@ public class Problem{
      * @param problemFile file of the problem we want to create/load.
      */
     public Problem(File problemFile){
-        Problem problemLoaded = null;
-
         if(problemFile.exists()){
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(problemFile));
@@ -68,7 +67,7 @@ public class Problem{
                 this.id = Integer.parseInt(lineSplitted[0]);
                 this.FEN = lineSplitted[1];
                 this.firstPlayer = lineSplitted[2];
-                /*this.problemDifficulty = lineSplitted[3];*/
+                //this.setDifficulty(lineSplitted[3]);
                 reader.close();
             } catch (IOException e) {
 
@@ -133,26 +132,15 @@ public class Problem{
      * @param team If team is true you'll get the char that represents the piece in the i position of the BLACK team, if false, you'll get the char of the piece on the WHITE team.
      * @return Returns a char that represents the piece.
      */
-    public char getPiece(int i, boolean team){
+    public Piece getPiece(int i, boolean team){
         if(team){
-            return whitePieces.get(i-1).getKey();
+            return whitePieces.get(i-1);
         } else {
-            return blackPieces.get(i-1).getKey();
+            return blackPieces.get(i-1);
         }
     }
 
-    /**
-     * Getter for the piece
-     * @param i The position of the piece in our array of (@param team) pieces
-     * @param team If team is true you'll get the coords of the piece in the i position of the BLACK team, if false, you'll get coords of the piece on the WHITE team.
-     * @return Returns the coord where the piece is located initially in the board.
-     */
-    public Coord getPieceLoc(int i, boolean team){
-        if(team){
-            return whitePieces.get(i-1).getValue();
-        } else {
-            return blackPieces.get(i-1).getValue();
-        }
+    public void moveInFEN(){
     }
 
 
@@ -195,7 +183,7 @@ public class Problem{
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
     public void saveProblem(){
-        problemFile = new File("../Chess/Problems/" +  this.id + ".txt");
+        problemFile = new File("../Chess/FONTS/Problems/" +  this.id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
             writer.write(this.toString());
@@ -215,7 +203,7 @@ public class Problem{
      */
     public static boolean existsProblem(int idPR){
         boolean trobat = false;
-        File[] files = new File("../Chess/Problems").listFiles();
+        File[] files = new File("../Chess/FONTS/Problems/").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -236,7 +224,7 @@ public class Problem{
         Problem clone = null;
 
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/Problems").listFiles();
+        File[] files = new File("../Chess/FONTS/Problems/").listFiles();
         for(File file : files){
             String[] fileName = file.getName().split("\\.");
             if(fileName[0].equals(Integer.toString(idProblemToClone))){
@@ -264,7 +252,7 @@ public class Problem{
      */
     private static ArrayList<Problem> listProblems(){
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/Problems").listFiles();
+        File[] files = new File("../Chess/FONTS/Problems").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 Problem probToAdd = new Problem(file);
@@ -282,7 +270,7 @@ public class Problem{
      */
     public static boolean deleteProblem(int id){
         boolean trobat = false;
-        File[] files = new File("../Chess/Problems").listFiles();
+        File[] files = new File("../Chess/FONTS/Problems").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -312,7 +300,7 @@ public class Problem{
      */
     public static Problem loadProblem(int id){
         Problem problemLoaded = null;
-        File[] files = new File("../Chess/Problems").listFiles();
+        File[] files = new File("../Chess/FONTS/Problems").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -340,7 +328,8 @@ public class Problem{
      * @return Returns true if it does, have a solution, otherwise returns false;
      */
     private boolean validateProblem(){
-        //Backtracking();
+        /*Backtracking btValidator = new Backtracking(this);
+        return btValidator.hasSolution();*/
         return true;
     }
 
@@ -382,12 +371,12 @@ public class Problem{
 
                     if(keyValue != null) {
                         if(validPiece(actual, keyValue)) {
-                            Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
+                            /*Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
                             if(Character.isUpperCase(actual)){
                                 whitePieces.add(pairPieceCoord);
                             } else {
                                 blackPieces.add(pairPieceCoord);
-                            }
+                            }*/
                             allPieces.put(actual, allPieces.get(actual) + 1);
                         }
                         else {
@@ -395,12 +384,13 @@ public class Problem{
                         }
                     }
                     else {
+                        /*
                         Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
                         if(Character.isUpperCase(actual)){
                             whitePieces.add(pairPieceCoord);
                         } else {
                             blackPieces.add(pairPieceCoord);
-                        }
+                        }*/
                         allPieces.put(actual, 1);
                     }
                     i++;
@@ -457,3 +447,5 @@ public class Problem{
     }
 
 }
+
+

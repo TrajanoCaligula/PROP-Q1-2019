@@ -1,6 +1,8 @@
-package model;
+package Pau;
 
 import java.util.ArrayList;
+import Jaume.*;
+import Calin.*;
 
 /**
  * @author pauCharques

@@ -1,4 +1,4 @@
-package model;
+package Pau;
 
 public class Score implements Comparable<Score> {
     private String player;

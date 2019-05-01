@@ -1,4 +1,4 @@
-package model;
+package Jaume;
 
 /**
  * @author jaumeMalgosa

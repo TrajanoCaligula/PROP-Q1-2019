@@ -1,6 +1,7 @@
-package drivers;
+package Pau;
 
-import model.*;
+import Jaume.*;
+import Calin.*;
 
 import java.io.IOException;
 import java.util.Scanner;

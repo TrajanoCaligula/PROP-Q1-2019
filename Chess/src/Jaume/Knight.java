@@ -1,4 +1,4 @@
-package model;
+package Jaume;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author jaumeMalgosa
  */
 
-import static model.Board.inBounds;
+import static Jaume.Board.inBounds;
 
 public class Knight extends Piece {
 

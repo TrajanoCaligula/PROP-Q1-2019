@@ -1,7 +1,8 @@
-package Main;
+package Jaume;
 
 import java.util.Scanner;
-import model.*;
+import Calin.*;
+import Pau.*;
 
 public class Main {
     private static void MenuOptions(){

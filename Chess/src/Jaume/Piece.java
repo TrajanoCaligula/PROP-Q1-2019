@@ -1,4 +1,4 @@
-package model;
+package Jaume;
 
 
 import java.util.ArrayList;

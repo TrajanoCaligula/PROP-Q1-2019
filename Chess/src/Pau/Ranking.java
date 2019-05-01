@@ -1,4 +1,4 @@
-package model;
+package Pau;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,8 +7,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.util.*;
-import model.Score;
-import model.Problem;
 
 public class Ranking{
 	private int idProblemRanking;

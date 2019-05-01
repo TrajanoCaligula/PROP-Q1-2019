@@ -1,6 +1,6 @@
-package drivers;
+package Calin;
 
-import model.*;
+import Jaume.*;
 import java.util.Scanner;
 
 public class PlayerDriver {

@@ -1,9 +1,11 @@
-package model;
+package Calin;
 
 /**
  * @author calinPirau
  */
 
+
+import Jaume.*;
 public class Move {
     private Piece piece;
     private Coord finalPos;

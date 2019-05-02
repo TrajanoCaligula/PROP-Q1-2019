@@ -4,7 +4,7 @@ import java.util.Scanner;
 import Calin.*;
 import Pau.*;
 
-public class Main {/*
+public class Main {
     private static void MenuOptions(){
         System.out.println("1 - Create a new match");
         System.out.println("2 - Problem Manager");
@@ -250,7 +250,7 @@ public class Main {/*
                     boardToModify.PrintBoard();
                 }
             }*/
-/*
+
             else if(option ==  2.5) {
                 System.out.println("Insert the id of the problem you want to delete:");
                 int idProblem = scan.nextInt();
@@ -290,5 +290,5 @@ public class Main {/*
             rankingOptions();
             option = scan.nextInt();
         }
-    }*/
+    }
 }

@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Problem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4518">
-              <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+            <state relative-caret-position="261">
+              <caret line="279" column="59" selection-start-line="279" selection-start-column="59" selection-end-line="279" selection-end-column="59" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -31,10 +29,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/Pau/index.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+            <state relative-caret-position="220">
+              <caret line="17" column="33" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="33" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -387,7 +394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556813319234</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Modify problem (DONE)">
+      <created>1556813370582</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1556813370582</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -399,7 +413,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25402635" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25402635" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32970452" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -436,7 +450,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Modify problem (DONE)" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Chess/src/match/Match.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/tests/MatchDriverTest">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -646,17 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Score.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -725,10 +727,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
+        <state relative-caret-position="133">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -736,10 +738,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/ProblemDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="33" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/index.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Problem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4518">
-          <caret line="46" column="36" lean-forward="true" selection-start-line="46" selection-start-column="36" selection-end-line="46" selection-end-column="36" />
+        <state relative-caret-position="261">
+          <caret line="279" column="59" selection-start-line="279" selection-start-column="59" selection-end-line="279" selection-end-column="59" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="imports" expanded="true" />

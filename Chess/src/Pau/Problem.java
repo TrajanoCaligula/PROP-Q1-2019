@@ -96,11 +96,11 @@ public class Problem{
      * Getter of the First Player.
      * @return Returns de player who will move first and have to win the game.
      */
-    public boolean getFirstPlayer(){
+    public Color getFirstPlayer(){
         if(this.firstPlayer == "w")
-            return false;
+            return Color.WHITE;
         else
-            return true;
+            return Color.BLACK;
     }
     /**
      * Getter of the Problem state in FEN notation.

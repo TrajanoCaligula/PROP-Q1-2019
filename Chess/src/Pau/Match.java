@@ -9,13 +9,13 @@ import Calin.*;
  */
 
 public class Match {
-    private Player whitePlayer;
-    private Player blackPlayer;
-    private Board board;
-    private Integer round;
-    private Color firstColor;
-    private Problem matchProblem;
-    private int matchN;
+    protected Player whitePlayer;
+    protected Player blackPlayer;
+    protected Board board;
+    protected Integer round;
+    protected Color firstColor;
+    protected Problem matchProblem;
+    protected int matchN;
     /**
      * Match standard constructor
      * @param whitePlayer: the Player which is going to move the whitePieces from the board

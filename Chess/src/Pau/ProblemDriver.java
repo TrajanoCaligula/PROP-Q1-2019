@@ -15,7 +15,7 @@ public class ProblemDriver {
         displayOptions();
         int option = input.nextInt();
         while(option != 0) {
-            //Problem.printProblems();
+            Problem.printProblems();
             if(option ==  1) {
                 System.out.println("To create a poblem first introduce the FEN:");
                 Scanner in = new Scanner(System.in);
@@ -49,23 +49,7 @@ public class ProblemDriver {
                 System.out.println("2 - Introduce the id of the problem you want to modify:");
                 int idProblem = input.nextInt();
                 Problem problemToModify = Problem.loadProblem(idProblem);
-                Board boardToModify = new Board (problemToModify.getFen());
-                boardToModify.printBoard();
-
-                /*
-                Scanner movements = new Scanner(System.in);
-                int x, y;
-                x = movements.nextInt();
-                y = movements.nextInt();
-                while(x != -1 && y != -1) {
-                    Tile ini = boardToModify.GetTile(x, y);
-                    x = movements.nextInt();
-                    y = movements.nextInt();
-                    Tile fi = boardToModify.GetTile(x, y);
-                    problemToModify.moveInFEN(ini, fi);
-                }
-                boardToModify = Board.fenToBoard(problemToModify.getFen());
-                boardToModify.PrintBoard();*/
+                problemToModify.movePieces();
             }
 
             else if(option ==  5) {

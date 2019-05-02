@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.*;
 
 import Jaume.*;
+import Calin.Move;
 
 public class Problem{
 
@@ -143,8 +144,46 @@ public class Problem{
         }
     }
 
-    public void movePiece(){
+    public void movePieces(){
+        Board boardMovements = new Board(this.FEN);
 
+        System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
+        Scanner s = new Scanner(System.in);
+        String initialPos = s.next();
+        Coord initialCoord = new Coord(initialPos);
+        while (Board.inBounds(initialCoord)) {
+            System.out.print("Wrong coordinates, please select valid coordinates: ");
+            s = new Scanner(System.in);
+            initialPos = s.next();
+            initialCoord = new Coord(initialPos);
+        }
+
+        while (initialCoord.getX() != -1 && initialCoord.getY() != -1) {
+
+            System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e9): ");
+            String movingPos = s.next();
+            Coord movingCoord = new Coord(movingPos);
+            while (Board.inBounds(movingCoord)) {
+                System.out.print("Wrong coordinates, please select valid coordinates: ");
+                s = new Scanner(System.in);
+                movingPos = s.next();
+                movingCoord = new Coord(movingPos);
+            }
+            Piece movingPiece, piece = boardMovements.getPieceInCoord(initialCoord);
+
+            while (Board.inBounds(initialCoord)) {
+                System.out.print("Wrong coordinates, please select valid coordinates: ");
+                s = new Scanner(System.in);
+                initialPos = s.next();
+                initialCoord = new Coord(initialPos);
+            }
+
+            boardMovements.movePiece(boardMovements.getPieceInCoord(initialCoord), movingCoord);
+
+        }
+        this.FEN = boardMovements.toFEN();
+        this.saveProblem();
+        boardMovements.printBoard();
     }
 
 
@@ -233,19 +272,9 @@ public class Problem{
         for(File file : files){
             String[] fileName = file.getName().split("\\.");
             if(fileName[0].equals(Integer.toString(idProblemToClone))){
-                try {
-                    BufferedReader reader = new BufferedReader(new FileReader(file));
-                    String line = reader.readLine();
-                    String[] lineSplitted = (line).split("\\s");
-                    clone = new Problem(lineSplitted[1] + " " + lineSplitted[2]);
-                    clone.setId(Integer.parseInt(lineSplitted[0]));
-                    clone.setDifficulty(lineSplitted[4]);
-                    clone.setN(Integer.parseInt(lineSplitted[3]));
-                    reader.close();
-                }
-                catch (IOException e){
-
-                }
+                Random rand = new Random();
+                clone = new Problem(file);
+                clone.setId(rand.nextInt(1000*1000));
             }
         }
         return clone;
@@ -314,18 +343,7 @@ public class Problem{
             if(file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
                 if (fileName[0].equals(Integer.toString(id))) {
-                    try {
-                        BufferedReader reader = new BufferedReader(new FileReader(file));
-                        String line = reader.readLine();
-                        String[] lineSplitted = (line).split("\\s");
-                        problemLoaded = new Problem(lineSplitted[1] + " " + lineSplitted[2]);
-                        problemLoaded.setId(Integer.parseInt(lineSplitted[0]));
-                        problemLoaded.setDifficulty(lineSplitted[4]);
-                        problemLoaded.setN(Integer.parseInt(lineSplitted[3]));
-                        reader.close();
-                    } catch (IOException e) {
-
-                    }
+                    problemLoaded = new Problem(file);
                 }
             }
         }

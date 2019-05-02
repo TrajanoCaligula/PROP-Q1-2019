@@ -14,7 +14,8 @@ public class Match {
     private Board board;
     private Integer round;
     private Color firstColor;
-
+    private Problem matchProblem;
+    private int matchN;
     /**
      * Match standard constructor
      * @param whitePlayer: the Player which is going to move the whitePieces from the board
@@ -44,6 +45,8 @@ public class Match {
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
         this.board = new Board(problem.getFen());
+        this.matchProblem = problem;
+        this.matchN = problem.getN();
         this.round = round;
         this.firstColor = firstColor;
     }

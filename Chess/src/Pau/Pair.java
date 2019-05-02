@@ -1,7 +1,6 @@
 /**
  * @author Pau Charques Rius
  */
-package
 package Pau;
 
 // Pair class

@@ -7,7 +7,6 @@ import Calin.*;
 /**
  * @author Pau Charques Rius
  */
-package
 
 public class Match {
     private Player whitePlayer;

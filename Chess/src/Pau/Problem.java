@@ -1,3 +1,6 @@
+/**
+ * @author Pau Charques Rius
+ */
 package Pau;
 
 import java.io.*;

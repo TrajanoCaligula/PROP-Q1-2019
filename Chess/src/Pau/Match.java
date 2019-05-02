@@ -5,8 +5,9 @@ import Jaume.*;
 import Calin.*;
 
 /**
- * @author pauCharques
+ * @author Pau Charques Rius
  */
+package
 
 public class Match {
     private Player whitePlayer;

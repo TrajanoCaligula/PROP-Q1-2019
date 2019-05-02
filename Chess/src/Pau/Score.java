@@ -1,3 +1,8 @@
+/**
+ * @author Pau Charques Rius
+ */
+
+
 package Pau;
 
 import Calin.Human;

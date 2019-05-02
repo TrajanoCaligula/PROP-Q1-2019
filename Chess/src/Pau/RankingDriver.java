@@ -1,3 +1,7 @@
+/**
+ * @author Pau Charques Rius
+ */
+
 package Pau;
 
 import Jaume.*;

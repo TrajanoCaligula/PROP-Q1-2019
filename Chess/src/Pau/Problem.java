@@ -294,7 +294,7 @@ public class Problem{
      * @param id identifier of the problem we want to delete
      * @return Returns true if exists, false otherwise.
      */
-    public static boolean deleteProblem(int id){
+    public static boolean deleteProblem(int id){hahahaha
         boolean trobat = false;
         File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
         for(File file : files) {

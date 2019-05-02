@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,6 +193,13 @@
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Calin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="DataBase" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
@@ -401,12 +406,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556813370582</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="DataBase">
+      <created>1556814175370</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1556814175370</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="UI Designer" order="1" />
@@ -447,7 +458,8 @@
     <MESSAGE value="Updated" />
     <MESSAGE value="Modify problem (DONE) + clone problem (SOLVED ERROR)" />
     <MESSAGE value="Modify problem (DONE)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify problem (DONE)" />
+    <MESSAGE value="DataBase" />
+    <option name="LAST_COMMIT_MESSAGE" value="DataBase" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Chess/src/tests/MatchDriverTest">

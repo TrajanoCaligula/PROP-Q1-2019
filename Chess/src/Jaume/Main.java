@@ -4,7 +4,7 @@ import java.util.Scanner;
 import Calin.*;
 import Pau.*;
 
-public class Main {/*
+public class Main {
     private static void MenuOptions(){
         System.out.println("1 - Create a new match");
         System.out.println("2 - Problem Manager");
@@ -39,20 +39,20 @@ public class Main {/*
             MenuOptions();
             element = scan.nextInt();
             if(element == 1){
-
+                CreateMatch();
             }
             else if(element == 2){
-
+                ProblemManager();
             }
             else if(element == 3){
-                rankingOptions();
+                RankingManager();
 
             }
         }
     }
 
 
-    public void CreateMatch(){
+    public static void CreateMatch(){
         System.out.println("Create a new match:");
         Scanner scan = new Scanner(System.in);
         int ContMachine = 0;
@@ -72,67 +72,84 @@ public class Main {/*
             prob = Problem.loadProblem(idProb);
             if (prob == null) {
                 System.out.println("Problem you entered doesn't exist, select a new one");
-                int idProb = scan.nextInt();
+                idProb = scan.nextInt();
             }
         }
 
 
         System.out.println("Select te type of Player number 1: ('M'- machine/'H'- human)");
         char c = scan.next().charAt(0);
+
         if(c == 'H'){
             System.out.println("Enter the name for the player: ");
             String name = scan.nextLine();
-            P1 = new Human(name);
+            P1 = new Human(name,prob.getFirstPlayer());
         }
         else {
+            System.out.println("Set the depth of the algorithm of player 1: ");
+            int depth = scan.nextInt();
             ContMachine++;
-            P1 = new Machine("Machine1");
+            P1 = new Machine("Machine1",prob.getFirstPlayer(),depth);
         }
 
         System.out.println("Select te type of Player number 2: ('M'- machine/'H'- human)");
         c = scan.next().charAt(0);
-        if(c == 'H'){
-            System.out.println("Enter the name for the player: ");
-            String name = scan.nextLine();
-            P1 = new Human(name);
+        if(prob.getFirstPlayer()== Color.WHITE) {
+            if (c == 'H') {
+                System.out.println("Enter the name for the player: ");
+                String name = scan.nextLine();
+                P1 = new Human(name, Color.BLACK);
+            } else {
+                System.out.println("Set the depth of the algorithm of player 1: ");
+                int depth = scan.nextInt();
+                ContMachine++;
+                P1 = new Machine("Machine1", Color.BLACK,depth);
+            }
         }
         else {
-            ContMachine++;
-            P1 = new Machine("Machine1");
+            if (c == 'H') {
+                System.out.println("Enter the name for the player: ");
+                String name = scan.nextLine();
+                P1 = new Human(name, Color.WHITE);
+            } else {
+                System.out.println("Set the depth of the algorithm of player 1: ");
+                int depth = scan.nextInt();
+                ContMachine++;
+                P1 = new Machine("Machine1", Color.WHITE,depth);
+            }
         }
-
 
 
         if(ContMachine == 2) {
             System.out.println("Both players are machines. How many problems do you want to make?");
             int k = scan.nextInt();
-            System.out.println("Set the depth of the algorithm of player 1: (Default 3)");
+
             int vic1, vic2, depth1, depth2;
-            depth1 = scan.nextInt();
-            System.out.println("Set the depth of the algorithm of player 2: (Default 3)");
-            depth2 = scan.nextInt();
             vic1 = 0;
             vic2 = 0;
+
             for(int i = 0 ; i < k; i++){
-                Match m = new Match(P1,P2,prob,depth1,depth2);
-                int gam = m.Game();
-                if (gam == 1) ++vic1;
-                else if(gam == 2) ++vic2;
-                else System.out.println("Error in game");
+                Match m = new Match(P1,P2,prob,0,prob.getFirstPlayer());
+                Color play = prob.getFirstPlayer();
+                for(int h = 0; h < prob.getN(); h++) {
+                    m.playGame(play);
+                    if(play == Color.WHITE) play = Color.BLACK;
+                    else play = Color.WHITE;
+                }
 
+                if(i != k-1) {
+                    Problem.printProblems();
+                    System.out.println("Enter the id of problem you want to play: ");
+                    idProb = scan.nextInt();
 
+                    //Buscar el problema
 
-                Problem.printProblems();
-                System.out.println("Enter the id of problem you want to play: ");
-                int idProb = scan.nextInt();
-
-                //Buscar el problema
-
-                while(prob == null) {
-                    prob = Problem.loadProblem(idProb);
-                    if (prob == null) {
-                        System.out.println("Problem you entered doesn't exist, select a new one");
-                        int idProb = scan.nextInt();
+                    while (prob == null) {
+                        prob = Problem.loadProblem(idProb);
+                        if (prob == null) {
+                            System.out.println("Problem you entered doesn't exist, select a new one");
+                            idProb = scan.nextInt();
+                        }
                     }
                 }
             }
@@ -142,25 +159,40 @@ public class Main {/*
             System.out.println("Set the depth of the algorithm of machine player: (Default 3)");
             int depth = scan.nextInt();
             if(P1 instanceof Machine){
-                Match m = new Match(P1,P2,prob,depth,3);
-                m.Game();
+                Match m = new Match(P1,P2,prob,0,prob.getFirstPlayer());
+                Color play = prob.getFirstPlayer();
+                for(int h = 0; h < prob.getN(); h++) {
+                    m.playGame(play);
+                    if(play == Color.WHITE) play = Color.BLACK;
+                    else play = Color.WHITE;
+                }
             }
             else{
-                Match m = new Match(P1,P2,prob,3,depth);
-                m.Game();
+                Match m = new Match(P1,P2,prob,0,prob.getFirstPlayer());
+                Color play = prob.getFirstPlayer();
+                for(int h = 0; h < prob.getN(); h++) {
+                    m.playGame(play);
+                    if(play == Color.WHITE) play = Color.BLACK;
+                    else play = Color.WHITE;
+                }
             }
         }
 
         else{
-            Match m = new Match(P1,P2,prob,0,0);
-            m.Game();
+            Match m = new Match(P1,P2,prob,0,prob.getFirstPlayer());
+            Color play = prob.getFirstPlayer();
+            for(int h = 0; h < prob.getN(); h++) {
+                m.playGame(play);
+                if(play == Color.WHITE) play = Color.BLACK;
+                else play = Color.WHITE;
+            }
         }
 
 
 
     }
 
-    public void ProblemManeger(){
+    public static void ProblemManager(){
         System.out.println("Problem Manager:");
         Scanner scan = new Scanner(System.in);
         double option = scan.nextDouble();
@@ -218,7 +250,7 @@ public class Main {/*
                     boardToModify.PrintBoard();
                 }
             }*/
-/*
+
             else if(option ==  2.5) {
                 System.out.println("Insert the id of the problem you want to delete:");
                 int idProblem = scan.nextInt();
@@ -234,7 +266,7 @@ public class Main {/*
         }
     }
 
-    public void RankingManeger(){
+    public static void RankingManager(){
         System.out.println("Problem Manager:");
         Scanner scan = new Scanner(System.in);
 
@@ -258,5 +290,5 @@ public class Main {/*
             rankingOptions();
             option = scan.nextInt();
         }
-    }*/
+    }
 }

@@ -33,6 +33,22 @@ public class Match {
     }
 
     /**
+     * Match standard constructor
+     * @param whitePlayer: the Player which is going to move the whitePieces from the board
+     * @param blackPlayer: the Player which is going to move the blackPieces from the board
+     * @param FEN: the FEN of the Board to play with
+     * @param round: the round that the players are in
+     * @param firstColor: the first color to move
+     */
+    public Match(Player whitePlayer, Player blackPlayer, Problem problem, Integer round, Color firstColor) {
+        this.whitePlayer = whitePlayer;
+        this.blackPlayer = blackPlayer;
+        this.board = new Board(problem.getFen());
+        this.round = round;
+        this.firstColor = firstColor;
+    }
+
+    /**
      * returns the Player which plays the whitePieces from the board
      * @return whitePlayer
      */

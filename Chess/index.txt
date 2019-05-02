@@ -4,3 +4,9 @@ Pau Charques
 
 calin.constanti.pirau@est.fib.upc.edu
 jaume.malgosa@est.fib.upc.edu
+
+Directori Arrel:
+
+/DOCS: Conte la documentacio del projecte
+/FONTS: Conte el codi font del projecte
+/EXE: Conte els executables amb els seus respectius tests

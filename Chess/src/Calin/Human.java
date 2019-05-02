@@ -91,7 +91,7 @@ public class Human extends Player {
      * @return true if the realCoord given is legal, false otherwise
      */
 
-    private boolean isValidMove(Piece piece, String realCoord, Board board) {
+    static boolean isValidMove(Piece piece, String realCoord, Board board) {
         if(realCoord.length() != 2 || realCoord.charAt(0) > 'h' || realCoord.charAt(0) < 'a' || realCoord.charAt(1) < '0' || realCoord.charAt(1) > '9')
             return false;
         Coord position = new Coord(realCoord);

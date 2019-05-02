@@ -342,9 +342,8 @@ public class Problem{
      * @return Returns true if it does, have a solution, otherwise returns false;
      */
     private boolean validateProblem(){
-        /*Backtracking btValidator = new Backtracking(this);
-        return btValidator.hasSolution();*/
-        return true;
+        Backtracking btValidator = new Backtracking(this, N, Color.WHITE);
+        return btValidator.backtracking();
     }
 
     /**

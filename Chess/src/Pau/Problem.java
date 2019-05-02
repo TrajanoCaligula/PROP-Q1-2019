@@ -140,7 +140,8 @@ public class Problem{
         }
     }
 
-    public void moveInFEN(){
+    public void movePiece(){
+
     }
 
 

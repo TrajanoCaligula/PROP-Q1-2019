@@ -20,11 +20,11 @@ public class RankingDriver {
         while(option  != 0) {
             Problem.printProblems();
             if(option == 1) {
-                System.out.println("Insert de id of the problem u want to create a ranking of:");
+                System.out.println("Insert the id of the problem you want to create a ranking of:");
                 int idProblem = input.nextInt();
                 rankingTest = new Ranking(idProblem);
             } else if(option == 2){
-                System.out.println("Insert de id of the problem u want to add a score to:");
+                System.out.println("Insert the id of the problem you want to add a score to:");
                 int idProblemR = input.nextInt();
 
                 Ranking rankingScoreTest = new Ranking(idProblemR);

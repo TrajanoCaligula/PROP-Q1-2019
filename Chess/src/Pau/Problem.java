@@ -97,10 +97,10 @@ public class Problem{
     }
     /**
      * Getter of the First Player.
-     * @return Returns de player who will move first and have to win the game.
+     * @return Returns de player who will move first and has to win the game.
      */
     public Color getFirstPlayer(){
-        if(this.firstPlayer == "w")
+        if(this.firstPlayer.equals("w"))
             return Color.WHITE;
         else
             return Color.BLACK;

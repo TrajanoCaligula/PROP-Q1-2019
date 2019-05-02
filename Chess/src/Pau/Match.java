@@ -37,7 +37,7 @@ public class Match {
      * Match standard constructor
      * @param whitePlayer: the Player which is going to move the whitePieces from the board
      * @param blackPlayer: the Player which is going to move the blackPieces from the board
-     * @param FEN: the FEN of the Board to play with
+     * @param problem: the Problem to play with
      * @param round: the round that the players are in
      * @param firstColor: the first color to move
      */

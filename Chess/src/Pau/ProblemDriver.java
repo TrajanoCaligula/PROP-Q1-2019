@@ -17,7 +17,7 @@ public class ProblemDriver {
         while(option != 0) {
             Problem.printProblems();
             if(option ==  1) {
-                System.out.println("To create a poblem first introduce the FEN:");
+                System.out.println("To create a problem first introduce the FEN:");
                 Scanner in = new Scanner(System.in);
                 String strFEN = in.nextLine();
                 Problem problemCreador = new Problem(strFEN);

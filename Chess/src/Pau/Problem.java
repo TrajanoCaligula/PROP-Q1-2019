@@ -13,7 +13,7 @@ public class Problem{
     /**ATRIBUTOS**/
     private int id;
     private String FEN;
-    private boolean problemDifficulty;
+    private String problemDifficulty;
     private String firstPlayer;
     private ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     private ArrayList<Piece> blackPieces = new ArrayList<Piece>();
@@ -69,8 +69,9 @@ public class Problem{
                 String[] lineSplitted = (line).split("\\s");
                 this.id = Integer.parseInt(lineSplitted[0]);
                 this.FEN = lineSplitted[1];
+                this.setDifficulty(lineSplitted[4]);
                 this.firstPlayer = lineSplitted[2];
-                //this.setDifficulty(lineSplitted[3]);
+                this.N = Integer.parseInt(lineSplitted[3]);
                 reader.close();
             } catch (IOException e) {
 
@@ -204,13 +205,7 @@ public class Problem{
      * @param strDifficulty this will be the difficulty of the problem your are setting
      */
     public void setDifficulty(String strDifficulty){
-        String[] splitted = strDifficulty.split("\\s");
-        this.N = Integer.parseInt(splitted[2]);
-        if((whitePieces.size() + this.N) <= 12){
-            this.problemDifficulty = true;
-        } else {
-            this.problemDifficulty = false;
-        }
+        this.problemDifficulty = "Easy";
     }
 
 

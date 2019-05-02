@@ -11,6 +11,8 @@ import Calin.*;
 public class Match {
     protected Player whitePlayer;
     protected Player blackPlayer;
+    protected int whiteScore;
+    protected int blackScore;
     protected Board board;
     protected Integer round;
     protected Color firstColor;
@@ -31,6 +33,8 @@ public class Match {
         this.board = board;
         this.round = round;
         this.firstColor = firstColor;
+        this.whiteScore = 0;
+        this.blackScore = 0;
     }
 
     /**
@@ -49,6 +53,8 @@ public class Match {
         this.matchN = problem.getN();
         this.round = round;
         this.firstColor = firstColor;
+        this.whiteScore = 0;
+        this.blackScore = 0;
     }
 
     /**
@@ -88,13 +94,13 @@ public class Match {
         if (board.isCheck(color))
             System.out.println("You are in check!");
         if (color == Color.WHITE) {
-            whitePlayer.play(board, color);
+            whitePlayer.play(board, whiteScore, color);
             color = Color.BLACK;
             if (firstColor == Color.BLACK)
                 round++;
         }
         else {
-            blackPlayer.play(board, color);
+            blackPlayer.play(board, blackScore, color);
             color = Color.WHITE;
             if (firstColor == Color.WHITE)
                 round++;
@@ -147,5 +153,21 @@ public class Match {
 
     public Integer getRound() {
         return round;
+    }
+
+    public Problem getMatchProblem() {
+        return matchProblem;
+    }
+
+    public int getWhiteScore() {
+        return whiteScore;
+    }
+
+    public int getBlackScore() {
+        return blackScore;
+    }
+
+    public int getN() {
+        return matchN;
     }
 }

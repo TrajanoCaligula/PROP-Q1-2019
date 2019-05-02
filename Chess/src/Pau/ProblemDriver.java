@@ -49,7 +49,7 @@ public class ProblemDriver {
                 System.out.println("2 - Introduce the id of the problem you want to modify:");
                 int idProblem = input.nextInt();
                 Problem problemToModify = Problem.loadProblem(idProblem);
-                problemToModify.movePieces();
+                problemToModify.movePiece();
             }
 
             else if(option ==  5) {

@@ -7,7 +7,6 @@ import java.io.*;
 import java.util.*;
 
 import Jaume.*;
-import Calin.Move;
 
 public class Problem{
 
@@ -144,43 +143,36 @@ public class Problem{
         }
     }
 
-    public void movePieces(){
+    public void movePiece(){
         Board boardMovements = new Board(this.FEN);
+        boardMovements.printBoard();
 
         System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
         Scanner s = new Scanner(System.in);
         String initialPos = s.next();
         Coord initialCoord = new Coord(initialPos);
-        while (Board.inBounds(initialCoord)) {
+
+        while (!Board.inBounds(initialCoord)) {
             System.out.print("Wrong coordinates, please select valid coordinates: ");
             s = new Scanner(System.in);
             initialPos = s.next();
             initialCoord = new Coord(initialPos);
         }
 
-        while (initialCoord.getX() != -1 && initialCoord.getY() != -1) {
-
-            System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e9): ");
-            String movingPos = s.next();
-            Coord movingCoord = new Coord(movingPos);
-            while (Board.inBounds(movingCoord)) {
-                System.out.print("Wrong coordinates, please select valid coordinates: ");
-                s = new Scanner(System.in);
-                movingPos = s.next();
-                movingCoord = new Coord(movingPos);
-            }
-            Piece movingPiece, piece = boardMovements.getPieceInCoord(initialCoord);
-
-            while (Board.inBounds(initialCoord)) {
-                System.out.print("Wrong coordinates, please select valid coordinates: ");
-                s = new Scanner(System.in);
-                initialPos = s.next();
-                initialCoord = new Coord(initialPos);
-            }
-
-            boardMovements.movePiece(boardMovements.getPieceInCoord(initialCoord), movingCoord);
-
+        System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e9): ");
+        Scanner s2 = new Scanner(System.in);
+        String movingPos = s2.next();
+        Coord movingCoord = new Coord(movingPos);
+        while (!Board.inBounds(movingCoord)) {
+            System.out.print("Wrong coordinates, please select valid coordinates: ");
+            s2 = new Scanner(System.in);
+            movingPos = s2.next();
+            movingCoord = new Coord(movingPos);
         }
+
+        Piece pieceToMove = boardMovements.getPieceInCoord(initialCoord);
+        boardMovements.movePiece(pieceToMove, movingCoord);
+
         this.FEN = boardMovements.toFEN();
         this.saveProblem();
         boardMovements.printBoard();

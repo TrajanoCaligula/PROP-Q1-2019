@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/Calin/Human.class" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/Calin/Human.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/Problem.class" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/Problem.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Calin/Human.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Calin/Human.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/Backtracking.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/Backtracking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/Problem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/556417.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/629923.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/629923.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/index.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/src/DataBase/Problems/556417.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/src/DataBase/Problems/629923.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/DataBase/Problems/629923.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/index.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,11 +22,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Backtracking.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="68" column="51" lean-forward="true" selection-start-line="68" selection-end-line="69" />
+            <state relative-caret-position="522">
+              <caret line="112" column="9" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,10 +53,55 @@
         <entry file="file://$PROJECT_DIR$/Chess/src/Calin/Human.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="342">
-              <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
+              <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/Pau/index.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/tests/BoardDriverTest">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/tests/PlayerDriverTest">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Chess/src/tests/CoordDriverTest">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -114,8 +161,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Chess/src/drivers/BoardDriver.java" />
-        <option value="$PROJECT_DIR$/Chess/src/tests/BoardDriverTest" />
         <option value="$PROJECT_DIR$/Chess/src/drivers/MatchDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/player/Human.java" />
         <option value="$PROJECT_DIR$/Chess/src/match/Match.java" />
@@ -134,7 +179,6 @@
         <option value="$PROJECT_DIR$/Chess/src/drivers/MoveDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/Jaume/Piece.java" />
         <option value="$PROJECT_DIR$/Chess/src/Jaume/PieceValues.java" />
-        <option value="$PROJECT_DIR$/Chess/src/Calin/Human.java" />
         <option value="$PROJECT_DIR$/Chess/src/Calin/Move.java" />
         <option value="$PROJECT_DIR$/Chess/src/Calin/MoveDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/Calin/Player.java" />
@@ -163,8 +207,11 @@
         <option value="$PROJECT_DIR$/Chess/src/Pau/RankingDriver.java" />
         <option value="$PROJECT_DIR$/Chess/src/DataBase/Rankings/R-629923.txt" />
         <option value="$PROJECT_DIR$/Chess/src/Calin/Main.java" />
-        <option value="$PROJECT_DIR$/Chess/src/Pau/Backtracking.java" />
         <option value="$PROJECT_DIR$/Chess/src/Pau/Problem.java" />
+        <option value="$PROJECT_DIR$/Chess/src/Calin/Human.java" />
+        <option value="$PROJECT_DIR$/Chess/src/Pau/Backtracking.java" />
+        <option value="$PROJECT_DIR$/Chess/src/Pau/index.txt" />
+        <option value="$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest" />
       </list>
     </option>
   </component>
@@ -202,13 +249,6 @@
               <item name="PROP4" type="462c0819:PsiDirectoryNode" />
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Calin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
-              <item name="Chess" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="DataBase" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -217,6 +257,13 @@
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Pau" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
+              <item name="Chess" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -466,7 +513,21 @@
       <option name="project" value="LOCAL" />
       <updated>1556830628720</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Backtracking v0.1">
+      <created>1556832615151</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1556832615151</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Backtracking v0.1">
+      <created>1556832945146</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1556832945146</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -486,7 +547,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32962447" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" weight="0.32962447" />
+      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32962447" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.3991655" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -543,11 +604,10 @@
     <MESSAGE value="DataBase" />
     <MESSAGE value="Added problem and N atributes in Match" />
     <MESSAGE value="Problem difficulty solved!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Problem difficulty solved!" />
+    <MESSAGE value="Backtracking v0.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backtracking v0.1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Chess/src/piece/Piece.java" />
-    <entry file="file://$PROJECT_DIR$/Chess/src/piece/Color.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/player/Player.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/player/Machine.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/drivers/PlayerDriver.java" />
@@ -555,20 +615,6 @@
     <entry file="file://$PROJECT_DIR$/Chess/src/drivers/MatchDriver.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/drivers/CoordDriver.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/drivers/MoveDriver.java" />
-    <entry file="file://$PROJECT_DIR$/Chess/src/tests/CoordDriverTest">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/tests/PlayerDriverTest">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/player/Move.java" />
     <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/Piece.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -666,13 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Calin/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/Jaume/PieceDriver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -739,13 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/index.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="28" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -767,13 +799,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/StubScore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -858,16 +883,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Calin/Human.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Problem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4764">
@@ -881,13 +896,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Backtracking.java">
+    <entry file="file://$PROJECT_DIR$/Chess/src/Calin/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" column="51" lean-forward="true" selection-start-line="68" selection-end-line="69" />
+        <state relative-caret-position="315">
+          <caret line="21" column="27" lean-forward="true" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Calin/Human.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/Backtracking.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="112" column="9" selection-start-line="112" selection-start-column="9" selection-end-line="112" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/StubScore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/Pau/index.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/tests/CoordDriverTest">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/tests/BoardDriverTest">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="25" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/tests/PlayerDriverTest">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
         </state>
       </provider>
     </entry>

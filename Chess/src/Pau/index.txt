@@ -4,6 +4,7 @@ Conté tots els arxius fets per en Pau
 - Match.java: codi de la classe Match
 - MatchDriver.java: codi del driver per testejar la classe Match
 - Pair.java: codi de la classe Pair
+- Backtracking.java: codi del algoritmo de la clase backtracking para validar que un problema tiene solucion
 - Problem.java: codi de la classe Problem
 - ProblemDriver.java: codi del driver per testejar la classe Problem
 - Ranking.java: codi de la classe Ranking

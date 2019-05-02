@@ -25,7 +25,7 @@ public class Human extends Player {
      * In this case, knowing that it will be a human that will play, we made this function ask for the coordinates of
      * the piece to move and the coordinates of the position to move to, made in real Chess Board numeration.
      * @param board: the Board to play with
-     * @param color: thw Color to play with
+     * @param color: the Color to play with
      */
 
     @Override

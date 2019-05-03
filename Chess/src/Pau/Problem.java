@@ -44,10 +44,10 @@ public class Problem{
     public Problem(String FEN){
         this.N = 4;
         if(!validateFen(FEN)){
-            throw new IllegalArgumentException("This FEN is invalid!");
+            System.out.println("This FEN is invalid!");
         }
         if (!validateProblem()){
-            throw new IllegalArgumentException("This problem has no solution!");
+            System.out.println("This problem has no solution!");
         }
         else {
             Random rand = new Random();
@@ -357,7 +357,7 @@ public class Problem{
         String[] splits = inputFEN.split(" ");
         if(splits.length != 6){
             System.out.println("The FEN introduced it's not in the correct format. EXAMPLE: ");
-            throw new IllegalArgumentException("[FEN=\"1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1\"]");
+            System.out.println("[FEN=\"1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1\"]");
         }
 
         String vFEN = splits[0].substring(6);

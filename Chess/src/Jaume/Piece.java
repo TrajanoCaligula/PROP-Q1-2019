@@ -44,7 +44,7 @@ public abstract class Piece {
 
     /**
      * Used to set a given position to the Piece
-     * @param position
+     * @param position: position of the piece on the board
      */
 
 

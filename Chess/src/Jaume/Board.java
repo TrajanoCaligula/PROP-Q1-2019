@@ -95,7 +95,7 @@ public class Board {
     }
 
     /**
-     * It's used to send to the Machine class the evaluation of the Board, which is >0 if whites are winning and is <0
+     * It's used to send to the Machine class the evaluation of the Board, which is grater than 0 if whites are winning and is smaller than 0
      * if the blacks are winning.
      * @return the evaluation of the board
      */

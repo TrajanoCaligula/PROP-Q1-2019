@@ -11,19 +11,14 @@ import static Jaume.Board.inBounds;
 public class Rook extends Piece {
 
     /**
-     *
-     * @param position
-     * @param color
+     * Rook constructor
+     * @param position: the position to put the Bishop to
+     * @param color: the color the Bishop will have
      */
 
     public Rook(Coord position, Color color) {
         super(position, PieceValues.ROOK_VALUE.getValue(), color);
     }
-
-    /**
-     *
-     * @return
-     */
 
     @Override
     public Piece copy() {

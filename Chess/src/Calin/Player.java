@@ -26,6 +26,7 @@ public abstract class Player {
      * The function to make the player play. It differs depending of which type of Player has to play
      * @param board: the Board to play to
      * @param color: the Color of the pieces to play with
+     * @param score: Score of the Player from the team Color
      */
 
     public abstract void play(Board board, int score, Color color);

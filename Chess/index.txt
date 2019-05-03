@@ -1,9 +1,10 @@
 Calin Constantin Pirau
 Jaume Malgosa Broto
-Pau Charques
+Pau Charques Rius
 
 calin.constanti.pirau@est.fib.upc.edu
 jaume.malgosa@est.fib.upc.edu
+paucharques@est.fib.upc.edu
 
 Directori Arrel:
 

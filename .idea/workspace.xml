@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/556417.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/629923.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/DataBase/Problems/629923.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/out/production/PROP4/Pau/index.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/DataBase/Problems/556417.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/DataBase/Problems/629923.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/DataBase/Problems/629923.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/src/Pau/index.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/src/Pau/index.txt" afterDir="false" />
-    </list>
+    <list default="true" id="886b01b8-518c-4818-9c83-a5a81f54735a" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +73,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+            <state relative-caret-position="150">
+              <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -257,13 +248,6 @@
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Pau" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
-              <item name="Chess" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -527,12 +511,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556832945146</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Backtracking v0.1">
+      <created>1556833338811</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1556833338811</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info id="UI Designer" order="1" />
@@ -547,7 +537,7 @@
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32962447" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32962447" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.32962447" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.3991655" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -960,8 +950,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chess/src/tests/ProblemDriverTest">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        <state relative-caret-position="150">
+          <caret line="10" column="6" lean-forward="true" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
         </state>
       </provider>
     </entry>

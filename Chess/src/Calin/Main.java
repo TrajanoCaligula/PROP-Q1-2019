@@ -7,6 +7,7 @@ import Pau.Ranking;
 import Pau.Score;
 
 import java.io.File;
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,7 +15,6 @@ import static Pau.Problem.printProblems;
 import static Pau.Ranking.printRankings;
 
 public class Main {
-
     public static void main(String[] args) {
         int n = 0;
         String humanName = new String();
@@ -27,14 +27,12 @@ public class Main {
             System.out.println();
             System.out.println("1. New Game");
             System.out.println("2. New Game (Machine vs Machine)");
-            System.out.println("3. Create New Player");
-            System.out.println("4. Load Existing Player");
-            System.out.println("5. Delete Existing Player");
-            System.out.println("6. List Rankings");
-            System.out.println("7. Create New Problem");
-            System.out.println("8. Delete Existing Problem");
-            System.out.println("9. List Problems");
-            System.out.println("10. Exit");
+            System.out.println("3. Insert player");
+            System.out.println("4. List Rankings");
+            System.out.println("5. Create New Problem");
+            System.out.println("6. Delete Existing Problem");
+            System.out.println("7. List Problems");
+            System.out.println("8. Exit");
             System.out.println();
             System.out.print("Please, select an option from the above: ");
             Scanner s = new Scanner(System.in);
@@ -43,54 +41,26 @@ public class Main {
                 if (humanName.isEmpty()) {
                     System.out.println();
                     System.out.println("No Player selected! Select one by choosing the 4 option");
-                }
-                else
+                } else
                     gameMenu(humanName);
-            }
-            else if (n == 2)
+            } else if (n == 2)
                 machineGameMenu();
-            else if (n == 3)
-                createNewPlayer(humanName);
-            else if (n == 4) {
-                ArrayList<String> players = getPlayers();
-                if (players.isEmpty()) {
-                    System.out.println("There are no players in the database! Create a new one by choosing the 3 option");
-                    System.out.println();
-                }
-                else {
-                    if (!humanName.isEmpty()) {
-                        System.out.println("Caution! Your selected Player is going to be changed for the next one!");
-                        System.out.println();
-                    }
-                    for (int i = 0; i < players.size(); i++)
-                        System.out.println(i + ". " + players.get(i));
-                    System.out.println();
-                    System.out.print("Select one from the above (from 0 to " + (players.size() - 1) + "): ");
-                    int i;
-                    s = new Scanner(System.in);
-                    i = s.nextInt();
-                    while (i < 0 || i >= players.size()) {
-                        System.out.print("That's a wrong selection, please select a valid one: ");
-                        s = new Scanner(System.in);
-                        i = s.nextInt();
-                    }
-                    humanName = players.get(i);
-                    System.out.println("Player successfully selected!");
-                }
+            else if (n == 3) {
+                System.out.println("Name of the player:");
+                Scanner in = new Scanner(System.in);
+                humanName = in.nextLine();
             }
-            else if (n == 5)
-                deleteExistingPlayer(humanName);
-            else if (n == 6) {
+            else if (n == 4) {
                 System.out.println();
                 printRankings();
             }
-            else if (n == 7)//Create New Problem
+            else if (n == 5)//Create New Problem
                 createProblem();
-            else if (n == 8)//Delete Existing Problem
+            else if (n == 6)//Delete Existing Problem
                 deleteProblem();
-            else if (n == 9)
+            else if (n == 7)
                 printProblems();
-            else if (n == 10)    //Exit
+            else if (n == 8)    //Exit
                 System.out.println("Exiting the game. Goodbye!");
         }
     }
@@ -121,70 +91,6 @@ public class Main {
         System.out.println(problemCreator);
     }
 
-    private static void deleteExistingPlayer(String humanName) {
-        boolean sure;
-        String aux = humanName;
-        ArrayList<String> players = getPlayers();
-        if (players.isEmpty()) {
-            System.out.println("There are no players in the database! Please create one by choosing the 3 option");
-        }
-        else {
-            System.out.print("Please, insert the name of the Player to delete: ");
-            Scanner s = new Scanner(System.in);
-            humanName = s.next();
-            while (!exists(humanName)) {
-                System.out.print("That player doesn't exist, please select another one: ");
-                s = new Scanner((System.in));
-                humanName = s.next();
-            }
-            System.out.print("Are you sure you want to delete " + humanName + "? [Y/N]: ");
-            s = new Scanner(System.in);
-            String confirmation = s.next();
-            while (!confirmation.equals("Y") && !confirmation.equals("N")) {
-                System.out.print("Thats not a valid response, please insert Y or N: ");
-                s = new Scanner(System.in);
-                confirmation = s.next();
-            }
-            if (confirmation.equals("Y"))
-                sure = true;
-            else
-                sure = false;
-            if (sure) {
-                System.out.println("Deleting " + humanName + "...");
-                deletePlayer(humanName);
-            }
-            if (aux.isEmpty())
-                humanName = new String();
-            else {
-                if (humanName.equals(aux))
-                    humanName = new String();
-                else
-                    humanName = aux;
-            }
-        }
-    }
-
-    private static void loadPlayer(String humanName) {
-
-    }
-
-    private static void createNewPlayer(String humanName) {
-        System.out.print("Please, insert the new Player's name: ");
-        Scanner s = new Scanner(System.in);
-        String aux = humanName;
-        humanName = s.next();
-        while (exists(humanName)) {
-            System.out.print("This player already exists, please select another name: ");
-            s = new Scanner(System.in);
-            humanName = s.next();
-        }
-        System.out.println("New Player successfully created! Saving to the database...");
-        createPlayer(humanName);
-        if (!aux.isEmpty())
-            humanName = aux;
-        else
-            humanName = new String();
-    }
 
     private static ArrayList<String> getProblems() {
         ArrayList<String> problemList = new ArrayList<>();
@@ -198,28 +104,6 @@ public class Main {
             }
         }
         return problemList;
-    }
-
-    private static void deletePlayer(String humanName) {
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("J")) {
-                String[] fileName = splitted[1].split("\\.");
-                if (fileName[0].equals(humanName)) {
-                    file.delete();
-                }
-            }
-        }
-    }
-
-    private static boolean exists(String humanName) {
-        ArrayList<String> players = getPlayers();
-        for (String player : players) {
-            if (humanName.equals(player))
-                return true;
-        }
-        return false;
     }
 
     private static void machineGameMenu() {
@@ -321,7 +205,6 @@ public class Main {
                 if (p != null) {
                    System.out.println("Caution! The problem is already loaded! You won't play with another human unless you load the problem again!");
                 }
-                loadPlayer(secondHumanName);
                 if (secondHumanName.equals(humanName)) {
                     System.out.println("You can't play with yourself!");
                     secondHumanName = new String();
@@ -342,29 +225,7 @@ public class Main {
             }
         }
     }
-    /*
-    for(File file : files){
-        String[] splitted = file.getName().split("-");
-        String[] fileName = splitted[1].split("\\.");
-        if(fileName[0].equals(Integer.toString(idProblemToClone))){*/
 
-    public static ArrayList<String> getPlayers(){
-
-        ArrayList<String> players = new ArrayList<>();
-        File[] files = new File("../").listFiles();
-        for(File file : files){
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("J")) {
-                String[] splitted2 = splitted[1].split("\\.");
-                players.add(splitted2[0]);
-            }
-        }
-        return players;
-    }
-
-    private static void createPlayer(String humanName) {
-        File humanFile = new File("../" + "J-" + humanName + ".txt");
-    }
 
     private static void matchMenu(Match match) {
         int n = 0;

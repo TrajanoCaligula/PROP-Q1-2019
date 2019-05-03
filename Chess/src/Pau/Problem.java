@@ -144,6 +144,9 @@ public class Problem{
         }
     }
 
+    /**
+     * Use this function to modify the initial fen as you want.
+     */
     public void movePiece(){
         Board boardMovements = new Board(this.FEN);
         boardMovements.printBoard();
@@ -247,7 +250,7 @@ public class Problem{
     }
 
     /**
-     *
+     * Clones a problem
      * @param idProblemToClone The identifier of the problem we want to clone
      * @return Returns a object Problem that's a clone of the one passed by parametre (@idProblemToClone)
      */

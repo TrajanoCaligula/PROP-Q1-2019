@@ -3,12 +3,22 @@
  */
 package Pau;
 
+/**
+ * Auxiliar class we use to make things easier, java doesnt have any mutable pair struct.
+ * @param <U> First element (Key)
+ * @param <V> Second element (Value)
+ */
 // Pair class
 public class Pair<U, V>
 {
     public final U first;	// first field of a Pair
     public final V second; 	// second field of a Pair
 
+    /**
+     * Constructor
+     * @param first First element of the pair
+     * @param second Second element of the pair
+     */
     // Constructs a new Pair with specified values
     private Pair(U first, V second)
     {
@@ -42,10 +52,18 @@ public class Pair<U, V>
         return 31 * first.hashCode() + second.hashCode();
     }
 
+    /**
+     * Getter
+     * @return The first element of the pair
+     */
     public U getKey() {
         return first;
     }
 
+    /**
+     * Getter
+     * @return Returns the first element of the pair
+     */
     public V getValue() {
         return second;
     }

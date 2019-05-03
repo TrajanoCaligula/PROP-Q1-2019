@@ -216,7 +216,7 @@ public class Problem{
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
     public void saveProblem(){
-        problemFile = new File("../Chess/src/DataBase/Problems/" +  this.id + ".txt");
+        problemFile = new File("../" + "P-" +  this.id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
             writer.write(this.toString());
@@ -238,7 +238,8 @@ public class Problem{
         boolean trobat = false;
         File[] files = new File("../").listFiles();
         for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
+            String[] splitted = file.getName().split("-");
+            if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
                 String[] fileName = file.getName().split("\\.");
                 if (fileName[0].equals(Integer.toString(idPR))) {
                     System.out.println(file.getName());
@@ -260,7 +261,8 @@ public class Problem{
         ArrayList<Problem> problemList = new ArrayList<>();
         File[] files = new File("../").listFiles();
         for(File file : files){
-            String[] fileName = file.getName().split("\\.");
+            String[] splitted = file.getName().split("-");
+            String[] fileName = splitted[1].split("\\.");
             if(fileName[0].equals(Integer.toString(idProblemToClone))){
                 Random rand = new Random();
                 clone = new Problem(file);
@@ -278,7 +280,8 @@ public class Problem{
         ArrayList<Problem> problemList = new ArrayList<>();
         File[] files = new File("../").listFiles();
         for(File file : files){
-            if(file.getName().charAt(0) != '.') {
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
                 Problem probToAdd = new Problem(file);
                 problemList.add(probToAdd);
             }
@@ -296,8 +299,9 @@ public class Problem{
         boolean trobat = false;
         File[] files = new File("../").listFiles();
         for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                String[] fileName = splitted[1].split("\\.");
                 if (fileName[0].equals(Integer.toString(id))) {
                     trobat = true;
                     file.delete();
@@ -330,8 +334,9 @@ public class Problem{
         Problem problemLoaded = null;
         File[] files = new File("../").listFiles();
         for(File file : files){
-            if(file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                String[] fileName = splitted[1].split("\\.");
                 if (fileName[0].equals(Integer.toString(id))) {
                     problemLoaded = new Problem(file);
                 }

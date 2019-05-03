@@ -28,7 +28,7 @@ public abstract class Player {
      * @param color: the Color of the pieces to play with
      */
 
-    public abstract void play(Board board, Color color);
+    public abstract void play(Board board, int score, Color color);
 
     /**
      * Getter to get the name of the Player
@@ -47,6 +47,8 @@ public abstract class Player {
     public Color getColor() {
         return color;
     }
+
+
 
     /**
      * To convert the Player into String it is returned it's name

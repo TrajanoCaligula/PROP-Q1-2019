@@ -33,8 +33,8 @@ public class Machine extends Player {
      */
 
     @Override
-    public void play(Board board, Color color) {
-        long start = System.currentTimeMillis();
+    public void play(Board board, int score, Color color) {
+        //long start = System.currentTimeMillis();
         ArrayList<Piece> myPieces;
         if (color == Color.WHITE)
             myPieces = board.getWhitePieces();
@@ -81,12 +81,15 @@ public class Machine extends Player {
         Random r = new Random();
         int i = r.nextInt(bestMoves.size());
         Move move = bestMoves.get(i);
-        System.out.println("value = "+value);
-        System.out.println("Moving "+move.getPiece().toString()+" from ("+move.getPiece().getPosition().getX()+", "+move.getPiece().getPosition().getY()+") to: ("+move.getPiece().getPosition().add(move.getFinalPos()).getX()+", "+move.getPiece().getPosition().add(move.getFinalPos()).getY()+")");
+        //System.out.println("value = "+value);
+        System.out.println("Moving "+move.getPiece().toString()+" from "+move.getPiece().getPosition().toRealCoord()+" to "+move.getPiece().getPosition().add(move.getFinalPos()).toRealCoord());
+        if (board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())) != null) {
+            score += board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())).getValue() * 100;
+        }
         board.movePiece(move.getPiece(), move.getPiece().getPosition().add(move.getFinalPos()));
-        long finish = System.currentTimeMillis();
-        long elapsedTime = finish - start;
-        System.out.println(elapsedTime);
+        //long finish = System.currentTimeMillis();
+        //long elapsedTime = finish - start;
+        //System.out.println(elapsedTime);
     }
 
     /**

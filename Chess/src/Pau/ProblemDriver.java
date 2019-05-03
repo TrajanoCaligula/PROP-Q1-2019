@@ -6,6 +6,7 @@ package Pau;
 
 import java.util.Scanner;
 import Jaume.*;
+
 public class ProblemDriver {
 
     public static void main(String[] args) {

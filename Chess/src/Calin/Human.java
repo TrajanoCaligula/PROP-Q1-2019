@@ -29,7 +29,7 @@ public class Human extends Player {
      */
 
     @Override
-    public void play(Board board, Color color) {
+    public void play(Board board, int score, Color color) {
         System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
         Scanner s = new Scanner(System.in);
         String initialPos = s.next();
@@ -50,6 +50,10 @@ public class Human extends Player {
             movingPos = s.next();
         }
         movingCoord = new Coord(movingPos);
+        if (board.getPieceInCoord(movingCoord) != null) {
+            score += board.getPieceInCoord(movingCoord).getValue() * 100;
+        }
+        System.out.println("Moving "+board.getPieceInCoord(initialCoord).toString()+" from "+initialCoord.toRealCoord()+" to "+movingCoord.toRealCoord());
         board.movePiece(board.getPieceInCoord(initialCoord), movingCoord);
     }
 

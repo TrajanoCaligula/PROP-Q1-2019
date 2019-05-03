@@ -236,7 +236,7 @@ public class Problem{
      */
     public static boolean existsProblem(int idPR){
         boolean trobat = false;
-        File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -258,7 +258,7 @@ public class Problem{
         Problem clone = null;
 
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files){
             String[] fileName = file.getName().split("\\.");
             if(fileName[0].equals(Integer.toString(idProblemToClone))){
@@ -276,7 +276,7 @@ public class Problem{
      */
     private static ArrayList<Problem> listProblems(){
         ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 Problem probToAdd = new Problem(file);
@@ -294,7 +294,7 @@ public class Problem{
      */
     public static boolean deleteProblem(int id){
         boolean trobat = false;
-        File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files) {
             if (file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
@@ -328,7 +328,7 @@ public class Problem{
      */
     public static Problem loadProblem(int id){
         Problem problemLoaded = null;
-        File[] files = new File("../Chess/src/DataBase/Problems/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");

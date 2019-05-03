@@ -187,22 +187,25 @@ public class Main {
     }
 
     private static ArrayList<String> getProblems() {
-        ArrayList<String> problems = new ArrayList<String>();
-        File[] files = new File("./Chess/src/DataBase/Problems/").listFiles();
+        ArrayList<String> problemList = new ArrayList<>();
+        File[] files = new File("../").listFiles();
         for(File file : files){
-            if(file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                problems.add(fileName[0]);
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                Problem probToAdd = new Problem(file);
+                String[] splitted2 = splitted[1].split("\\.");
+                problemList.add(splitted2[0]);
             }
         }
-        return problems;
+        return problemList;
     }
 
     private static void deletePlayer(String humanName) {
-        File[] files = new File("./Chess/src/DataBase/Players/").listFiles();
+        File[] files = new File("../").listFiles();
         for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("J")) {
+                String[] fileName = splitted[1].split("\\.");
                 if (fileName[0].equals(humanName)) {
                     file.delete();
                 }
@@ -339,21 +342,28 @@ public class Main {
             }
         }
     }
+    /*
+    for(File file : files){
+        String[] splitted = file.getName().split("-");
+        String[] fileName = splitted[1].split("\\.");
+        if(fileName[0].equals(Integer.toString(idProblemToClone))){*/
 
     public static ArrayList<String> getPlayers(){
-        ArrayList<String> players = new ArrayList<String>();
-        File[] files = new File("./Chess/src/DataBase/Players/").listFiles();
+
+        ArrayList<String> players = new ArrayList<>();
+        File[] files = new File("../").listFiles();
         for(File file : files){
-            if(file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                players.add(fileName[0]);
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("J")) {
+                String[] splitted2 = splitted[1].split("\\.");
+                players.add(splitted2[0]);
             }
         }
         return players;
     }
 
     private static void createPlayer(String humanName) {
-        File humanFile = new File("./Chess/src/DataBase/Players/" + humanName + ".txt");
+        File humanFile = new File("../" + "J-" + humanName + ".txt");
     }
 
     private static void matchMenu(Match match) {

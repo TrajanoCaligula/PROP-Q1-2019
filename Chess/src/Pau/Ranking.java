@@ -128,10 +128,10 @@ public class Ranking{
 		boolean trobat = false;
 		File[] files = new File("../").listFiles();
 		for(File file : files) {
-			if (file.getName().charAt(0) != '.') {
-				String[] fileName = file.getName().split("\\.");
-				String idProblemLD = fileName[0].substring(2);
-				if (idProblemLD.equals(idPR)) {
+			String[] splitted = file.getName().split("-");
+			if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+				String[] fileName = splitted[1].split("\\.");
+				if (fileName[0].equals(idPR)) {
 					try {
 						trobat = true;
 						BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -157,10 +157,10 @@ public class Ranking{
 		boolean trobat = false;
 		File[] files = new File("../").listFiles();
 		for(File file : files) {
-			if (file.getName().charAt(0) != '.') {
-				String[] fileName = file.getName().split("\\.");
-				String idProblemLD = fileName[0].substring(2);
-				if (idProblemLD.equals(Integer.toString(idPR))) {
+			String[] splitted = file.getName().split("-");
+			if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+				String[] fileName = splitted[1].split("\\.");
+				if (fileName[0].equals(idPR)) {
 					trobat = true;
 					file.delete();
 				}

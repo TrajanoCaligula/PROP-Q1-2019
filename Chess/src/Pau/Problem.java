@@ -240,8 +240,8 @@ public class Problem{
         for(File file : files) {
             String[] splitted = file.getName().split("-");
             if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = file.getName().split("\\.");
-                if (fileName[0].equals(Integer.toString(idPR))) {
+                String[] fileName = splitted[1].split("\\.");
+                if(fileName[0].equals(Integer.toString(idPR))){
                     System.out.println(file.getName());
                     trobat = true;
                 }

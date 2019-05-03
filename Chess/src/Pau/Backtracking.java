@@ -8,11 +8,24 @@ import java.util.*;
 import Jaume.*;
 
 public class Backtracking extends Match{
+
+    /**
+     * Constructor
+     * @param problemToPlay problem you want to validat, see if it has a solution.
+     * @param round The number of maximum rounds you can play.
+     * @param firstColor the player who starts to move.
+     */
     public Backtracking(Problem problemToPlay, Integer round, Color firstColor){
         super(null, null, problemToPlay, round, firstColor);
     }
 
-    public boolean backtrackingUtil(Piece pieceBT, Board boardBT, int torn) {
+    /**
+     * Second part of the backtracking algorithm
+     * @param pieceBT the currentpiece you are gonna use to iterate through its legal movements
+     * @param boardBT the board where the piece is
+     * @return Returns true if it has a solution, false otherwise.
+     */
+    public boolean backtrackingUtil(Piece pieceBT, Board boardBT) {
 
         ArrayList<Coord> whiteMoves= pieceBT.getLegalMoves(boardBT);
 
@@ -56,6 +69,12 @@ public class Backtracking extends Match{
 
     }
 
+    /**
+     * Checks if the player is in check mate
+     * @param board the board with the distribution of the pieces
+     * @param color the color of the player to see if its in check mate
+     * @return Returns true if color is in checkmate, false otherwise.
+     */
     private boolean isGameOver(Board board, Color color){
         if (color == Color.BLACK) {
             if (board.getBlackPieces().size() == 1)
@@ -84,6 +103,10 @@ public class Backtracking extends Match{
      * @return Array que conte origen i desti de la fitxa que s'hauria de moure en aquell torn.
      */
 
+    /**
+     * The caller function and the first part of the backtracking algorithm used to check if a problem has a solution.
+     * @return Returns true if it does have a solution, false otherwise
+     */
     public boolean backtracking(){
 
         ArrayList<Piece> pieces = this.getBoard().getWhitePieces();
@@ -93,7 +116,7 @@ public class Backtracking extends Match{
             Piece currentPiece = pieces.get(i);
 
             Board imaginaryBoard = new Board(this.getBoard());
-            gameover = backtrackingUtil(currentPiece, imaginaryBoard, this.getRound());
+            gameover = backtrackingUtil(currentPiece, imaginaryBoard);
         }
         return gameover;
     }

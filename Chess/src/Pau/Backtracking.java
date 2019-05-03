@@ -1,9 +1,10 @@
+/**
+ * @author pauCharques
+ */
 package Pau;
 
 import java.util.*;
 
-import Calin.Human;
-import Calin.Player;
 import Jaume.*;
 
 public class Backtracking extends Match{
@@ -17,20 +18,17 @@ public class Backtracking extends Match{
 
         if(whiteMoves.isEmpty()) { return false; }
 
-        //Per a tots els moviments possibles
         boolean gameOver = false;
+
         for(int i=0; i < whiteMoves.size() && !gameOver; i++) {
             Board imaginaryBoardMove = new Board(boardBT);
-            //if (!imaginaryBoardMove.moviment(f.getPosicio(), movimentsPossibles.get(i)))
-               // System.out.println("ERROR MOVIMENT A TAULELL");
-            //Si hi ha un jaque mate cap al contrari retorna true
+
             if (isGameOver(imaginaryBoardMove, Color.BLACK)) {
                 return true;
             }
-            imaginaryBoardMove.movePiece(pieceBT, whiteMoves.get(i));
 
+            imaginaryBoardMove.movePiece(pieceBT, whiteMoves.get(i));
             ArrayList<Piece> blackPieces = imaginaryBoardMove.getBlackPieces();
-            //per a tots els contrincants possibles
 
             for (int j = 0; j < blackPieces.size() && gameOver; j++) {
                 Piece blackPiece = blackPieces.get(j);
@@ -47,9 +45,7 @@ public class Backtracking extends Match{
                             gameOver = true;
                         }
                         else {
-                            gameOver = false;
                             gameOver = backtracking();
-
                         }
                     }
                 }
@@ -102,15 +98,4 @@ public class Backtracking extends Match{
         return gameover;
     }
 
-    private boolean isValidMove(Piece piece, String realCoord, Board board) {
-        if(realCoord.length() != 2 || realCoord.charAt(0) > 'h' || realCoord.charAt(0) < 'a' || realCoord.charAt(1) < '0' || realCoord.charAt(1) > '9')
-            return false;
-        Coord position = new Coord(realCoord);
-        ArrayList<Coord> legalMoves = piece.getLegalMoves(board);
-        for (Coord legalMove : legalMoves) {
-            if (piece.getPosition().add(legalMove).equals(position))
-                return true;
-        }
-        return false;
-    }
 }

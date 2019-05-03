@@ -29,7 +29,9 @@ public class Backtracking extends Match{
 
         ArrayList<Coord> whiteMoves= pieceBT.getLegalMoves(boardBT);
 
-        if(whiteMoves.isEmpty()) { return false; }
+        if(whiteMoves.isEmpty()) {
+            return false;
+        }
 
         boolean gameOver = false;
 

@@ -314,14 +314,16 @@ public class Problem{
     /**
      * Iterates through an array list of problems printing each one in the terminal
      */
-    public static void printProblems(){
+    public static boolean printProblems(){
         ArrayList<Problem> problemList = listProblems();
         if(problemList.isEmpty()){
             System.out.println("No problems in our database! \nSelect option 1 to create a problem and add it to our DB");
+            return false;
         } else {
             for (Problem problema : problemList) {
                 System.out.println(problema);
             }
+            return true;
         }
     }
 

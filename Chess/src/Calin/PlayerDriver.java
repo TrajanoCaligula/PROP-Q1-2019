@@ -37,6 +37,38 @@ public class PlayerDriver {
         System.out.println();
     }
 
+    private static void machine2Menu() {
+        System.out.println();
+        System.out.println("Machine2 Menu");
+        System.out.println();
+        System.out.print("Please, insert the new Machine2's name: ");
+        Scanner s = new Scanner(System.in);
+        String name = s.next();
+        System.out.println();
+        System.out.print("Now, insert the Machine2's depth: ");
+        s = new Scanner(System.in);
+        int depth = s.nextInt();
+        System.out.println();
+        System.out.print("Finally, insert the Machine2's color (white or black): ");
+        s = new Scanner(System.in);
+        String stringColor = s.next();
+        while (!stringColor.equals("white") && !stringColor.equals("black")) {
+            System.out.println();
+            System.out.print("That's not a valid color, please select a color (white or black): ");
+            s = new Scanner(System.in);
+            stringColor = s.next();
+        }
+        Color color;
+        if (stringColor.equals("white"))
+            color = Color.WHITE;
+        else
+            color = Color.BLACK;
+        Machine2 machine2 = new Machine2(name, color, depth);
+        System.out.println();
+        System.out.println("Machine successfully created, its name is "+machine2.getName()+", its depth is "+machine2.getDepth()+" and its color is "+machine2.getColor().toString());
+        System.out.println();
+    }
+
     private static void humanMenu() {
         System.out.println();
         System.out.println("Human Menu");
@@ -70,10 +102,11 @@ public class PlayerDriver {
         System.out.println();
         int n = 0;
         Scanner s;
-        while (n != 3) {
+        while (n != 4) {
             System.out.println("1. Create Human Player");
             System.out.println("2. Create Machine Player");
-            System.out.println("3. Exit");
+            System.out.println("3. Create Machine2 Player");
+            System.out.println("4. Exit");
             System.out.println();
             System.out.print("Please, select an option from the above: ");
             s = new Scanner(System.in);
@@ -82,7 +115,9 @@ public class PlayerDriver {
                 humanMenu();
             else if (n == 2)
                 machineMenu();
-            else if (n == 3) {
+            else if (n == 3)
+                machine2Menu();
+            else if (n == 4) {
                 System.out.println();
                 System.out.println("Exiting PlayerDriver. Goodbye!");
             }

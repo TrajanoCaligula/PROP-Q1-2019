@@ -26,7 +26,7 @@ public class Main {
             System.out.println("Main Menu");
             System.out.println();
             System.out.println("1. New Game");
-            System.out.println("2. New Game (Machine vs Machine)");
+            System.out.println("2. New Game (Machine2 vs Machine)");
             System.out.println("3. Insert player");
             System.out.println("4. List Rankings");
             System.out.println("5. Create New Problem");
@@ -126,17 +126,20 @@ public class Main {
             n = s.nextInt();
 
             if (n == 1) {
-                printProblems();
-                System.out.println("Insert the id of the problem you want to load:");
-                s = new Scanner(System.in);
-                int idProblem = s.nextInt();
-                p = Problem.loadProblem(idProblem);
-                if (p == null)
-                    System.out.println("Error loading the Problem!");
-                else {
-                    whitePlayer = new Machine("whiteMachine", Color.WHITE, 2);
-                    blackPlayer = new Machine("blackMachine", Color.BLACK, 2);
+                if (printProblems()) {
+                    System.out.println("Insert the id of the problem you want to load:");
+                    s = new Scanner(System.in);
+                    int idProblem = s.nextInt();
+                    p = Problem.loadProblem(idProblem);
+                    if (p == null)
+                        System.out.println("Error loading the Problem!");
+                    else {
+                        whitePlayer = new Machine2("whiteMachine", Color.WHITE, 4);
+                        blackPlayer = new Machine("blackMachine", Color.BLACK, 2);
+                    }
                 }
+                else
+                    return;
             }
             else if (n == 2) {
                 if (p == null) {

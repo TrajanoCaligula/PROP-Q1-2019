@@ -102,36 +102,14 @@ public class Board {
 
     public int getEvaluation() {
         int score = 0;
-        //System.out.print("Evaluation = ");
         for (Piece whitePiece : whitePieces) {
             score += whitePiece.getValue();
-            //System.out.print(" + "+whitePiece.getValue()+"("+whitePiece.toString()+")");
         }
 
         for (Piece blackPiece : blackPieces) {
             score -= blackPiece.getValue();
-            //System.out.print(" - "+blackPiece.getValue()+"("+blackPiece.toString()+")");
         }
         ArrayList<Coord> legalMoves;
-        boolean blackIsChekMate = true, whiteIsCheckMate = true;
-        for (Piece whitePiece : whitePieces) {
-            if (!whitePiece.getLegalMoves(this).isEmpty()) {
-                whiteIsCheckMate = false;
-                break;
-            }
-
-        }
-        for (Piece blackPiece : blackPieces) {
-            if (!blackPiece.getLegalMoves(this).isEmpty()) {
-                blackIsChekMate = false;
-                break;
-            }
-        }
-        //System.out.println(" = "+score);
-        if (whiteIsCheckMate)
-            score -= 9000;
-        else if (blackIsChekMate)
-            score += 9000;
         return score;
     }
 

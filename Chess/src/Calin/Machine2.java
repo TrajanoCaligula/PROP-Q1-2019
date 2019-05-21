@@ -1,8 +1,13 @@
 package Calin;
 
-import Jaume.*;
+import Jaume.Board;
+import Jaume.Color;
+import Jaume.Coord;
+import Jaume.Piece;
+
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import static java.lang.Integer.*;
 
@@ -10,7 +15,7 @@ import static java.lang.Integer.*;
  * @author calinPirau
  */
 
-public class Machine extends Player {
+public class Machine2 extends Player {
 
     private int depth;
 
@@ -21,7 +26,7 @@ public class Machine extends Player {
      * @param depth: the depth of the Machine used for minimax
      */
 
-    public Machine(String name, Color color, int depth) {
+    public Machine2(String name, Color color, int depth) {
         super(name, color);
         this.depth = depth;
     }
@@ -53,7 +58,7 @@ public class Machine extends Player {
             ArrayList<Coord> legalMoves = myPiece.getLegalMoves(board);
             for (Coord legalMove : legalMoves) {
                 if (color == Color.BLACK) {
-                    int aux = minimax(board, myPiece, legalMove, false, depth);
+                    int aux = minimax(board, myPiece, legalMove, false, depth, MIN_VALUE, MAX_VALUE);
                     if (aux < value) {
                         bestMoves = new ArrayList<>();
                         bestMoves.add(new Move(myPiece, legalMove));
@@ -64,7 +69,7 @@ public class Machine extends Player {
                     }
                 }
                 else if (color == Color.WHITE) {
-                    int aux = minimax(board, myPiece, legalMove, true, depth);
+                    int aux = minimax(board, myPiece, legalMove, true, depth, MIN_VALUE, MAX_VALUE);
                     if (aux > value) {
                         bestMoves = new ArrayList<>();
                         bestMoves.add(new Move(myPiece, legalMove));
@@ -75,7 +80,6 @@ public class Machine extends Player {
                     }
                 }
             }
-
         }
 
         Random r = new Random();
@@ -103,7 +107,7 @@ public class Machine extends Player {
      * @return
      */
 
-    private int minimax(Board board, Piece piece, Coord movement, boolean isMaximizing, int depth) {
+    private int minimax(Board board, Piece piece, Coord movement, boolean isMaximizing, int depth, int alpha, int beta) {
         Board imaginaryBoard = new Board(board);
         imaginaryBoard.movePiece(imaginaryBoard.getPieceInCoord(piece.getPosition()), piece.getPosition().add(movement));
         boolean isBlackOver = imaginaryBoard.isGameOver(Color.BLACK);
@@ -120,8 +124,11 @@ public class Machine extends Player {
             for (Piece whitePiece : imaginaryBoard.getWhitePieces()) {
                 ArrayList<Coord> legalMoves = whitePiece.getLegalMoves(imaginaryBoard);
                 for (Coord legalMove : legalMoves) {
-                    int aux = minimax(imaginaryBoard, whitePiece, legalMove, !isMaximizing, depth - 1 );
+                    int aux = minimax(imaginaryBoard, whitePiece, legalMove, !isMaximizing, depth - 1, alpha, beta);
                     maxEval = max(maxEval, aux);
+                    alpha = max(alpha, aux);
+                    if (beta <= alpha)
+                        break;
                 }
             }
             return maxEval;
@@ -131,8 +138,11 @@ public class Machine extends Player {
             for (Piece blackPiece : imaginaryBoard.getBlackPieces()) {
                 ArrayList<Coord> legalMoves = blackPiece.getLegalMoves(imaginaryBoard);
                 for (Coord legalMove : legalMoves) {
-                    int aux = minimax(imaginaryBoard, blackPiece, legalMove, !isMaximizing, depth - 1);
+                    int aux = minimax(imaginaryBoard, blackPiece, legalMove, !isMaximizing, depth - 1, alpha, beta);
                     minEval = min(minEval, aux);
+                    beta = min(beta, aux);
+                    if (beta <= alpha)
+                        break;
                 }
             }
             return minEval;

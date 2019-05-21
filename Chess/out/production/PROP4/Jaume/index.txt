@@ -1,0 +1,18 @@
+Directori Jaume:
+Conté tots els arxius fets per en Jaume
+
+- Bishop.java: codi de la extensió Bishop de Piece
+- Board.java: codi de la classe Bard
+- BoardDriver.java: codi del driver per testejar la classe Board
+- Color.java: codi de l'enumeració que determina el l'equip d'una Piece
+- Coord.java: codi de la classe Coordenada
+- CoordDriver.java: codi del driver per testejar la classe Coord
+- King.java: codi de la extensió King de Piece
+- Knight.java: codi de la extensió Knight de Piece
+- Main.java: codi del Main
+- Pawn.java: codi de la extensió Pawn de Piece
+- Piece.java: codi de la classe abstracta Piece
+- PieceDriver.java: codi del driver per testejar la classe Piece i les seves extensions
+- PieceValues.java: codi de l'enumeració que determina el valor d'una Piece
+- Queen.java: codi de la extensió Queen de Piece
+- Rook.java: codi de la extensió Rook de Piece

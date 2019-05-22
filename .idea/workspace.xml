@@ -5,8 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Chess/FONTS/GUI/MatchView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/FONTS/GUI/MatchView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/FONTS/GUI/StartingView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chess/FONTS/GUI/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/FONTS/GUI/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/Chess/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+            <state relative-caret-position="345">
+              <caret line="23" column="83" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -35,10 +34,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/ViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
+            <state relative-caret-position="110">
+              <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#783#784#0" expanded="true" />
                 <element signature="e#844#845#0" expanded="true" />
               </folding>
             </state>
@@ -48,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/MatchView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="498">
-              <caret line="173" column="8" selection-start-line="173" selection-start-column="8" selection-end-line="173" selection-end-column="8" />
+            <state relative-caret-position="231">
+              <caret line="169" column="13" lean-forward="true" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -60,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="411">
+              <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,9 +116,9 @@
         <option value="$PROJECT_DIR$/Chess/src/Controllers/CtrlPersistance.java" />
         <option value="$PROJECT_DIR$/Chess/FONTS/Controllers/CtrlPerTest.java" />
         <option value="$PROJECT_DIR$/Chess/FONTS/Controllers/CtrlPersistance.java" />
-        <option value="$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java" />
-        <option value="$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java" />
         <option value="$PROJECT_DIR$/Chess/FONTS/GUI/ViewController.java" />
+        <option value="$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java" />
+        <option value="$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java" />
         <option value="$PROJECT_DIR$/Chess/FONTS/GUI/MatchView.java" />
       </list>
     </option>
@@ -158,13 +158,6 @@
               <item name="Chess" type="462c0819:PsiDirectoryNode" />
               <item name="FONTS" type="462c0819:PsiDirectoryNode" />
               <item name="GUI" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="PROP4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="PROP4" type="462c0819:PsiDirectoryNode" />
-              <item name="Chess" type="462c0819:PsiDirectoryNode" />
-              <item name="FONTS" type="462c0819:PsiDirectoryNode" />
-              <item name="Pau" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -285,11 +278,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558537227078</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fuckk u intellij">
+      <created>1558543791019</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1558543791019</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8840000" />
+    <option name="totallyTimeSpent" value="12025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -304,7 +304,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.21489972" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31948423" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39971346" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -493,22 +493,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/ViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
+        <state relative-caret-position="110">
+          <caret line="17" column="32" lean-forward="true" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
             <element signature="e#844#845#0" expanded="true" />
           </folding>
         </state>
@@ -516,8 +507,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/Chess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+        <state relative-caret-position="345">
+          <caret line="23" column="83" selection-start-line="23" selection-start-column="83" selection-end-line="23" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -526,8 +527,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Chess/FONTS/GUI/MatchView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="173" column="8" selection-start-line="173" selection-start-column="8" selection-end-line="173" selection-end-column="8" />
+        <state relative-caret-position="231">
+          <caret line="169" column="13" lean-forward="true" selection-start-line="169" selection-start-column="13" selection-end-line="169" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

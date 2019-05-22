@@ -159,19 +159,25 @@ public class MatchView {
 
     public void tileAction(Tile pressedTile){
         if(this.tileHighlighted == null){
-            if (pressedTile.piece != null){
+            if (pressedTile.getPiece() != null){
                 this.tileHighlighted = pressedTile;
                 pressedTile.highlightTile();
             }
         } else {
             this.tileHighlighted.undoHighlightTile();
+            if(!pressedTile.equals(this.tileHighlighted)) {
+                move(this.tileHighlighted, pressedTile);
+            }
             this.tileHighlighted = null;
-            move(this.tileHighlighted, pressedTile);
         }
     }
 
     public void move(Tile init, Tile end){
 
+        this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
+        this.chessBoardSquares[end.getTileY()][end.getTileX()].setPiece(init.getPiece());
+        this.chessBoardSquares[init.getTileY()][init.getTileX()].setIcon(null);
+        this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
     public void addMouseListenerToTile(MouseListener mal) {

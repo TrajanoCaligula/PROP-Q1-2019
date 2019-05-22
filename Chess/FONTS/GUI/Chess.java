@@ -12,7 +12,6 @@ public class Chess {
     public static void main(String[] args) {
 
         MatchView chessView = new MatchView(fen);
-        ViewController chessViewController = new ViewController(chessView);
         Runnable r = new Runnable() {
             public void run() {
                 JFrame f = new JFrame("Chess");
@@ -22,6 +21,7 @@ public class Chess {
                 f.pack();
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
+                ViewController chessViewController = new ViewController(chessView);
             }
         };
         SwingUtilities.invokeLater(r);

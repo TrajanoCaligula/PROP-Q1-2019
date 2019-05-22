@@ -55,7 +55,7 @@ public class MatchView {
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
             for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
-                Tile b = new Tile("p", ii, jj);
+                Tile b = new Tile(ii, jj);
                 b.setBorderPainted(false);
                 b.setOpaque(true);
                 //b.setMargin(buttonMargin);
@@ -68,7 +68,7 @@ public class MatchView {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         Tile pressedTile = (Tile) e.getSource();
-
+                        tileAction(pressedTile);
                     }
                 });
 
@@ -117,35 +117,8 @@ public class MatchView {
                 x += getNumericValue(c);
             }
             else if (isLetter(c)) {
-                System.out.println(new File("../PROP4/Chess/src/assets/pieces/black_bishop.png").exists());
                 //UpperCase
-                if (c == 'P')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_pawn.png"));
-                else if (c == 'R')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_rook.png"));
-                else if (c == 'N')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_knight.png"));
-                else if (c == 'B')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_bishop.png"));
-                else if (c == 'Q')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_queen.png"));
-                else if (c == 'K')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/white_king.png"));
-
-                    //LowerCase
-                else if (c == 'p')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_pawn.png"));
-                else if (c == 'r')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_rook.png"));
-                else if (c == 'n')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_knight.png"));
-                else if (c == 'b')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_bishop.png"));
-                else if (c == 'q')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_queen.png"));
-                else if (c == 'k')
-                    chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/src/assets/pieces/black_king.png"));
-                x++;
+                setPiece(c, x, y);
             }
             else if(c == '/') {
                 y++;
@@ -155,12 +128,48 @@ public class MatchView {
         }
     }
 
+
+    public void setPiece(char c, int x, int y){
+        if (c == 'P')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_pawn.png"));
+        else if (c == 'R')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_rook.png"));
+        else if (c == 'N')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_knight.png"));
+        else if (c == 'B')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_bishop.png"));
+        else if (c == 'Q')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_queen.png"));
+        else if (c == 'K')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_king.png"));
+
+            //LowerCase
+        else if (c == 'p')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_pawn.png"));
+        else if (c == 'r')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_rook.png"));
+        else if (c == 'n')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_knight.png"));
+        else if (c == 'b')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_bishop.png"));
+        else if (c == 'q')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_queen.png"));
+        else if (c == 'k')
+            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_king.png"));
+        x++;
+    }
     public final JComponent getGui() {
         return gui;
     }
 
     public void tileAction(Tile pressedTile){
-
+        if (pressedTile.piece != null){
+            if(pressedTile.highlighted){
+                pressedTile.undoHighliightTile();
+            } else {
+                pressedTile.highlightTile();
+            }
+        }
     }
 
     public void move(Tile init, Tile end){

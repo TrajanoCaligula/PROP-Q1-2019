@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 public class Tile extends JButton {
     private int tx, ty;
-    public String piece;
+    public Character piece;
     public boolean highlighted = false;
     public Tile(int x, int y){
         super();
@@ -14,7 +14,7 @@ public class Tile extends JButton {
         this.tx = x;
         this.ty = y;
     }
-    public Tile(String piece, int x, int y){
+    public Tile(Character piece, int x, int y){
         super();
 
         this.tx = x;
@@ -22,7 +22,7 @@ public class Tile extends JButton {
         this.piece = piece;
     }
 
-    public void setPiece(String piece){
+    public void setPiece(Character piece){
         this.piece = piece;
     }
 

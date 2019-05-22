@@ -110,7 +110,7 @@ public class MatchView {
 
     public final void setMatchGui(){
         int i = 0, y = 0, x = 0;
-        char c;
+        Character c;
         while (i < this.matchFEN.length()) {
             c = this.matchFEN.charAt(i);
             if (isDigit(c)) {
@@ -156,6 +156,7 @@ public class MatchView {
             chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_queen.png"));
         else if (c == 'k')
             chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_king.png"));
+        chessBoardSquares[x][y].setPiece(c);
         x++;
     }
     public final JComponent getGui() {

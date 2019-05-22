@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.net.URL;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
@@ -64,13 +65,6 @@ public class MatchView {
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
-                b.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        Tile pressedTile = (Tile) e.getSource();
-                        tileAction(pressedTile);
-                    }
-                });
 
                 if ((jj % 2 == 1 && ii % 2 == 1)
                         //) {
@@ -178,6 +172,14 @@ public class MatchView {
 
     public void move(Tile init, Tile end){
 
+    }
+
+    public void addMouseListenerToTile(MouseListener mal) {
+        for (int ii = 0; ii < 8; ii++) {
+            for (int jj = 0; jj < 8; jj++) {
+                chessBoardSquares[jj][ii].addMouseListener(mal);
+            }
+        }
     }
 
 }

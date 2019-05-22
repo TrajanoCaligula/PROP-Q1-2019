@@ -2,40 +2,57 @@ package GUI;
 
 import Pau.Match;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import javax.swing.text.View;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 
-public class ViewController {/*
+public class ViewController{
     private Match currentMatch;
-    private View view;
-    public Controller(Match m, View v) {
-        currentMatch = m;
-        view = v;
-        initView();
-    }
-    public void initView() {
-        view.getFirstnameTextfield().setText(model.getFirstname());
-        view.getLastnameTextfield().setText(model.getLastname());
+    private MatchView view;
+
+    public ViewController(MatchView currentView) {
+        this.view = currentView;
+        view.addMouseListenerToTile(new MouseListenerTile());
     }
 
-    public void initController() {
-        view.getFirstnameSaveButton().addActionListener(e -> saveFirstname());
-        view.getLastnameSaveButton().addActionListener(e -> saveLastname());
-        view.getHello().addActionListener(e -> sayHello());
-        view.getBye().addActionListener(e -> sayBye());
+    public void move(ActionEvent ae){
+        Tile tile = (Tile) ae.getSource();
+        view.tileAction(tile);
     }
-    private void saveFirstname() {
-        model.setFirstname(view.getFirstnameTextfield().getText());
-        JOptionPane.showMessageDialog(null, "Firstname saved : " + model.getFirstname(), "Info", JOptionPane.INFORMATION_MESSAGE);
+
+
+
+
+    class MouseListenerTile implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            view.tileAction((Tile) e.getSource());
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
-    private void saveLastname() {
-        model.setLastname(view.getLastnameTextfield().getText());
-        JOptionPane.showMessageDialog(null, "Lastname saved : " + model.getLastname(), "Info", JOptionPane.INFORMATION_MESSAGE);
-    }
-    private void sayHello() {
-        JOptionPane.showMessageDialog(null, "Hello " + model.getFirstname() + " " + model.getLastname(), "Info", JOptionPane.INFORMATION_MESSAGE);
-    }
-    private void sayBye() {
-        System.exit(0);
-    }*/
+
+
 }

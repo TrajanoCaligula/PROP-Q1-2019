@@ -10,7 +10,7 @@ public class CtrlPerTest {
 
         Ctrl.writeProblem("Hello",0);
 
-        System.out.println(Ctrl.existsProblem(0));
+        System.out.println(Ctrl.existsProblem(9));
 
         Ctrl.deleteProblem(0);
     }

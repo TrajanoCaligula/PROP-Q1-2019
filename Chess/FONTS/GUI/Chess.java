@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 
 public class Chess {
     public Chess() {
+
     }
 
     public static void main(String[] args) {

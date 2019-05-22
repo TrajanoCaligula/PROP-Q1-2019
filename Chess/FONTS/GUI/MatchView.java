@@ -164,12 +164,15 @@ public class MatchView {
     }
 
     public void tileAction(Tile pressedTile){
-        if (pressedTile.piece != null){
-            if(pressedTile.highlighted){
-                pressedTile.undoHighliightTile();
-            } else {
+        if(this.tileHighlighted == null){
+            if (pressedTile.piece != null){
+                this.tileHighlighted = pressedTile;
                 pressedTile.highlightTile();
             }
+        } else {
+            this.tileHighlighted.undoHighlightTile();
+            this.tileHighlighted = null;
+            move(this.tileHighlighted, pressedTile);
         }
     }
 

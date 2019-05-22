@@ -8,15 +8,13 @@ import java.util.ArrayList;
 
 
 public class CtrlPersistance {
-    private static CtrlPersistance ourInstance = new CtrlPersistance();
+    private static CtrlPersistance ourInstance ;
     private String filePath;
     private static final String defaultFolder = "./Chess/FONTS/data/";
 
 
     public static CtrlPersistance getInstance() {
-        if(ourInstance == null) {
-            ourInstance = new CtrlPersistance();
-        }
+        if(ourInstance == null) ourInstance = new CtrlPersistance();
         return ourInstance;
     }
 
@@ -24,6 +22,31 @@ public class CtrlPersistance {
         new File(defaultFolder).mkdirs();
         filePath = defaultFolder;
     }
+
+    ArrayList<String> problemRanking(int id){
+        ArrayList<String> res = new ArrayList<String>();
+        File[] files = new File(filePath).listFiles();
+        for(File file : files) {
+            if (file.getName().charAt(0) != '.') {
+                String[] fileName = file.getName().split("\\.");
+                if (fileName[0].equals(Integer.toString(id))) {
+                    //racollir scores i noms, i eliminar larray que hi ha just a sota
+                    return new ArrayList<String>();
+                }
+            }
+        }
+        return res;
+    }
+
+    String getFEN(int id){
+        String FEN = null;
+        //IMPLEMENTAR QUE RETORNI EL FEN D'UN CERT PROBLEMA IDENTIFICAT AMB ID
+        return FEN;
+    }
+
+
+
+
 
     String read(String path) throws IOException {
         String filepath = this.filePath + "/"+ path;
@@ -53,7 +76,6 @@ public class CtrlPersistance {
         for(File file : files){
             if(file.getName().charAt(0) != '.') {
                 String[] fileName = file.getName().split("\\.");
-                fileName[2] = "-";
             }
         }
         return problemList;
@@ -74,11 +96,11 @@ public class CtrlPersistance {
         return trobat;
     }
 
-    void writeProblem(String info, int id) throws IOException {
+    void writeProblem(String FEN, int id) throws IOException {
         File problemFile = new File(filePath +  id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
-            writer.write(info);
+            writer.write(FEN);
             writer.flush();
             writer.close();
         } catch (IOException e) {

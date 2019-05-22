@@ -3,7 +3,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/Chess/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Chess/FONTS" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/Chess/out" />
     </content>
     <orderEntry type="inheritedJdk" />

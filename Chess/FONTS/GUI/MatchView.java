@@ -38,6 +38,7 @@ public class MatchView {
 
         // set up the main GUI
         gui.setBorder(new EmptyBorder(5, 5, 5, 5));
+        gui.setPreferredSize(new Dimension(620, 550));
 
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(new CompoundBorder(
@@ -45,7 +46,7 @@ public class MatchView {
                 new LineBorder(Color.BLACK)
         ));
         // Set the BG to be ochre
-        Color ochre = new Color(204,119,34);
+        Color ochre = new Color(233, 233, 241);
         chessBoard.setBackground(ochre);
         JPanel boardConstrain = new JPanel(new GridBagLayout());
         boardConstrain.setBackground(ochre);

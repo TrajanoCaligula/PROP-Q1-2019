@@ -14,17 +14,32 @@ import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
 
-public class MatchView {
+enum Actions {
+    HELLO,
+    GOODBYE
+}
 
-    private final JPanel gui = new JPanel(new BorderLayout(3, 3));
+public class MatchView{
+
+
+    JFrame frame = new JFrame("CardLayout demo");
+    private JPanel cards = new JPanel();
+
+    final static String TEXTPANEL = "MENU";
+    JButton playButton = new JButton("Start Match");
+    JButton problemsButton = new JButton("Problems");
+    JButton rankingsButton = new JButton("Rankings");
+    private final JPanel menuCard = new JPanel();
     private Tile[][] chessBoardSquares = new Tile[8][8];
 
+    final static String BUTTONPANEL = "BOARD";
+    private final JPanel boardCard = new JPanel(new BorderLayout(3, 3));
     private JPanel chessBoard;
-    private String fdsf;
     private String matchFEN;
     private JLabel labelN;
     private JLabel labelTime;
     private Tile tileHighlighted = null;
+
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -33,32 +48,57 @@ public class MatchView {
         initializeGui();
         this.matchFEN = matchFEN;
         setMatchGui();
+
     }
 
     public final void initializeGui() {
         // create the images for the chess pieces
 
         // set up the main GUI
-        gui.setBorder(new EmptyBorder(5, 5, 5, 5));
-        gui.setPreferredSize(new Dimension(500, 500));
-        gui.setBackground(new Color(43,43,43));
-        JPanel topBar = new JPanel(new FlowLayout(10, 190, 5));
+        cards.setLayout(new CardLayout());
+
+        //Start Card
+        menuCard.setLayout(new BorderLayout());
+        JLabel title = new JLabel("Chess");
+        title.setFont(new Font("Serif", Font.PLAIN, 65));
+        Border border = title.getBorder();
+        Border margin = new EmptyBorder(30,15,10,10);
+        title.setBorder(new CompoundBorder(border, margin));
+        menuCard.add(title, BorderLayout.NORTH);
+
+        JPanel botonesInit = new JPanel(new GridLayout(0,2));
+        botonesInit.add(playButton);
+        botonesInit.add(problemsButton);
+        botonesInit.add(rankingsButton);
+
+        menuCard.add(botonesInit, BorderLayout.CENTER);
+
+
+        cards.add(menuCard, "MENU");
+
+
+
+        //BOARD CARD
+        boardCard.setBorder(new EmptyBorder(5, 5, 5, 5));
+        boardCard.setPreferredSize(new Dimension(500, 500));
+        boardCard.setBackground(new Color(43,43,43));
+        JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
         labelN = new JLabel("Username :", JLabel.LEFT);
         labelTime = new JLabel("1:32", JLabel.CENTER);
-        topBar.setBackground(new Color(105, 105, 113));
+        topBar.setBackground(new Color(211, 212, 209));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
         topBar.add(labelTime);
         topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
-        Color ochre = new Color(233, 233, 241);
-        chessBoard.setBackground(ochre);
-        JPanel boardConstrain = new JPanel(new BorderLayout());
-        boardConstrain.setBackground(ochre);
-        boardConstrain.add(chessBoard, BorderLayout.CENTER);
-        boardConstrain.add(topBar, BorderLayout.NORTH);
-        gui.add(boardConstrain);
+        chessBoard.setBackground(new Color(211, 212, 209));
+        boardCard.setBackground(new Color(63, 63, 68));
+        boardCard.add(chessBoard, BorderLayout.CENTER);
+        boardCard.add(topBar, BorderLayout.NORTH);
+        cards.add(boardCard, "BOARD");
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "MENU");
 
         // create the chess board squares
         Insets buttonMargin = new Insets(0, 0, 0, 0);
@@ -166,7 +206,7 @@ public class MatchView {
         x++;
     }
     public final JComponent getGui() {
-        return gui;
+        return this.cards;
     }
 
     public void tileAction(Tile pressedTile){
@@ -192,12 +232,21 @@ public class MatchView {
         this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
-    public void addMouseListenerToTile(MouseListener mal) {
+    public void addActionListenerChess(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
-                chessBoardSquares[jj][ii].addMouseListener(mal);
+                chessBoardSquares[jj][ii].setActionCommand(Actions.HELLO.name());
+                chessBoardSquares[jj][ii].addActionListener(mal);
             }
         }
+
+        playButton.setActionCommand(Actions.GOODBYE.name());
+        playButton.addActionListener(mal);
+    }
+
+    public void changeState(){
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "BOARD");
     }
 
 }

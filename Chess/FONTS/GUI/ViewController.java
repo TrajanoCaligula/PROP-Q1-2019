@@ -6,6 +6,7 @@ import Pau.Match;
 import javax.swing.*;
 import javax.swing.text.View;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class ViewController{
 
     public ViewController(MatchView currentView) {
         this.view = currentView;
-        view.addMouseListenerToTile(new MouseListenerTile());
+        view.addActionListenerChess(new ActionListenerChess());
         domainController = CtrlDomain.getInstance();
         String aux = domainController.AuxgetN();
         view.setN(aux);
@@ -31,30 +32,14 @@ public class ViewController{
 
 
 
-    class MouseListenerTile implements MouseListener {
+    class ActionListenerChess implements ActionListener {
         @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            view.tileAction((Tile) e.getSource());
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
+        public void actionPerformed(ActionEvent evt) {
+            if (evt.getActionCommand().equals(Actions.HELLO.name())) {
+                view.tileAction((Tile) evt.getSource());
+            } else if(evt.getActionCommand().equals(Actions.GOODBYE.name())){
+                view.changeState();
+            }
         }
     }
 

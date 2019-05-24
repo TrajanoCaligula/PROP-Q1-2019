@@ -11,8 +11,10 @@ public class CtrlPerTest {
 
         int id = 2314;
         String FEN = "4tf56/drg4/sdf";
+        int N = 4;
+        String dif = "Facil";
 
-        Ctrl.saveProblem(FEN,id);
+        Ctrl.saveProblem(FEN,id,N,dif);
 
         System.out.println(Ctrl.existsProblem(id));
         System.out.println(Ctrl.existsProblem(15));

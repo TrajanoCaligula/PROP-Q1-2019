@@ -367,11 +367,11 @@ public class Problem{
         String[] splits = inputFEN.split(" ");
         if(splits.length != 6){
             System.out.println("The FEN introduced it's not in the correct format. EXAMPLE: ");
-            System.out.println("[FEN=\"1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1\"]");
+            System.out.println("1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1");
             System.exit(0);
         }
 
-        String vFEN = splits[0].substring(6);
+        String vFEN = splits[0];
         this.FEN = vFEN;
         this.firstPlayer = splits[1];
 
@@ -395,12 +395,6 @@ public class Problem{
 
                     if(keyValue != null) {
                         if(validPiece(actual, keyValue)) {
-                            /*Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
-                            if(Character.isUpperCase(actual)){
-                                whitePieces.add(pairPieceCoord);
-                            } else {
-                                blackPieces.add(pairPieceCoord);
-                            }*/
                             allPieces.put(actual, allPieces.get(actual) + 1);
                         }
                         else {
@@ -408,13 +402,6 @@ public class Problem{
                         }
                     }
                     else {
-                        /*
-                        Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
-                        if(Character.isUpperCase(actual)){
-                            whitePieces.add(pairPieceCoord);
-                        } else {
-                            blackPieces.add(pairPieceCoord);
-                        }*/
                         allPieces.put(actual, 1);
                     }
                     i++;

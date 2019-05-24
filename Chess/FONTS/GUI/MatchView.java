@@ -83,7 +83,7 @@ public class MatchView{
         boardCard.setPreferredSize(new Dimension(500, 500));
         boardCard.setBackground(new Color(43,43,43));
         JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
-        labelN = new JLabel("Username :", JLabel.LEFT);
+        labelN = new JLabel("Round: 2", JLabel.LEFT);
         labelTime = new JLabel("1:32", JLabel.CENTER);
         topBar.setBackground(new Color(211, 212, 209));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));

@@ -21,8 +21,6 @@ public class ViewController{
         this.view = currentView;
         view.addActionListenerChess(new ActionListenerChess());
         domainController = CtrlDomain.getInstance();
-        String aux = domainController.AuxgetN();
-        view.setN(aux);
     }
 
     public void move(ActionEvent ae){

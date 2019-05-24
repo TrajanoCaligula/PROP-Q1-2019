@@ -23,6 +23,7 @@ public class MatchView {
     private JPanel chessBoard;
     private String matchFEN;
     private JLabel labelN;
+    private JLabel labelTime;
     private Tile tileHighlighted = null;
 
     private static final String COLS = "abcdefgh";
@@ -39,21 +40,24 @@ public class MatchView {
 
         // set up the main GUI
         gui.setBorder(new EmptyBorder(5, 5, 5, 5));
-        gui.setPreferredSize(new Dimension(620, 550));
+        gui.setPreferredSize(new Dimension(500, 500));
+        gui.setBackground(new Color(43,43,43));
+        JPanel topBar = new JPanel(new FlowLayout(10, 190, 5));
         labelN = new JLabel("Username :", JLabel.LEFT);
-
+        labelTime = new JLabel("1:32", JLabel.CENTER);
+        topBar.setBackground(new Color(105, 105, 113));
+        topBar.setBorder(BorderFactory.createLineBorder(Color.black));
+        topBar.add(labelTime);
+        topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
-        chessBoard.setBorder(new CompoundBorder(
-                new EmptyBorder(8,8,8,8),
-                new LineBorder(Color.BLACK)
-        ));
+        chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
         Color ochre = new Color(233, 233, 241);
         chessBoard.setBackground(ochre);
         JPanel boardConstrain = new JPanel(new BorderLayout());
         boardConstrain.setBackground(ochre);
         boardConstrain.add(chessBoard, BorderLayout.CENTER);
-        boardConstrain.add(labelN, BorderLayout.NORTH);
+        boardConstrain.add(topBar, BorderLayout.NORTH);
         gui.add(boardConstrain);
 
         // create the chess board squares

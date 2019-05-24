@@ -37,15 +37,15 @@ public class CtrlDomain {
         Problem prob = new Problem(FEN);
         int id = prob.getId();
         problems.put(id,prob);
-        ctrlIO.writeProblem(FEN,id);
+        ctrlIO.saveProblem(FEN,id);
         return id;
     }
 
-    ArrayList<String> listProblems(){
+    /*ArrayList<String> listProblems(){
         return ctrlIO.listProblems();
-    }
+    }*/
 
-    String getFENFromId(int id){
+    String getFENFromId(int id) throws IOException {
         return ctrlIO.getFEN(id);
     }
 

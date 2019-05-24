@@ -12,6 +12,7 @@ public class Chess {
     public static void main(String[] args) {
 
         MatchView chessView = new MatchView(fen);
+
         Runnable r = new Runnable() {
             public void run() {
                 JFrame f = new JFrame("Chess");

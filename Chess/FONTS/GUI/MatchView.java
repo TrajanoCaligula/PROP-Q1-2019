@@ -22,6 +22,7 @@ public class MatchView {
 
     private JPanel chessBoard;
     private String matchFEN;
+    private JLabel labelN;
     private Tile tileHighlighted = null;
 
     private static final String COLS = "abcdefgh";
@@ -39,6 +40,7 @@ public class MatchView {
         // set up the main GUI
         gui.setBorder(new EmptyBorder(5, 5, 5, 5));
         gui.setPreferredSize(new Dimension(620, 550));
+        labelN = new JLabel("Username :", JLabel.LEFT);
 
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(new CompoundBorder(
@@ -48,9 +50,10 @@ public class MatchView {
         // Set the BG to be ochre
         Color ochre = new Color(233, 233, 241);
         chessBoard.setBackground(ochre);
-        JPanel boardConstrain = new JPanel(new GridBagLayout());
+        JPanel boardConstrain = new JPanel(new BorderLayout());
         boardConstrain.setBackground(ochre);
-        boardConstrain.add(chessBoard);
+        boardConstrain.add(chessBoard, BorderLayout.CENTER);
+        boardConstrain.add(labelN, BorderLayout.NORTH);
         gui.add(boardConstrain);
 
         // create the chess board squares
@@ -101,6 +104,10 @@ public class MatchView {
                 }
             }
         }
+    }
+
+    public void setN(String nTofuck){
+        this.labelN.setText(nTofuck);
     }
 
     public final void setMatchGui(){

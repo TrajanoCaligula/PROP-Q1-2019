@@ -19,12 +19,16 @@ public class ViewController{
     public ViewController(MatchView currentView) {
         this.view = currentView;
         view.addMouseListenerToTile(new MouseListenerTile());
+        domainController = CtrlDomain.getInstance();
+        String aux = domainController.AuxgetN();
+        view.setN(aux);
     }
 
     public void move(ActionEvent ae){
         Tile tile = (Tile) ae.getSource();
         view.tileAction(tile);
     }
+
 
 
     class MouseListenerTile implements MouseListener {

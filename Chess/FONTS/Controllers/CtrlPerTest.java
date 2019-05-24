@@ -28,14 +28,18 @@ public class CtrlPerTest {
         if(Ctrl.getFile(aux) != null) System.out.println("fasds");
         else System.out.println("tttttt");
 
+        t =  new ArrayList<String>();
+        t.add("hos"); t.add("1230");t.add("hfda"); t.add("1100");t.add("trb"); t.add("750");
+        Ctrl.saveRanking(t,id);
+
         t = Ctrl.loadScores(id);
         for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
 
-        t =  new ArrayList<String>();
-        t.add("Marc"); t.add("232");t.add("Ka"); t.add("3432");
-        Ctrl.saveRanking(t,id);
-        t = Ctrl.loadScores(id);
-        for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
+        Ctrl.addScore("KKK","350",id);
+        Ctrl.addScore("tr3","353",id);
+        Ctrl.addScore("final test","0",id);
+
+        //Ctrl.deleteRanking(id);
 
         //Ctrl.deleteProblem(id);
     }

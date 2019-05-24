@@ -5,6 +5,7 @@ import Pau.*;
 import Jaume.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -17,7 +18,7 @@ public class CtrlDomain {
     private Match match;
 
     public static CtrlDomain getInstance() {
-        if(ourInstance == null) new CtrlDomain();
+        if(ourInstance == null) ourInstance = new CtrlDomain();
         return ourInstance;
     }
 
@@ -33,11 +34,11 @@ public class CtrlDomain {
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
-    int newProblem(String FEN) throws IOException {
+    int newProblem(String FEN,int N, String dif) throws IOException {
         Problem prob = new Problem(FEN);
         int id = prob.getId();
         problems.put(id,prob);
-        ctrlIO.saveProblem(FEN,id);
+        ctrlIO.saveProblem(FEN,id,N,dif);
         return id;
     }
 
@@ -109,8 +110,6 @@ public class CtrlDomain {
         return null;
     }
 
-
-
     String makeMove(String piece, String finalpos){
         Coord coo = new Coord(piece);
         Piece pi = match.getBoard().getPieceInCoord(coo);
@@ -123,20 +122,49 @@ public class CtrlDomain {
         return match.getN();
     }
 
-    /*
-    ArrayList<String> getLegalMoves(int player){
-        if(player == 1){
-            players[0].
+    ArrayList<String> getLegalMoves(String piece){
+        Coord coo = new Coord(piece);
+        Piece aux = match.getBoard().getPieceInCoord(coo);
+        ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());
+        ArrayList<String> res = new ArrayList<String>();
+        for(int i = 0; i < tmp.size(); ++i) {
+            res.add(aux.getPosition().add(tmp.get(i)).toRealCoord());
         }
-        else {
+        return res;
+    }
 
-        }
+    //PROBLEM
+
+    int createProblem(String FEN,int N, String difficulty) throws IOException {
+        Problem prob = new Problem(FEN);
+        prob.setDifficulty(difficulty);
+        prob.setN(N);
+        int id = prob.getId();
+        ctrlIO.saveProblem(FEN,id,N,difficulty);
+        problems.put(id,prob);
+        return id;
+    }
+
+    /*int copyProblem(int id){
+        String mod = ctrlIO.getFEN(id);
+        mod = mod ;
     }*/
+
+    void updateProblems() throws IOException {
+        ArrayList<String> aux = ctrlIO.listProblems();
+        for(int i = 0; i < aux.size(); i++) {
+            String[] splitted = aux.get(i).split(" - ");//POSSIBLE ERROR--------------------------------------------
+            splitted = splitted[1].split(" ");
+            Problem res = new Problem(splitted[0]);
+            problems.put(Integer.parseInt(splitted[0]),res);
+            System.out.println(i+"    "+res.getId()+"    "+res.getFen());
+        }
+    }
 
     //RANKING
 
-    ArrayList<String> topScores(int id){
-        return ctrlIO.problemRanking(id);
+    ArrayList<String> topScores(int id) throws IOException {
+        return ctrlIO.loadScores(id);
     }
 
 

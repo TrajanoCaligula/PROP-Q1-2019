@@ -141,6 +141,26 @@ public class CtrlPersistance {
         return problemList;
     }
 
+    boolean problemExists(String inFEN) throws IOException {
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                String[] lineSplitted = (line).split("\\.");
+                String FEN = lineSplitted[0];
+                if(FEN.equals(inFEN)) {
+                    reader.close();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     boolean deleteProblem(int id) throws IOException {
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
@@ -159,16 +179,18 @@ public class CtrlPersistance {
         return trobat;
     }
 
-    void saveProblem(String FEN,int id){
+    void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {
         File problemFile = new File(filePath+ "P-" +  id + ".txt");
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
-            writer.write(FEN);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+        if(!problemExists(FEN)) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
+                writer.write(FEN);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
         }
     }
 

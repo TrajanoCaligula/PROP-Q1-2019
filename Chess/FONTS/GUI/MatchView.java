@@ -20,6 +20,7 @@ public class MatchView {
     private Tile[][] chessBoardSquares = new Tile[8][8];
 
     private JPanel chessBoard;
+    private String fdsf;
     private String matchFEN;
     private JLabel labelN;
     private JLabel labelTime;

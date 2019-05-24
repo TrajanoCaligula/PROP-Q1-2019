@@ -19,7 +19,6 @@ public class MatchView {
     private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private Tile[][] chessBoardSquares = new Tile[8][8];
 
-
     private JPanel chessBoard;
     private String matchFEN;
     private JLabel labelN;

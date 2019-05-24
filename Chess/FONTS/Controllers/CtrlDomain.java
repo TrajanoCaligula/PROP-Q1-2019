@@ -17,7 +17,7 @@ public class CtrlDomain {
     private Match match;
 
     public static CtrlDomain getInstance() {
-        if(ourInstance == null) new CtrlDomain();
+        if(ourInstance == null) ourInstance = new CtrlDomain();
         return ourInstance;
     }
 
@@ -66,7 +66,11 @@ public class CtrlDomain {
         else players[1] = pl;
     }
 
-    void newPlayerHuman(String name, String color){
+    public String AuxgetN(){
+        return "10";
+    }
+
+    public void newPlayerHuman(String name, String color){
         if(color == "WHITE") players[0] = new Human(name,Color.WHITE);
         else players[1] = new Human(name,Color.BLACK);
     }

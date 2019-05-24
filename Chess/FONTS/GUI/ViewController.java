@@ -1,5 +1,6 @@
 package GUI;
 
+import Controllers.CtrlDomain;
 import Pau.Match;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 public class ViewController{
     private Match currentMatch;
     private MatchView view;
+    private CtrlDomain domainController;
 
     public ViewController(MatchView currentView) {
         this.view = currentView;
@@ -23,8 +25,6 @@ public class ViewController{
         Tile tile = (Tile) ae.getSource();
         view.tileAction(tile);
     }
-
-
 
 
     class MouseListenerTile implements MouseListener {

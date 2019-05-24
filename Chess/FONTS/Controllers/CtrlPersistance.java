@@ -25,78 +25,52 @@ public class CtrlPersistance {
         filePath = defaultFolder;
     }
 
-    ArrayList<String> problemRanking(int id){
+    // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
+
+    void addScore(String name, String points, int id) throws IOException {
+        ArrayList<String> scores = loadScores(id);
+        File del = getFile("R-"+id);
+        del.delete();
+        boolean trobat = false;
         ArrayList<String> res = new ArrayList<String>();
-        File[] files = new File(filePath).listFiles();
-        for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
-                    //racollir scores i noms, i eliminar larray que hi ha just a sota
-                    return new ArrayList<String>();
+        int aux = 0;
+        for (int i = 0; i < scores.size(); i += 2) {
+                if (Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points) && !trobat) {
+                    res.add(name);
+                    res.add(points);
+                    trobat = true;
+                    i -= 2;
+                } else {
+                    res.add(scores.get(i));
+                    res.add(scores.get(i + 1));
                 }
-            }
         }
-        return res;
+        if(!trobat && scores.size() < 10){
+            res.add(name);
+            res.add(points);
+        }
+        saveRanking(res,id);
     }
 
-
-
-    /*boolean deleteRanking(int idPR){
-        boolean trobat = false;
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
-                String[] fileName = splitted[1].split("\\.");
-                if (fileName[0].equals(idPR)) {
-                    trobat = true;
-                    file.delete();
-                }
-            }
-        }
-        return trobat;
-    }*/
-
-    /*void updateRankingFile(String id){
-        File file = getFile("R-"+id);
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-            for (int i = 0; i < scoresRanking.size(); i++) {
-                writer.write(scoresRanking.get(i).getPlayer() + " " + scoresRanking.get(i).getScore() + "\n");
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }*/
-
-    /*void addScore(String name, String point, int id){
-        ArrayList<String> scores = loadScores(id);
-        for(int i = 0; i < scores.size(); i+=2){
-            if(scores[i] <)
-        }
-    }*/
+    void deleteRanking(int id) throws IOException {
+        File del = getFile("R-"+Integer.toString(id));
+        del.delete();
+    }
 
     void saveRanking(ArrayList<String> scores, int id){
         File problemFile = new File(filePath+ "R-" +  id + ".txt");
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
-            for (int i = 0; i < scores.size(); i++){
-                String aux = scores.get(i) +" "+scores.get(i+1);
+            for (int i = 0; i < scores.size(); i+=2){
+                String aux = scores.get(i) +" "+scores.get(i+1)+"\n";
                 writer.write(aux);
                 writer.flush();
-                writer.close();
             }
+
+            writer.close();
         } catch (IOException e) {
         }
     }
-
-
-
-    // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
 
     ArrayList<String> loadScores(int id) throws IOException {
         ArrayList<String> scoresLoaded = new ArrayList<String>();
@@ -115,9 +89,6 @@ public class CtrlPersistance {
         }
         return scoresLoaded;
     }
-
-
-
 
     File getFile(String id) throws IOException {
         id += ".txt";
@@ -170,9 +141,11 @@ public class CtrlPersistance {
         return problemList;
     }
 
-    boolean deleteProblem(int id){
+    boolean deleteProblem(int id) throws IOException {
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
+        File del = getFile("R-"+id);
+        del.delete();
         for(File file : files) {
             String[] splitted = file.getName().split("-");
             if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {

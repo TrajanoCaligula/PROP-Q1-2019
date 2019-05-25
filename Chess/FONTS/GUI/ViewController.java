@@ -34,9 +34,11 @@ public class ViewController{
     class ActionListenerChess implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if (evt.getActionCommand().equals(Actions.HELLO.name())) {
+            if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                 view.tileAction((Tile) evt.getSource());
-            } else if(evt.getActionCommand().equals(Actions.GOODBYE.name())){
+            } else if(evt.getActionCommand().equals(Actions.PLAY.name())){
+                view.showPlayOptions();
+            } else if(evt.getActionCommand().equals(Actions.START.name())){
                 view.changeState();
             }
         }

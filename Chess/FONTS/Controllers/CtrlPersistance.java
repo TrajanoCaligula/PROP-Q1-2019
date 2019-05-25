@@ -34,13 +34,14 @@ public class CtrlPersistance {
 
 
     void addScore(String name, String points, int id) throws IOException {
-        ArrayList<String> scores = loadScores(id);
-        File del = getFile("R-"+id);
-        del.delete();
-        boolean trobat = false;
-        ArrayList<String> res = new ArrayList<String>();
-        int aux = 0;
-        for (int i = 0; i < scores.size(); i += 2) {
+        if(existsRanking(id)) {
+            ArrayList<String> scores = loadScores(id);
+            File del = getFile("R-" + id);
+            del.delete();
+            boolean trobat = false;
+            ArrayList<String> res = new ArrayList<String>();
+            int aux = 0;
+            for (int i = 0; i < scores.size(); i += 2) {
                 if (Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points) && !trobat) {
                     res.add(name);
                     res.add(points);
@@ -50,12 +51,17 @@ public class CtrlPersistance {
                     res.add(scores.get(i));
                     res.add(scores.get(i + 1));
                 }
+            }
+            if (!trobat && scores.size() < 10) {
+                res.add(name);
+                res.add(points);
+            }
+            saveRanking(res, id);
+        }else{
+            ArrayList<String> str = new ArrayList<String>();
+            str.add(name);str.add(points);
+            saveRanking(str,id);
         }
-        if(!trobat && scores.size() < 10){
-            res.add(name);
-            res.add(points);
-        }
-        saveRanking(res,id);
     }
 
     void deleteRanking(int id) throws IOException {
@@ -96,7 +102,7 @@ public class CtrlPersistance {
         return scoresLoaded;
     }
 
-    ArrayList<ArrayList<String>> listRankings() throws IOException {
+    ArrayList<ArrayList<String>> listRankings() throws IOException { //fer? CREC QUE NO CAL-------------+-+-++++++++++++++++++++++++++++++++
         ArrayList<ArrayList<String>> rankingsList = new ArrayList<ArrayList<String>>();
         File[] files = new File(filePath).listFiles();
         int i = 0;
@@ -133,6 +139,22 @@ public class CtrlPersistance {
             System.out.println();
         }
         return rankingsList;
+    }
+
+    boolean existsRanking(int id){ //FUNCIONA
+        boolean trobat = false;
+        File[] files = new File(filePath).listFiles();
+        for(File file : files) {
+            String[] splitted = file.getName().split("-");
+            if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+                String[] fileName = splitted[1].split("\\.");
+                if(fileName[0].equals(Integer.toString(id))){
+                    System.out.println(file.getName());
+                    trobat = true;
+                }
+            }
+        }
+        return trobat;
     }
 
     File getFile(String id) throws IOException {//FUNCIONA
@@ -217,8 +239,9 @@ public class CtrlPersistance {
             if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
                 String[] fileName = splitted[1].split("\\.");
                 if (fileName[0].equals(Integer.toString(id))) {
-                    trobat = true;
                     file.delete();
+                    if(existsRanking(id)) deleteRanking(id);
+                    return true;
                 }
             }
         }
@@ -235,7 +258,6 @@ public class CtrlPersistance {
                 writer.flush();
                 writer.close();
             } catch (IOException e) {
-                System.out.println("An error occurred.");
                 e.printStackTrace();
             }
         }

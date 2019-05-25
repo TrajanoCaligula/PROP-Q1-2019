@@ -16,6 +16,7 @@ public class CtrlDomain {
     private HashMap <Integer, Problem> problems;
     private Player[] players;
     private Match match;
+    private Problem probToMod;
 
     public static CtrlDomain getInstance() throws IOException {
         if(ourInstance == null) ourInstance = new CtrlDomain();
@@ -27,6 +28,7 @@ public class CtrlDomain {
         problems = new HashMap<Integer, Problem>();
         match = null;
         players = new Player[2];
+        probToMod=null;
         updateProblems();
         updateRankings();
     }
@@ -34,18 +36,6 @@ public class CtrlDomain {
     //PROBLEM
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
-
-    int newProblem(String FEN,int N) throws IOException {
-        Problem prob = new Problem(FEN);
-        int id = prob.getId();
-        problems.put(id,prob);
-        String dif;
-        if(N <= 5) dif = "Hard";
-        else if (N <=10) dif = "Normal";
-        else dif = "Easy";
-        ctrlIO.saveProblem(FEN,id,N,dif);
-        return id;
-    }
 
     ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblems();
@@ -86,33 +76,26 @@ public class CtrlDomain {
         return false;
     }
 
-    String newGameComplete(int problemID, String name1, Color color1, int type1,int depth1,String name2, Color color2, int type2, int depth2){
+    String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
         Player one = null;
         Player two = null;
         switch (type1){
-            case 0: one = new Human(name1,color1);
-            case 1: one = new Machine(name1,color1,depth1);
-            default: one = new Machine2(name1,color1,depth1);
+            case 0: one = new Human(name1,Color.WHITE);
+            case 1: one = new Machine(name1,Color.WHITE,depth1);
+            default: one = new Machine2(name1,Color.WHITE,depth1);
         }
         switch (type2){
-            case 0: two = new Human(name2,color2);
-            case 1: two = new Machine(name2,color2,depth2);
-            default: two = new Machine2(name2,color2,depth2);
-        }
-        if(color1 == Color.WHITE){
-            players[0] = one;
-            players[1] = two;
-        } else {
-            players[0] = two;
-            players[1] = one;
+            case 0: two = new Human(name2,Color.BLACK);
+            case 1: two = new Machine(name2,Color.BLACK,depth2);
+            default: two = new Machine2(name2,Color.BLACK,depth2);
         }
 
+        players[0] = one;
+        players[1] = two;
+
         Problem problem = problems.get(problemID);
-        if(problem != null){
-            match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
-            return match.getBoard().toFEN();
-        }
-        return null;
+        match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
+        return match.getBoard().toFEN();
     }
 
     String makeMove(String piece, String finalpos){
@@ -142,16 +125,40 @@ public class CtrlDomain {
 
     int createProblem(String FEN,int N, String difficulty) throws IOException {
         Problem prob = new Problem(FEN);
-        prob.setDifficulty(difficulty);
-        prob.setN(N);
-        int id = prob.getId();
-        ctrlIO.saveProblem(FEN,id,N,difficulty);
-        problems.put(id,prob);
-        return id;
+        if(prob.validateFen(FEN) && prob.validateProblem()) {
+            if(N <= 5) difficulty = "Hard";
+            else if(N <= 10) difficulty = "Normal";
+            else difficulty = "Easy";
+            prob.setDifficulty(difficulty);
+            prob.setN(N);
+            int id = prob.getId();
+            ctrlIO.saveProblem(FEN, id, N, difficulty);
+            problems.put(id, prob);
+            return id;
+        }else return-1;
     }
 
     String copyProblem(int id){
-        return problems.get(id).getFen();
+        Problem prob = problems.get(id);
+        probToMod = new Problem(prob.getFen());
+        return probToMod.getFen();
+    }
+
+    String modifyFEN(String init,String fin){
+        return probToMod.movePiece(init,fin);
+    }
+    int saveModProb() throws IOException {
+        if(probToMod.validateFen(probToMod.getFen()) && probToMod.validateProblem()){
+            ctrlIO.saveProblem(probToMod.getFen(),probToMod.getId(),probToMod.getN(),probToMod.getDifficulty());
+            problems.put(probToMod.getId(),probToMod);
+            return probToMod.getId();
+        }
+        return -1;
+    }
+
+    void dropProblem(int id) throws IOException {
+        ctrlIO.deleteProblem(id);
+        problems.remove(id);
     }
 
     void updateProblems() throws IOException {
@@ -173,7 +180,7 @@ public class CtrlDomain {
 
     //RANKING
 
-    void updateRankings() throws IOException {
+    void updateRankings() throws IOException { //NEED TEST
         ArrayList<ArrayList<String>> aux = ctrlIO.listRankings();
         for(int i = 0; i < aux.size(); i++) {
             Ranking rank = new Ranking(Integer.parseInt(aux.get(i).get(0)));

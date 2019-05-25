@@ -46,6 +46,13 @@ public class CtrlPerTest {
 
         Ctrl.listRankings();
 
+        Ctrl.existsRanking(2314);
+
+        Ctrl.addScore("TEST","100",110733);
+
+        t = Ctrl.loadScores(110733);
+        for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
+
         //Ctrl.deleteRanking(id);
 
         //Ctrl.deleteProblem(id);

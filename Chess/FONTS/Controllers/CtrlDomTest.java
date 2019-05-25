@@ -14,6 +14,8 @@ public class CtrlDomTest {
         ArrayList<String> aux = Ctrl.topScores(2314);
         for(int i = 0; i < aux.size(); i++) System.out.println(aux.get(i));
 
+        System.out.println(Ctrl.getFENFromId(2314));
+
         System.out.println("after");
         //Ctrl.updateProblems();
         System.out.println("before");

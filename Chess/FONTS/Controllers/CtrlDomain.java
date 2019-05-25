@@ -35,17 +35,21 @@ public class CtrlDomain {
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
-    int newProblem(String FEN,int N, String dif) throws IOException {
+    int newProblem(String FEN,int N) throws IOException {
         Problem prob = new Problem(FEN);
         int id = prob.getId();
         problems.put(id,prob);
+        String dif;
+        if(N <= 5) dif = "Hard";
+        else if (N <=10) dif = "Normal";
+        else dif = "Easy";
         ctrlIO.saveProblem(FEN,id,N,dif);
         return id;
     }
 
-    /*ArrayList<String> listProblems(){
+    ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblems();
-    }*/
+    }
 
     String getFENFromId(int id) throws IOException {
         return ctrlIO.getFEN(id);
@@ -172,9 +176,9 @@ public class CtrlDomain {
     void updateRankings() throws IOException {
         ArrayList<ArrayList<String>> aux = ctrlIO.listRankings();
         for(int i = 0; i < aux.size(); i++) {
-            System.out.println(Integer.parseInt(aux.get(i).get(0))+"                     H"+" "+ aux.get(i).size());
             Ranking rank = new Ranking(Integer.parseInt(aux.get(i).get(0)));
-            for(int j = 0; j < aux.get(i).size();j+=2) {
+
+            for(int j = 1; j < aux.get(i).size();j+=2) {
                 Score score = new Score(aux.get(i).get(j),Integer.parseInt(aux.get(i).get(j+1)));
                 rank.addScore(score);
             }

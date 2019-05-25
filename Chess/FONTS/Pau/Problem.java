@@ -42,7 +42,6 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        this.N = 4;
         if(!validateFen(FEN)){
             System.out.println("This FEN is invalid!");
         }

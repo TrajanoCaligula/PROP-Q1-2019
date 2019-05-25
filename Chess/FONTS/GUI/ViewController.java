@@ -38,6 +38,8 @@ public class ViewController{
                 view.tileAction((Tile) evt.getSource());
             } else if(evt.getActionCommand().equals(Actions.PLAY.name())){
                 view.showPlayOptions();
+            } else if(evt.getActionCommand().equals(Actions.START.name())){
+                view.changeState();
             }
         }
     }

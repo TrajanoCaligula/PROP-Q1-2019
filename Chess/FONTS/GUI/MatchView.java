@@ -38,6 +38,7 @@ public class MatchView{
     private JPanel playOptions;
     private JLabel labelN;
     private JLabel labelTime;
+    private JButton startButton;
     private Tile tileHighlighted = null;
 
 
@@ -58,6 +59,7 @@ public class MatchView{
 
         //Start Card
         menuCard.setLayout(new BorderLayout());
+        menuCard.setPreferredSize(new Dimension(600,700));
         JLabel title = new JLabel("Chess");
         title.setFont(new Font("Serif", Font.PLAIN, 65));
         Border border = title.getBorder();
@@ -73,10 +75,12 @@ public class MatchView{
 
         //Play options
         playOptions = new JPanel(new BorderLayout());
+        startButton = new JButton("Start Match");
         String problems[]={"P-13432","P-64536","P-6542765","P-98697","P-3650672"};
         JComboBox cb = new JComboBox(problems);
         cb.setBounds(50, 50,90,20);
         playOptions.add(cb, BorderLayout.NORTH);
+        playOptions.add(startButton, BorderLayout.SOUTH);
 
         JPanel players = new JPanel(new GridLayout(0,2));
 
@@ -289,10 +293,14 @@ public class MatchView{
         playButton.setActionCommand(Actions.PLAY.name());
         playButton.addActionListener(mal);
 
+        startButton.setActionCommand(Actions.START.name());
+        startButton.addActionListener(mal);
+
     }
 
     public void showPlayOptions(){
-        this.playOptions.setVisible(true);
+        this.playOptions.setVisible(!this.playOptions.isVisible());
+        this.playButton.setVisible(!this.playOptions.isVisible());
     }
 
 

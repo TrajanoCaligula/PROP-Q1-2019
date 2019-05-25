@@ -15,8 +15,9 @@ import javax.imageio.ImageIO;
 import static java.lang.Character.*;
 
 enum Actions {
-    HELLO,
-    GOODBYE
+    PLAY,
+    START,
+    MOVE
 }
 
 public class MatchView{
@@ -25,17 +26,16 @@ public class MatchView{
     JFrame frame = new JFrame("CardLayout demo");
     private JPanel cards = new JPanel();
 
-    final static String TEXTPANEL = "MENU";
-    JButton playButton = new JButton("Start Match");
-    JButton problemsButton = new JButton("Problems");
-    JButton rankingsButton = new JButton("Rankings");
+    private JButton playButton = new JButton("Play");
+    private JButton problemsButton = new JButton("Problems");
+    private JButton rankingsButton = new JButton("Rankings");
     private final JPanel menuCard = new JPanel();
     private Tile[][] chessBoardSquares = new Tile[8][8];
 
-    final static String BUTTONPANEL = "BOARD";
     private final JPanel boardCard = new JPanel(new BorderLayout(3, 3));
     private JPanel chessBoard;
     private String matchFEN;
+    private JPanel playOptions;
     private JLabel labelN;
     private JLabel labelTime;
     private Tile tileHighlighted = null;
@@ -48,7 +48,6 @@ public class MatchView{
         initializeGui();
         this.matchFEN = matchFEN;
         setMatchGui();
-
     }
 
     public final void initializeGui() {
@@ -68,6 +67,52 @@ public class MatchView{
 
         JPanel botonesInit = new JPanel(new GridLayout(0,2));
         botonesInit.add(playButton);
+
+
+
+
+        //Play options
+        playOptions = new JPanel(new BorderLayout());
+        String problems[]={"P-13432","P-64536","P-6542765","P-98697","P-3650672"};
+        JComboBox cb = new JComboBox(problems);
+        cb.setBounds(50, 50,90,20);
+        playOptions.add(cb, BorderLayout.NORTH);
+
+        JPanel players = new JPanel(new GridLayout(0,2));
+
+        ButtonGroup player1 = new ButtonGroup();
+        JRadioButton machineP1 = new JRadioButton("Machine");
+        JRadioButton humanP1 = new JRadioButton("Human");
+        player1.add(machineP1);
+        player1.add(humanP1);
+        JPanel radioPanel1 = new JPanel();
+        radioPanel1.setLayout(new GridLayout(3, 1));
+        radioPanel1.add(machineP1);
+        radioPanel1.add(humanP1);
+        //... Add a titled border to the button panel.
+        radioPanel1.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Player 1"));
+
+        players.add(radioPanel1);
+
+        ButtonGroup player2 = new ButtonGroup();
+        JRadioButton machineP2 = new JRadioButton("Machine");
+        JRadioButton humanP2 = new JRadioButton("Human");
+        player2.add(machineP2);
+        player2.add(humanP2);
+        JPanel radioPanel2 = new JPanel();
+        radioPanel2.setLayout(new GridLayout(3, 1));
+        radioPanel2.add(machineP2);
+        radioPanel2.add(humanP2);
+        //... Add a titled border to the button panel.
+        radioPanel2.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createEtchedBorder(), "Player 2"));
+        players.add(radioPanel2);
+
+        playOptions.add(players, BorderLayout.CENTER);
+        playOptions.setVisible(false);
+        botonesInit.add(playOptions);
+
         botonesInit.add(problemsButton);
         botonesInit.add(rankingsButton);
 
@@ -154,6 +199,7 @@ public class MatchView{
         this.labelN.setText(nTofuck);
     }
 
+
     public final void setMatchGui(){
         int i = 0, y = 0, x = 0;
         Character c;
@@ -235,14 +281,20 @@ public class MatchView{
     public void addActionListenerChess(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
-                chessBoardSquares[jj][ii].setActionCommand(Actions.HELLO.name());
+                chessBoardSquares[jj][ii].setActionCommand(Actions.MOVE.name());
                 chessBoardSquares[jj][ii].addActionListener(mal);
             }
         }
 
-        playButton.setActionCommand(Actions.GOODBYE.name());
+        playButton.setActionCommand(Actions.PLAY.name());
         playButton.addActionListener(mal);
+
     }
+
+    public void showPlayOptions(){
+        this.playOptions.setVisible(true);
+    }
+
 
     public void changeState(){
         CardLayout cl = (CardLayout)(cards.getLayout());

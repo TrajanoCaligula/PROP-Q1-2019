@@ -17,17 +17,18 @@ public class CtrlDomain {
     private Player[] players;
     private Match match;
 
-    public static CtrlDomain getInstance() {
+    public static CtrlDomain getInstance() throws IOException {
         if(ourInstance == null) ourInstance = new CtrlDomain();
         return ourInstance;
     }
 
-    private CtrlDomain() {
+    private CtrlDomain() throws IOException {
         ctrlIO = CtrlPersistance.getInstance();
         problems = new HashMap<Integer, Problem>();
         match = null;
         players = new Player[2];
-
+        updateProblems();
+        updateRankings();
     }
 
     //PROBLEM
@@ -145,23 +146,41 @@ public class CtrlDomain {
         return id;
     }
 
-    /*int copyProblem(int id){
-        String mod = ctrlIO.getFEN(id);
-        mod = mod ;
-    }*/
+    String copyProblem(int id){
+        return problems.get(id).getFen();
+    }
 
     void updateProblems() throws IOException {
         ArrayList<String> aux = ctrlIO.listProblems();
         for(int i = 0; i < aux.size(); i++) {
-            String[] splitted = aux.get(i).split(" - ");//POSSIBLE ERROR--------------------------------------------
-            splitted = splitted[1].split(" ");
-            Problem res = new Problem(splitted[0]);
-            problems.put(Integer.parseInt(splitted[0]),res);
-            System.out.println(i+"    "+res.getId()+"    "+res.getFen());
+            String[] splitted = aux.get(i).split(" - ");
+            int id = Integer.parseInt(splitted[0]);
+            String FEN = splitted[1];
+            splitted = splitted[2].split("\\s");
+            FEN += splitted[0]+" "+splitted[1]+" "+splitted[2];
+            int N = Integer.parseInt(splitted[3]);
+            String diff = splitted[4];
+            Problem res = new Problem(FEN);
+            res.setN(N);
+            res.setDifficulty(diff);
+            problems.put(id,res);
         }
     }
 
     //RANKING
+
+    void updateRankings() throws IOException {
+        ArrayList<ArrayList<String>> aux = ctrlIO.listRankings();
+        for(int i = 0; i < aux.size(); i++) {
+            System.out.println(Integer.parseInt(aux.get(i).get(0))+"                     H"+" "+ aux.get(i).size());
+            Ranking rank = new Ranking(Integer.parseInt(aux.get(i).get(0)));
+            for(int j = 0; j < aux.get(i).size();j+=2) {
+                Score score = new Score(aux.get(i).get(j),Integer.parseInt(aux.get(i).get(j+1)));
+                rank.addScore(score);
+            }
+
+        }
+    }
 
     ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);

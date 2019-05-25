@@ -10,7 +10,7 @@ public class CtrlPerTest {
         CtrlPersistance Ctrl = CtrlPersistance.getInstance();
 
         int id = 2314;
-        String FEN = "4tf56/drg4/sdf";
+        String FEN = "5B1b/1p2rR2/8/1B4N1/K2kP3/5n1R/1N6/2Q5 w - - 0 1";
         int N = 4;
         String dif = "Facil";
 
@@ -37,9 +37,14 @@ public class CtrlPerTest {
         t = Ctrl.loadScores(id);
         for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
 
+        System.out.println();
+        Ctrl.listRankings();
+
         Ctrl.addScore("KKK","350",id);
         Ctrl.addScore("tr3","353",id);
         Ctrl.addScore("final test","0",id);
+
+        Ctrl.listRankings();
 
         //Ctrl.deleteRanking(id);
 

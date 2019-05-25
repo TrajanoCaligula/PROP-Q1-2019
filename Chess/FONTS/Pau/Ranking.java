@@ -28,20 +28,6 @@ public class Ranking{
 	 */
 	public Ranking(int idProblem) throws IllegalArgumentException {
 		this.idProblemRanking = idProblem;
-		try {
-			if(Problem.existsProblem(idProblem)) {
-				rankingFile = new File("../" + "R-" + this.idProblemRanking + ".txt");
-				if (!rankingFile.createNewFile()) {
-					ArrayList<Score> scoresRankingLD = loadScores(rankingFile);
-					setScores(scoresRankingLD);
-				}
-			} else {
-				throw new IllegalArgumentException("The problem of which you want to create a ranking is not in our DB!");
-			}
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
 	}
 
 	/**Getters*/

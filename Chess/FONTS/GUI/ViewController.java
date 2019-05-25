@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -17,7 +18,7 @@ public class ViewController{
     private MatchView view;
     private CtrlDomain domainController;
 
-    public ViewController(MatchView currentView) {
+    public ViewController(MatchView currentView) throws IOException {
         this.view = currentView;
         view.addActionListenerChess(new ActionListenerChess());
         domainController = CtrlDomain.getInstance();

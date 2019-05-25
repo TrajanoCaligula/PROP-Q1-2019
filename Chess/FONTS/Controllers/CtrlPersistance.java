@@ -1,7 +1,5 @@
 package Controllers;
 
-import Pau.Problem;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -25,7 +23,15 @@ public class CtrlPersistance {
         filePath = defaultFolder;
     }
 
+    /* TODO
+    UPDATE RANKINGS
+    CREATE MATCH TO MODIFY
+    PARTIDA
+     */
+
     // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
+
+
 
     void addScore(String name, String points, int id) throws IOException {
         ArrayList<String> scores = loadScores(id);
@@ -90,7 +96,46 @@ public class CtrlPersistance {
         return scoresLoaded;
     }
 
-    File getFile(String id) throws IOException {
+    ArrayList<ArrayList<String>> listRankings() throws IOException {
+        ArrayList<ArrayList<String>> rankingsList = new ArrayList<ArrayList<String>>();
+        File[] files = new File(filePath).listFiles();
+        int i = 0;
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                ArrayList<String> aux = new ArrayList<String>();
+                aux.add(id);
+                while((line = reader.readLine()) != null) {
+                    String[] lineSplitted = (line).split("\\s");
+                    String name = lineSplitted[0];
+                    String points = lineSplitted[1];
+                    aux.add(name);
+                    aux.add(points);
+                }
+                rankingsList.add(aux);
+                reader.close();
+                i++;
+            }
+        }
+        for(int l = 0; l < rankingsList.size(); l++){
+            for(int j = 0; j < rankingsList.get(l).size();j++) {
+                if(j != 0) {
+                    System.out.println(rankingsList.get(l).get(j));
+                }else {
+                    System.out.println(rankingsList.get(l).get(j) + " " + rankingsList.get(l).get(j + 1));
+                    ++j;
+                }
+            }
+            System.out.println();
+        }
+        return rankingsList;
+    }
+
+    File getFile(String id) throws IOException {//FUNCIONA
         id += ".txt";
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
@@ -102,7 +147,7 @@ public class CtrlPersistance {
         return null;
     }
 
-    String getFEN(int id) throws IOException {
+    String getFEN(int id) throws IOException {//FUNCIONA
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
             String[] splitted = file.getName().split("-");
@@ -121,7 +166,7 @@ public class CtrlPersistance {
         return null;
     }
 
-    ArrayList<String> listProblems() throws IOException {
+    ArrayList<String> listProblems() throws IOException {//FUNCIONA
         ArrayList<String> problemList = new ArrayList<>();
         File[] files = new File(filePath).listFiles();
         for(File file : files){
@@ -134,6 +179,7 @@ public class CtrlPersistance {
                 String[] lineSplitted = (line).split("\\.");
                 String FEN = lineSplitted[0];
                 String res = id + " - " + FEN;
+                System.out.println(res);
                 problemList.add(res);
                 reader.close();
             }
@@ -141,7 +187,7 @@ public class CtrlPersistance {
         return problemList;
     }
 
-    boolean problemExists(String inFEN) throws IOException {
+    boolean problemExists(String inFEN) throws IOException {//FUNCIONA
         File[] files = new File(filePath).listFiles();
         for(File file : files){
             String[] splitted = file.getName().split("-");
@@ -161,7 +207,7 @@ public class CtrlPersistance {
         return false;
     }
 
-    boolean deleteProblem(int id) throws IOException {
+    boolean deleteProblem(int id) throws IOException {//FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         File del = getFile("R-"+id);
@@ -179,12 +225,13 @@ public class CtrlPersistance {
         return trobat;
     }
 
-    void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {
+    void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {//FUNCIONA
         File problemFile = new File(filePath+ "P-" +  id + ".txt");
-        if(!problemExists(FEN)) {
+        String aux = FEN+" "+N+" "+difficulty;
+        if(!problemExists(aux)) {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
-                writer.write(FEN);
+                writer.write(aux);
                 writer.flush();
                 writer.close();
             } catch (IOException e) {
@@ -194,7 +241,7 @@ public class CtrlPersistance {
         }
     }
 
-    boolean existsProblem(int idPR){
+    boolean existsProblem(int idPR){ //FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         for(File file : files) {

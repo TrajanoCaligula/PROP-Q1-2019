@@ -1,4 +1,4 @@
-package Jaume;
+/*package Jaume;
 
 import java.util.Scanner;
 import Calin.*;
@@ -249,7 +249,7 @@ public class Main {
                     boardToModify = Board.fenToBoard(problemToModify.getFen());
                     boardToModify.PrintBoard();
                 }
-            }*/
+            }
 
             else if(option ==  2.5) {
                 System.out.println("Insert the id of the problem you want to delete:");
@@ -292,3 +292,4 @@ public class Main {
         }
     }
 }
+*/

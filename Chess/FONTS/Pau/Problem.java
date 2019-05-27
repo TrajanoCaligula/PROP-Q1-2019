@@ -18,7 +18,6 @@ public class Problem{
     private ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     private ArrayList<Piece> blackPieces = new ArrayList<Piece>();
     private int N; //We get n from theme - (ex: Mat en 2 --> N = 2 )
-    public File problemFile;
 
 
     /**
@@ -42,7 +41,6 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        this.N = 4;
         if(!validateFen(FEN)){
             System.out.println("This FEN is invalid!");
         }
@@ -147,39 +145,18 @@ public class Problem{
     /**
      * Use this function to modify the initial fen as you want.
      */
-    public void movePiece(){
+    public String movePiece(String init,String fin){
         Board boardMovements = new Board(this.FEN);
-        boardMovements.printBoard();
 
-        System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
-        Scanner s = new Scanner(System.in);
-        String initialPos = s.next();
-        Coord initialCoord = new Coord(initialPos);
+        Coord initialCoord = new Coord(init);
 
-        while (!Board.inBounds(initialCoord)) {
-            System.out.print("Wrong coordinates, please select valid coordinates: ");
-            s = new Scanner(System.in);
-            initialPos = s.next();
-            initialCoord = new Coord(initialPos);
-        }
-
-        System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e9): ");
-        Scanner s2 = new Scanner(System.in);
-        String movingPos = s2.next();
-        Coord movingCoord = new Coord(movingPos);
-        while (!Board.inBounds(movingCoord)) {
-            System.out.print("Wrong coordinates, please select valid coordinates: ");
-            s2 = new Scanner(System.in);
-            movingPos = s2.next();
-            movingCoord = new Coord(movingPos);
-        }
+        Coord movingCoord = new Coord(fin);
 
         Piece pieceToMove = boardMovements.getPieceInCoord(initialCoord);
         boardMovements.movePiece(pieceToMove, movingCoord);
 
         this.FEN = boardMovements.toFEN();
-        this.saveProblem();
-        boardMovements.printBoard();
+        return FEN;
     }
 
 
@@ -212,21 +189,10 @@ public class Problem{
     }
 
 
-    /**
+    /**SaveProblem
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
-    public void saveProblem(){
-        problemFile = new File("../" + "P-" +  this.id + ".txt");
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
-            writer.write(this.toString());
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
+
 
     /**
      *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
@@ -351,9 +317,13 @@ public class Problem{
      * We use backtracking algorithm to check if the problem has a solution
      * @return Returns true if it does, have a solution, otherwise returns false;
      */
-    private boolean validateProblem(){
+    public boolean validateProblem(){
         Backtracking btValidator = new Backtracking(this, N, Color.WHITE);
         return btValidator.backtracking();
+    }
+
+    public String getDifficulty(){
+        return problemDifficulty;
     }
 
     /**
@@ -363,7 +333,7 @@ public class Problem{
      * 2. The correct number of white tiles
      * @return Devuelve si el problema tiene un fen valido o no
      */
-    private boolean validateFen(String inputFEN){
+    public boolean validateFen(String inputFEN){
         String[] splits = inputFEN.split(" ");
         /*if(splits.length != 6){
             System.out.println("The FEN introduced it's not in the correct format. EXAMPLE: ");

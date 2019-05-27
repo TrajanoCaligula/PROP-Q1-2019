@@ -83,7 +83,6 @@ public class Ranking{
 			scoresRanking.add(scoreToAdd);
 		}
 		Collections.sort(scoresRanking);
-		updateRankingFile();
 	}
 
 	/**

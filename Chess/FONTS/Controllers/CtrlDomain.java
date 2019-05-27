@@ -110,7 +110,7 @@ public class CtrlDomain {
         return match.getN();
     }
 
-    ArrayList<String> getLegalMoves(String piece){
+    ArrayList<String> getLegalMoves(String piece){ //NEED TEST
         Coord coo = new Coord(piece);
         Piece aux = match.getBoard().getPieceInCoord(coo);
         ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());

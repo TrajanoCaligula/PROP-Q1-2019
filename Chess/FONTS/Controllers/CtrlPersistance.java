@@ -188,6 +188,10 @@ public class CtrlPersistance {
         return null;
     }
 
+    /**
+     * Iterates through our database and we take all the problems and save it in an array.
+     * @return Returns the array list with all the problems that exist in our DB.
+     */
     ArrayList<String> listProblems() throws IOException {//FUNCIONA
         ArrayList<String> problemList = new ArrayList<>();
         File[] files = new File(filePath).listFiles();
@@ -209,6 +213,12 @@ public class CtrlPersistance {
         return problemList;
     }
 
+    /**
+     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
+     *  in our DB.
+     * @param idPR identifier of the problem we want find
+     * @return Returns true if it founds a file of the problem identified by (@param idPR)
+     */
     boolean problemExists(String inFEN) throws IOException {//FUNCIONA
         File[] files = new File(filePath).listFiles();
         for(File file : files){
@@ -228,7 +238,12 @@ public class CtrlPersistance {
         }
         return false;
     }
-
+    /**
+     * Deletes (if exists) the problem on our DB identified by (@param id).
+     * We also use it as a bool to check if exists the problem.
+     * @param id identifier of the problem we want to delete
+     * @return Returns true if exists, false otherwise.
+     */
     boolean deleteProblem(int id) throws IOException {//FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
@@ -262,7 +277,12 @@ public class CtrlPersistance {
             }
         }
     }
-
+    /**
+     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
+     *  in our DB.
+     * @param idPR identifier of the problem we want find
+     * @return Returns true if it founds a file of the problem identified by (@param idPR)
+     */
     boolean existsProblem(int idPR){ //FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();

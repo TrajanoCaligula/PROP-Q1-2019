@@ -194,27 +194,6 @@ public class Problem{
      */
 
 
-    /**
-     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
-     *  in our DB.
-     * @param idPR identifier of the problem we want find
-     * @return Returns true if it founds a file of the problem identified by (@param idPR)
-     */
-    public static boolean existsProblem(int idPR){
-        boolean trobat = false;
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = splitted[1].split("\\.");
-                if(fileName[0].equals(Integer.toString(idPR))){
-                    System.out.println(file.getName());
-                    trobat = true;
-                }
-            }
-        }
-        return trobat;
-    }
 
     /**
      * Clones a problem
@@ -238,60 +217,6 @@ public class Problem{
         return clone;
     }
 
-    /**
-     * Iterates through our database and we take all the problems and save it in an array.
-     * @return Returns the array list with all the problems that exist in our DB.
-     */
-    private static ArrayList<Problem> listProblems(){
-        ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../").listFiles();
-        for(File file : files){
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                Problem probToAdd = new Problem(file);
-                problemList.add(probToAdd);
-            }
-        }
-        return problemList;
-    }
-
-    /**
-     * Deletes (if exists) the problem on our DB identified by (@param id).
-     * We also use it as a bool to check if exists the problem.
-     * @param id identifier of the problem we want to delete
-     * @return Returns true if exists, false otherwise.
-     */
-    public static boolean deleteProblem(int id){
-        boolean trobat = false;
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = splitted[1].split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
-                    trobat = true;
-                    file.delete();
-                }
-            }
-        }
-        return trobat;
-    }
-
-    /**
-     * Iterates through an array list of problems printing each one in the terminal
-     */
-    public static boolean printProblems(){
-        ArrayList<Problem> problemList = listProblems();
-        if(problemList.isEmpty()){
-            System.out.println("No problems in our database! \nSelect option 1 to create a problem and add it to our DB");
-            return false;
-        } else {
-            for (Problem problema : problemList) {
-                System.out.println(problema);
-            }
-            return true;
-        }
-    }
 
     /**
      * Loads a problem from a file and returns it.

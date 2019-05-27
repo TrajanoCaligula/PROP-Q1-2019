@@ -18,7 +18,6 @@ public class RankingDriver {
         int option = input.nextInt();
 
         while(option  != 0) {
-            Problem.printProblems();
             if(option == 1) {
                 System.out.println("Insert the id of the problem you want to create a ranking of:");
                 int idProblem = input.nextInt();

@@ -38,6 +38,7 @@ public class MatchView{
     private JPanel playOptions;
     private JLabel labelN;
     private JLabel labelTime;
+    String problems[] = {"P-13432","P-64536","P-6542765","P-98697","P-3650672"};
     private JButton startButton;
     private Tile tileHighlighted = null;
 
@@ -60,10 +61,10 @@ public class MatchView{
         //Start Card
         menuCard.setLayout(new BorderLayout());
         menuCard.setPreferredSize(new Dimension(600,700));
-        JLabel title = new JLabel("Chess");
+        JLabel title = new JLabel(new ImageIcon("../PROP4/Chess/FONTS/assets/icons/logo.png"));
         title.setFont(new Font("Serif", Font.PLAIN, 65));
         Border border = title.getBorder();
-        Border margin = new EmptyBorder(30,15,10,10);
+        Border margin = new EmptyBorder(30,0,10,10);
         title.setBorder(new CompoundBorder(border, margin));
         menuCard.add(title, BorderLayout.NORTH);
 
@@ -72,11 +73,10 @@ public class MatchView{
 
 
 
-
         //Play options
         playOptions = new JPanel(new BorderLayout());
         startButton = new JButton("Start Match");
-        String problems[]={"P-13432","P-64536","P-6542765","P-98697","P-3650672"};
+
         JComboBox cb = new JComboBox(problems);
         cb.setBounds(50, 50,90,20);
         playOptions.add(cb, BorderLayout.NORTH);
@@ -203,6 +203,10 @@ public class MatchView{
         this.labelN.setText(nTofuck);
     }
 
+
+    public void listProblemsCB(String[] problemsToSet){
+        this.problems = problemsToSet;
+    }
 
     public final void setMatchGui(){
         int i = 0, y = 0, x = 0;

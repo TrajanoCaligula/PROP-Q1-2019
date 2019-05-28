@@ -199,8 +199,10 @@ public class CtrlDomain {
     }
 
 
-    String playMachine(String FEN, int playerNumber) {
-        players[playerNumber].playView(FEN);
+    //PRE: El player tiene que ser Machine
+
+    String playMachine(String FEN, int playerNumber, Color color, int score) {
+        players[playerNumber].playView(FEN, score, color);
         return FEN;
     }
 

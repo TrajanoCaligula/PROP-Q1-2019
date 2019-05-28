@@ -38,7 +38,7 @@ public class Machine2 extends Player {
      */
 
     @Override
-    public void play(Board board, int score, Color color, Piece p, Coord c) {
+    public void play(Board board, int score, Color color) {
         long start = System.currentTimeMillis();
         ArrayList<Piece> myPieces;
         if (color == Color.WHITE)
@@ -90,14 +90,9 @@ public class Machine2 extends Player {
             score += board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())).getValue() * 100;
         }
         board.movePiece(move.getPiece(), move.getPiece().getPosition().add(move.getFinalPos()));
-        long finish = System.currentTimeMillis();
-        long elapsedTime = finish - start;
-        System.out.println(elapsedTime);
-    }
-
-    @Override
-    public void playView(String FEN) {
-
+        //long finish = System.currentTimeMillis();
+        //long elapsedTime = finish - start;
+        //System.out.println(elapsedTime);
     }
 
     /**

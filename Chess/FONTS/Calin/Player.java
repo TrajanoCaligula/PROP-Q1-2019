@@ -29,7 +29,7 @@ public abstract class Player {
      * @param score: Score of the Player from the team Color
      */
 
-    public abstract void play(Board board, int score, Color color, Piece p, Coord c);
+    public abstract void play(Board board, int score, Color color);
 
     /**
      * Getter to get the name of the Player
@@ -61,5 +61,4 @@ public abstract class Player {
         return name;
     }
 
-    public abstract void playView(String FEN);
 }

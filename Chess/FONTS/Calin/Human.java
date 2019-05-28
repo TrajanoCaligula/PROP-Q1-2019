@@ -29,17 +29,37 @@ public class Human extends Player {
      */
 
     @Override
-    public void play(Board board, int score, Color color, Piece p, Coord c) {
+    public void play(Board board, int score, Color color) {
+
+        System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
+        Scanner s = new Scanner(System.in);
+        String initialPos = s.next();
+        while (!isValidPiece(initialPos, board)) {
+            System.out.print("Wrong coordinates, please select valid coordinates: ");
+            s = new Scanner(System.in);
+            initialPos = s.next();
+        }
+        Coord initialCoord = new Coord(initialPos);
+        System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e8): ");
+        s = new Scanner(System.in);
+        String movingPos = s.next();
+        Coord movingCoord;
+        Piece movingPiece, piece = board.getPieceInCoord(initialCoord);
+        while (!isValidMove(piece, movingPos, board)) {
+            System.out.print("Wrong coordinates, please select valid coordinates: ");
+            s = new Scanner(System.in);
+            movingPos = s.next();
+        }
+        movingCoord = new Coord(movingPos);
+        board.movePiece(board.getPieceInCoord(initialCoord), movingCoord);
+    }
+
+    public void play2(Board board, int score, Color color, Piece p, Coord c) {
 
         if (board.getPieceInCoord(c) != null) {
             score += board.getPieceInCoord(c).getValue() * 100;
         }
         board.movePiece(p, c);
-    }
-
-    @Override
-    public void playView(String FEN) {
-
     }
 
     /**

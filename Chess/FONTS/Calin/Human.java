@@ -29,7 +29,7 @@ public class Human extends Player {
      */
 
     @Override
-    public void play(Board board, int score, Color color) {
+    public void play(Board board, int score, Color color, Piece p, Coord c) {
         System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
         Scanner s = new Scanner(System.in);
         String initialPos = s.next();

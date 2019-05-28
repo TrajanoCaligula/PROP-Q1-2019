@@ -33,7 +33,7 @@ public class Machine extends Player {
      */
 
     @Override
-    public void play(Board board, int score, Color color) {
+    public void play(Board board, int score, Color color, Piece p, Coord c) {
         long start = System.currentTimeMillis();
         ArrayList<Piece> myPieces;
         if (color == Color.WHITE)

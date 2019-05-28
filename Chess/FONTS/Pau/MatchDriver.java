@@ -24,13 +24,13 @@ public class MatchDriver {
                 System.out.println();
                 if (color == Color.WHITE) {
                     System.out.println("White Player's turn");
-                    match.playGame(color);
+                    //match.playGame(color);
                     color = Color.BLACK;
                 }
 
                 else {
                     System.out.println("Black Player's turn");
-                    match.playGame(color);
+                    //match.playGame(color);
                     color = Color.WHITE;
                 }
                 System.out.println("Round "+match.getRound()+" successfully played");

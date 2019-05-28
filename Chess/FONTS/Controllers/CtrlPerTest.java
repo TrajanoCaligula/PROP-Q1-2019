@@ -35,10 +35,22 @@ public class CtrlPerTest {
         Ctrl.saveRanking(t,id);
 
         t = Ctrl.loadScores(id);
-        for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
+        for(int i = 0; i < t.size(); i++) {
+            System.out.print(t.get(i));
+            if(i %2 == 0) System.out.println();
+        }
 
         System.out.println();
         Ctrl.listRankings();
+
+
+
+        t = Ctrl.loadScores(id);
+        for(int i = 0; i < t.size(); i++) {
+            System.out.print(t.get(i));
+            if(i %2 == 0) System.out.println();
+        }
+
 
         Ctrl.addScore("KKK","350",id);
         Ctrl.addScore("tr3","353",id);

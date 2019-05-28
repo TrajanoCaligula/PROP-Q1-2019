@@ -54,11 +54,11 @@ public class MatchView extends JPanel {
         JTextArea term = new JTextArea();
         term.setForeground(Color.WHITE);
         term.setMargin( new Insets(2,2,2,2));
-        Font font = new Font("Terminal", Font.BOLD,14);
+        Font font = new Font("Terminal", Font.BOLD,12);
         term.setFont(font);
         term.setEditable(false);
         term.setText("...Match Started!");
-        term.setBackground(Color.black);
+        term.setBackground(new Color(23, 23, 23));
         term.setPreferredSize(new Dimension(200, 0));
         this.add(term, BorderLayout.EAST);
 

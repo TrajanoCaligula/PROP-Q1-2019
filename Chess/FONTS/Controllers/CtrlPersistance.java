@@ -204,8 +204,8 @@ public class CtrlPersistance {
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 String FEN = lineSplitted[0];
-                String res = id + " - " + FEN;
-                System.out.println(res);
+                //String res = id + " - " + FEN;
+                res = "P-"+id;
                 problemList.add(res);
                 reader.close();
             }

@@ -60,4 +60,6 @@ public abstract class Player {
     public String toString() {
         return name;
     }
+
+    public abstract void playView(String FEN);
 }

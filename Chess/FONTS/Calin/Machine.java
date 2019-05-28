@@ -91,6 +91,11 @@ public class Machine extends Player {
         System.out.println(elapsedTime);
     }
 
+    @Override
+    public void playView(String FEN) {
+
+    }
+
     /**
      * This is the function that makes the Machine think. It uses the minimax algorithm to make a decision on which
      * piece to move where, depending on how the board will be evaluated after doing the move. Black pieces look for

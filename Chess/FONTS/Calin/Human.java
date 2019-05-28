@@ -37,6 +37,11 @@ public class Human extends Player {
         board.movePiece(p, c);
     }
 
+    @Override
+    public void playView(String FEN) {
+
+    }
+
     /**
      * This function was made to check if a coordinate that the Human has given has a valid piece on it. It first
      * looks if the coordinates are in bounds of the board, and then checks if there is a piece in the given coordinates

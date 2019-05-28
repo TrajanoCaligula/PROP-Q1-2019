@@ -199,4 +199,9 @@ public class CtrlDomain {
     }
 
 
+    String playMachine(String FEN, int playerNumber) {
+        players[playerNumber].playView(FEN);
+        return FEN;
+    }
+
 }

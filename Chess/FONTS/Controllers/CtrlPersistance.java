@@ -23,99 +23,275 @@ public class CtrlPersistance {
         filePath = defaultFolder;
     }
 
-    ArrayList<String> problemRanking(int id){
-        ArrayList<String> res = new ArrayList<String>();
-        File[] files = new File(filePath).listFiles();
-        for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
-                    //racollir scores i noms, i eliminar larray que hi ha just a sota
-                    return new ArrayList<String>();
+    /* TODO
+    UPDATE RANKINGS
+    CREATE MATCH TO MODIFY
+    PARTIDA
+     */
+
+    // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
+
+
+
+    void addScore(String name, String points, int id) throws IOException {
+        if(existsRanking(id)) {
+            ArrayList<String> scores = loadScores(id);
+            File del = getFile("R-" + id);
+            del.delete();
+            boolean trobat = false;
+            ArrayList<String> res = new ArrayList<String>();
+            int aux = 0;
+            for (int i = 0; i < scores.size(); i += 2) {
+                if (Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points) && !trobat) {
+                    res.add(name);
+                    res.add(points);
+                    trobat = true;
+                    i -= 2;
+                } else {
+                    res.add(scores.get(i));
+                    res.add(scores.get(i + 1));
                 }
             }
-        }
-        return res;
-    }
-
-    String getFEN(int id){
-        String FEN = null;
-        //IMPLEMENTAR QUE RETORNI EL FEN D'UN CERT PROBLEMA IDENTIFICAT AMB ID
-        return FEN;
-    }
-
-
-
-
-
-    String read(String path) throws IOException {
-        String filepath = this.filePath + "/"+ path;
-
-        byte[] encoded = Files.readAllBytes(Paths.get(filepath));
-        return new String(encoded, Charset.defaultCharset());
-    }
-
-    ArrayList<String> readAll() throws IOException {
-        File[] files = new File(filePath).listFiles();
-        ArrayList<String> res = new ArrayList<String>();
-        for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-
-                String[] fileName = file.getName().split("\\.");
-
+            if (!trobat && scores.size() < 10) {
+                res.add(name);
+                res.add(points);
             }
+            saveRanking(res, id);
+        }else{
+            ArrayList<String> str = new ArrayList<String>();
+            str.add(name);str.add(points);
+            saveRanking(str,id);
         }
-        return res;
     }
 
+    void deleteRanking(int id) throws IOException {
+        File del = getFile("R-"+Integer.toString(id));
+        del.delete();
+    }
 
+    void saveRanking(ArrayList<String> scores, int id){
+        File problemFile = new File(filePath+ "R-" +  id + ".txt");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
+            for (int i = 0; i < scores.size(); i+=2){
+                String aux = scores.get(i) +" "+scores.get(i+1)+"\n";
+                writer.write(aux);
+                writer.flush();
+            }
 
-    ArrayList<String> listProblems(){
-        ArrayList<String> problemList = new ArrayList<>();
+            writer.close();
+        } catch (IOException e) {
+        }
+    }
+
+    ArrayList<String> loadScores(int id) throws IOException {
+        ArrayList<String> scoresLoaded = new ArrayList<String>();
+        File rankingFileLD = getFile("R-"+id);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(rankingFileLD));
+            String line = reader.readLine();
+            while (line != null) {
+                String[] lineSplitted = (line).split("\\s");
+                scoresLoaded.add(lineSplitted[0]);
+                scoresLoaded.add(lineSplitted[1]);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+        }
+        return scoresLoaded;
+    }
+
+    ArrayList<ArrayList<String>> listRankings() throws IOException { //fer? CREC QUE NO CAL-------------+-+-++++++++++++++++++++++++++++++++
+        ArrayList<ArrayList<String>> rankingsList = new ArrayList<ArrayList<String>>();
         File[] files = new File(filePath).listFiles();
+        int i = 0;
         for(File file : files){
-            if(file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                ArrayList<String> aux = new ArrayList<String>();
+                aux.add(id);
+                while((line = reader.readLine()) != null) {
+                    String[] lineSplitted = (line).split("\\s");
+                    String name = lineSplitted[0];
+                    String points = lineSplitted[1];
+                    aux.add(name);
+                    aux.add(points);
+                }
+                rankingsList.add(aux);
+                reader.close();
+                i++;
             }
         }
-        return problemList;
+        for(int l = 0; l < rankingsList.size(); l++){
+            for(int j = 0; j < rankingsList.get(l).size();j++) {
+                if(j != 0) {
+                    System.out.println(rankingsList.get(l).get(j));
+                }else {
+                    System.out.println(rankingsList.get(l).get(j) + " " + rankingsList.get(l).get(j + 1));
+                    ++j;
+                }
+            }
+            System.out.println();
+        }
+        return rankingsList;
     }
-    // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
-    boolean deleteProblem(int id){
+
+    boolean existsRanking(int id){ //FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
+            String[] splitted = file.getName().split("-");
+            if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+                String[] fileName = splitted[1].split("\\.");
+                if(fileName[0].equals(Integer.toString(id))){
+                    System.out.println(file.getName());
                     trobat = true;
-                    file.delete();
                 }
             }
         }
         return trobat;
     }
 
-    void writeProblem(String FEN, int id) throws IOException {
-        File problemFile = new File(filePath +  id + ".txt");
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
-            writer.write(FEN);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+    File getFile(String id) throws IOException {//FUNCIONA
+        id += ".txt";
+        File[] files = new File(filePath).listFiles();
+        for(File file : files) {
+            String filename = file.getName();
+            if (filename.equals(id)){
+                return file;
+            }
         }
+        return null;
     }
 
-    boolean existsProblem(int idPR){
+    String getFEN(int id) throws IOException {//FUNCIONA
+        File[] files = new File(filePath).listFiles();
+        for(File file : files) {
+            String[] splitted = file.getName().split("-");
+            if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                String[] fileName = splitted[1].split("\\.");
+                if(fileName[0].equals(Integer.toString(id))){
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    String line = reader.readLine();
+                    String[] lineSplitted = (line).split("\\.");
+                    String FEN = lineSplitted[0];
+                    reader.close();
+                    return FEN;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Iterates through our database and we take all the problems and save it in an array.
+     * @return Returns the array list with all the problems that exist in our DB.
+     */
+    ArrayList<String> listProblems() throws IOException {//FUNCIONA
+        ArrayList<String> problemList = new ArrayList<>();
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                String[] lineSplitted = (line).split("\\.");
+                String FEN = lineSplitted[0];
+                String res = id + " - " + FEN;
+                System.out.println(res);
+                problemList.add(res);
+                reader.close();
+            }
+        }
+        return problemList;
+    }
+
+    /**
+     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
+     *  in our DB.
+     * @param idPR identifier of the problem we want find
+     * @return Returns true if it founds a file of the problem identified by (@param idPR)
+     */
+    boolean problemExists(String inFEN) throws IOException {//FUNCIONA
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                String[] lineSplitted = (line).split("\\.");
+                String FEN = lineSplitted[0];
+                if(FEN.equals(inFEN)) {
+                    reader.close();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    /**
+     * Deletes (if exists) the problem on our DB identified by (@param id).
+     * We also use it as a bool to check if exists the problem.
+     * @param id identifier of the problem we want to delete
+     * @return Returns true if exists, false otherwise.
+     */
+    boolean deleteProblem(int id) throws IOException {//FUNCIONA
+        boolean trobat = false;
+        File[] files = new File(filePath).listFiles();
+        File del = getFile("R-"+id);
+        del.delete();
+        for(File file : files) {
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                String[] fileName = splitted[1].split("\\.");
+                if (fileName[0].equals(Integer.toString(id))) {
+                    file.delete();
+                    if(existsRanking(id)) deleteRanking(id);
+                    return true;
+                }
+            }
+        }
+        return trobat;
+    }
+
+    void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {//FUNCIONA
+        File problemFile = new File(filePath+ "P-" +  id + ".txt");
+        String aux = FEN+" "+N+" "+difficulty;
+        if(!problemExists(aux)) {
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
+                writer.write(aux);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    /**
+     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
+     *  in our DB.
+     * @param idPR identifier of the problem we want find
+     * @return Returns true if it founds a file of the problem identified by (@param idPR)
+     */
+    boolean existsProblem(int idPR){ //FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
-            if (file.getName().charAt(0) != '.') {
-                String[] fileName = file.getName().split("\\.");
-                if (fileName[0].equals(Integer.toString(idPR))) {
+            String[] splitted = file.getName().split("-");
+            if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                String[] fileName = splitted[1].split("\\.");
+                if(fileName[0].equals(Integer.toString(idPR))){
+                    System.out.println(file.getName());
                     trobat = true;
                 }
             }

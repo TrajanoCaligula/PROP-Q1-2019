@@ -5,6 +5,7 @@ import Pau.*;
 import Jaume.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -15,37 +16,32 @@ public class CtrlDomain {
     private HashMap <Integer, Problem> problems;
     private Player[] players;
     private Match match;
+    private Problem probToMod;
 
-    public static CtrlDomain getInstance() {
-        if(ourInstance == null) new CtrlDomain();
+    public static CtrlDomain getInstance() throws IOException {
+        if(ourInstance == null) ourInstance = new CtrlDomain();
         return ourInstance;
     }
 
-    private CtrlDomain() {
+    private CtrlDomain() throws IOException {
         ctrlIO = CtrlPersistance.getInstance();
         problems = new HashMap<Integer, Problem>();
         match = null;
         players = new Player[2];
-
+        probToMod=null;
+        updateProblems();
+        updateRankings();
     }
 
     //PROBLEM
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
-    int newProblem(String FEN) throws IOException {
-        Problem prob = new Problem(FEN);
-        int id = prob.getId();
-        problems.put(id,prob);
-        ctrlIO.writeProblem(FEN,id);
-        return id;
-    }
-
-    ArrayList<String> listProblems(){
+    public ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblems();
     }
 
-    String getFENFromId(int id){
+    String getFENFromId(int id) throws IOException {
         return ctrlIO.getFEN(id);
     }
 
@@ -80,36 +76,27 @@ public class CtrlDomain {
         return false;
     }
 
-    String newGameComplete(int problemID, String name1, Color color1, int type1,int depth1,String name2, Color color2, int type2, int depth2){
+    String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
         Player one = null;
         Player two = null;
         switch (type1){
-            case 0: one = new Human(name1,color1);
-            case 1: one = new Machine(name1,color1,depth1);
-            default: one = new Machine2(name1,color1,depth1);
+            case 0: one = new Human(name1,Color.WHITE);
+            case 1: one = new Machine(name1,Color.WHITE,depth1);
+            default: one = new Machine2(name1,Color.WHITE,depth1);
         }
         switch (type2){
-            case 0: two = new Human(name2,color2);
-            case 1: two = new Machine(name2,color2,depth2);
-            default: two = new Machine2(name2,color2,depth2);
+            case 0: two = new Human(name2,Color.BLACK);
+            case 1: two = new Machine(name2,Color.BLACK,depth2);
+            default: two = new Machine2(name2,Color.BLACK,depth2);
         }
-        if(color1 == Color.WHITE){
-            players[0] = one;
-            players[1] = two;
-        } else {
-            players[0] = two;
-            players[1] = one;
-        }
+
+        players[0] = one;
+        players[1] = two;
 
         Problem problem = problems.get(problemID);
-        if(problem != null){
-            match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
-            return match.getBoard().toFEN();
-        }
-        return null;
+        match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
+        return match.getBoard().toFEN();
     }
-
-
 
     String makeMove(String piece, String finalpos){
         Coord coo = new Coord(piece);
@@ -123,20 +110,95 @@ public class CtrlDomain {
         return match.getN();
     }
 
-    /*
-    ArrayList<String> getLegalMoves(int player){
-        if(player == 1){
-            players[0].
+<<<<<<< HEAD
+    ArrayList<String> getLegalMoves(String piece){ //TEST
+=======
+    ArrayList<String> getLegalMoves(String piece){ //NEED TEST
+>>>>>>> 41cd7bd9cd6e5ed9ded564c7e58205ee25baac31
+        Coord coo = new Coord(piece);
+        Piece aux = match.getBoard().getPieceInCoord(coo);
+        ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());
+        ArrayList<String> res = new ArrayList<String>();
+        for(int i = 0; i < tmp.size(); ++i) {
+            res.add(aux.getPosition().add(tmp.get(i)).toRealCoord());
         }
-        else {
+        return res;
+    }
 
+    //PROBLEM
+
+    int createProblem(String FEN,int N, String difficulty) throws IOException {
+        Problem prob = new Problem(FEN);
+        if(prob.validateFen(FEN) && prob.validateProblem()) {
+            if(N <= 5) difficulty = "Hard";
+            else if(N <= 10) difficulty = "Normal";
+            else difficulty = "Easy";
+            prob.setDifficulty(difficulty);
+            prob.setN(N);
+            int id = prob.getId();
+            ctrlIO.saveProblem(FEN, id, N, difficulty);
+            problems.put(id, prob);
+            return id;
+        }else return-1;
+    }
+
+    String copyProblem(int id){
+        Problem prob = problems.get(id);
+        probToMod = new Problem(prob.getFen());
+        return probToMod.getFen();
+    }
+
+    String modifyFEN(String init,String fin){
+        return probToMod.movePiece(init,fin);
+    }
+    int saveModProb() throws IOException {
+        if(probToMod.validateFen(probToMod.getFen()) && probToMod.validateProblem()){
+            ctrlIO.saveProblem(probToMod.getFen(),probToMod.getId(),probToMod.getN(),probToMod.getDifficulty());
+            problems.put(probToMod.getId(),probToMod);
+            return probToMod.getId();
         }
-    }*/
+        return -1;
+    }
+
+    void dropProblem(int id) throws IOException {
+        ctrlIO.deleteProblem(id);
+        problems.remove(id);
+    }
+
+    void updateProblems() throws IOException {
+        ArrayList<String> aux = ctrlIO.listProblems();
+        for(int i = 0; i < aux.size(); i++) {
+            String[] splitted = aux.get(i).split(" - ");
+            int id = Integer.parseInt(splitted[0]);
+            String FEN = splitted[1];
+            splitted = splitted[2].split("\\s");
+            FEN += splitted[0]+" "+splitted[1]+" "+splitted[2];
+            int N = Integer.parseInt(splitted[3]);
+            String diff = splitted[4];
+            Problem res = new Problem(FEN);
+            res.setN(N);
+            res.setDifficulty(diff);
+            problems.put(id,res);
+        }
+    }
 
     //RANKING
 
-    ArrayList<String> topScores(int id){
-        return ctrlIO.problemRanking(id);
+    void updateRankings() throws IOException { //NEED TEST
+        ArrayList<ArrayList<String>> aux = ctrlIO.listRankings();
+        for(int i = 0; i < aux.size(); i++) {
+            Ranking rank = new Ranking(Integer.parseInt(aux.get(i).get(0)));
+
+            for(int j = 1; j < aux.get(i).size();j+=2) {
+                Score score = new Score(aux.get(i).get(j),Integer.parseInt(aux.get(i).get(j+1)));
+                rank.addScore(score);
+            }
+
+        }
+    }
+
+    public ArrayList<String> topScores(int id) throws IOException {
+        return ctrlIO.loadScores(id);
     }
 
 

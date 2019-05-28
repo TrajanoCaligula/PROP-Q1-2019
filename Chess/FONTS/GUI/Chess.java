@@ -1,17 +1,18 @@
 package GUI;
 
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import java.io.IOException;
 
 public class Chess {
-    static String fen = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
     public Chess() {
 
     }
 
     public static void main(String[] args) {
 
-        MatchView chessView = new MatchView(fen);
+        ChessView chessView = new ChessView();
 
         Runnable r = new Runnable() {
             public void run() {
@@ -22,7 +23,11 @@ public class Chess {
                 f.pack();
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
-                ViewController chessViewController = new ViewController(chessView);
+                try {
+                    ViewController chessViewController = new ViewController(chessView);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
         SwingUtilities.invokeLater(r);

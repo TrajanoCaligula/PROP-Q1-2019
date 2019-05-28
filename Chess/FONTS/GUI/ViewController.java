@@ -6,55 +6,52 @@ import Pau.Match;
 import javax.swing.*;
 import javax.swing.text.View;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class ViewController{
     private Match currentMatch;
-    private MatchView view;
+    private ChessView view;
     private CtrlDomain domainController;
 
-    public ViewController(MatchView currentView) {
+    public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
-        view.addMouseListenerToTile(new MouseListenerTile());
         domainController = CtrlDomain.getInstance();
-        String aux = domainController.AuxgetN();
-        view.setN(aux);
+
+        this.view.addActionListenerTiles(new ActionListenerChess());
+        this.view.setProblems(domainController.listProblems());
     }
 
     public void move(ActionEvent ae){
         Tile tile = (Tile) ae.getSource();
-        view.tileAction(tile);
+        view.boardCard.tileAction(tile);
     }
 
 
 
-    class MouseListenerTile implements MouseListener {
+    class ActionListenerChess implements ActionListener {
         @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            view.tileAction((Tile) e.getSource());
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
+        public void actionPerformed(ActionEvent evt) {
+            if (evt.getActionCommand().equals(Actions.MOVE.name())) {
+                view.boardCard.tileAction((Tile) evt.getSource());
+            } else if(evt.getActionCommand().equals(Actions.PLAY.name())){
+                view.menuCard.showPlayOptions();
+            } else if(evt.getActionCommand().equals(Actions.START.name())){
+                view.startMatch();
+            } else if(evt.getActionCommand().equals(Actions.RANKING.name())){
+                String idP = view.menuCard.getSelectedItem();
+                ArrayList<String> scores = new ArrayList<>();
+                try {
+                    scores = domainController.topScores(Integer.parseInt(idP));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                view.menuCard.showScores(scores);
+            }
         }
     }
 

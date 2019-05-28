@@ -18,7 +18,6 @@ public class Problem{
     private ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     private ArrayList<Piece> blackPieces = new ArrayList<Piece>();
     private int N; //We get n from theme - (ex: Mat en 2 --> N = 2 )
-    public File problemFile;
 
 
     /**
@@ -42,7 +41,6 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        this.N = 4;
         if(!validateFen(FEN)){
             System.out.println("This FEN is invalid!");
         }
@@ -147,39 +145,18 @@ public class Problem{
     /**
      * Use this function to modify the initial fen as you want.
      */
-    public void movePiece(){
+    public String movePiece(String init,String fin){
         Board boardMovements = new Board(this.FEN);
-        boardMovements.printBoard();
 
-        System.out.print("Please, select the coordinates of the piece you want to move (for example: e8): ");
-        Scanner s = new Scanner(System.in);
-        String initialPos = s.next();
-        Coord initialCoord = new Coord(initialPos);
+        Coord initialCoord = new Coord(init);
 
-        while (!Board.inBounds(initialCoord)) {
-            System.out.print("Wrong coordinates, please select valid coordinates: ");
-            s = new Scanner(System.in);
-            initialPos = s.next();
-            initialCoord = new Coord(initialPos);
-        }
-
-        System.out.print("Please, select the coordinates of the tile you want to move your piece (for example: e9): ");
-        Scanner s2 = new Scanner(System.in);
-        String movingPos = s2.next();
-        Coord movingCoord = new Coord(movingPos);
-        while (!Board.inBounds(movingCoord)) {
-            System.out.print("Wrong coordinates, please select valid coordinates: ");
-            s2 = new Scanner(System.in);
-            movingPos = s2.next();
-            movingCoord = new Coord(movingPos);
-        }
+        Coord movingCoord = new Coord(fin);
 
         Piece pieceToMove = boardMovements.getPieceInCoord(initialCoord);
         boardMovements.movePiece(pieceToMove, movingCoord);
 
         this.FEN = boardMovements.toFEN();
-        this.saveProblem();
-        boardMovements.printBoard();
+        return FEN;
     }
 
 
@@ -212,43 +189,11 @@ public class Problem{
     }
 
 
-    /**
+    /**SaveProblem
      * Saves our current problem into a file with the necessaries attributes so later we can load it.
      */
-    public void saveProblem(){
-        problemFile = new File("../" + "P-" +  this.id + ".txt");
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(this.problemFile));
-            writer.write(this.toString());
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
-     *  in our DB.
-     * @param idPR identifier of the problem we want find
-     * @return Returns true if it founds a file of the problem identified by (@param idPR)
-     */
-    public static boolean existsProblem(int idPR){
-        boolean trobat = false;
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = splitted[1].split("\\.");
-                if(fileName[0].equals(Integer.toString(idPR))){
-                    System.out.println(file.getName());
-                    trobat = true;
-                }
-            }
-        }
-        return trobat;
-    }
+
 
     /**
      * Clones a problem
@@ -272,60 +217,6 @@ public class Problem{
         return clone;
     }
 
-    /**
-     * Iterates through our database and we take all the problems and save it in an array.
-     * @return Returns the array list with all the problems that exist in our DB.
-     */
-    private static ArrayList<Problem> listProblems(){
-        ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../").listFiles();
-        for(File file : files){
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                Problem probToAdd = new Problem(file);
-                problemList.add(probToAdd);
-            }
-        }
-        return problemList;
-    }
-
-    /**
-     * Deletes (if exists) the problem on our DB identified by (@param id).
-     * We also use it as a bool to check if exists the problem.
-     * @param id identifier of the problem we want to delete
-     * @return Returns true if exists, false otherwise.
-     */
-    public static boolean deleteProblem(int id){
-        boolean trobat = false;
-        File[] files = new File("../").listFiles();
-        for(File file : files) {
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = splitted[1].split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
-                    trobat = true;
-                    file.delete();
-                }
-            }
-        }
-        return trobat;
-    }
-
-    /**
-     * Iterates through an array list of problems printing each one in the terminal
-     */
-    public static boolean printProblems(){
-        ArrayList<Problem> problemList = listProblems();
-        if(problemList.isEmpty()){
-            System.out.println("No problems in our database! \nSelect option 1 to create a problem and add it to our DB");
-            return false;
-        } else {
-            for (Problem problema : problemList) {
-                System.out.println(problema);
-            }
-            return true;
-        }
-    }
 
     /**
      * Loads a problem from a file and returns it.
@@ -351,9 +242,13 @@ public class Problem{
      * We use backtracking algorithm to check if the problem has a solution
      * @return Returns true if it does, have a solution, otherwise returns false;
      */
-    private boolean validateProblem(){
+    public boolean validateProblem(){
         Backtracking btValidator = new Backtracking(this, N, Color.WHITE);
         return btValidator.backtracking();
+    }
+
+    public String getDifficulty(){
+        return problemDifficulty;
     }
 
     /**
@@ -363,15 +258,15 @@ public class Problem{
      * 2. The correct number of white tiles
      * @return Devuelve si el problema tiene un fen valido o no
      */
-    private boolean validateFen(String inputFEN){
+    public boolean validateFen(String inputFEN){
         String[] splits = inputFEN.split(" ");
-        if(splits.length != 6){
+        /*if(splits.length != 6){
             System.out.println("The FEN introduced it's not in the correct format. EXAMPLE: ");
-            System.out.println("[FEN=\"1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1\"]");
+            System.out.println("1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1");
             System.exit(0);
-        }
+        }*/
 
-        String vFEN = splits[0].substring(6);
+        String vFEN = splits[0];
         this.FEN = vFEN;
         this.firstPlayer = splits[1];
 
@@ -395,12 +290,6 @@ public class Problem{
 
                     if(keyValue != null) {
                         if(validPiece(actual, keyValue)) {
-                            /*Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
-                            if(Character.isUpperCase(actual)){
-                                whitePieces.add(pairPieceCoord);
-                            } else {
-                                blackPieces.add(pairPieceCoord);
-                            }*/
                             allPieces.put(actual, allPieces.get(actual) + 1);
                         }
                         else {
@@ -408,13 +297,6 @@ public class Problem{
                         }
                     }
                     else {
-                        /*
-                        Pair<Character, Coord> pairPieceCoord = Pair.of(actual, new Coord(i,j));
-                        if(Character.isUpperCase(actual)){
-                            whitePieces.add(pairPieceCoord);
-                        } else {
-                            blackPieces.add(pairPieceCoord);
-                        }*/
                         allPieces.put(actual, 1);
                     }
                     i++;

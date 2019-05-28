@@ -1,5 +1,7 @@
 package GUI;
 
+import javax.swing.*;
+import java.awt.*;
 import Jaume.*;
 import java.io.File;
 import java.awt.*;
@@ -14,49 +16,41 @@ import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
 
-public class MatchView {
+public class MatchView extends JPanel {
 
-    private final JPanel gui = new JPanel(new BorderLayout(3, 3));
     private Tile[][] chessBoardSquares = new Tile[8][8];
-
-
     private JPanel chessBoard;
-    private String matchFEN;
     private JLabel labelN;
+    private String matchFEN = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
+    private JLabel labelTime;
     private Tile tileHighlighted = null;
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
 
-    public MatchView(String matchFEN) {
-        initializeGui();
-        this.matchFEN = matchFEN;
-        setMatchGui();
-    }
 
-    public final void initializeGui() {
-        // create the images for the chess pieces
+    public MatchView() {
 
-        // set up the main GUI
-        gui.setBorder(new EmptyBorder(5, 5, 5, 5));
-        gui.setPreferredSize(new Dimension(620, 550));
-        labelN = new JLabel("Username :", JLabel.LEFT);
-
+        this.setLayout(new BorderLayout(3, 3));
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.setPreferredSize(new Dimension(500, 500));
+        this.setBackground(new Color(43, 43, 43));
+        JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
+        labelN = new JLabel("Round: 2", JLabel.LEFT);
+        labelTime = new JLabel("1:32", JLabel.CENTER);
+        topBar.setBackground(new Color(211, 212, 209));
+        topBar.setBorder(BorderFactory.createLineBorder(Color.black));
+        topBar.add(labelTime);
+        topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
-        chessBoard.setBorder(new CompoundBorder(
-                new EmptyBorder(8,8,8,8),
-                new LineBorder(Color.BLACK)
-        ));
+        chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
-        Color ochre = new Color(233, 233, 241);
-        chessBoard.setBackground(ochre);
-        JPanel boardConstrain = new JPanel(new BorderLayout());
-        boardConstrain.setBackground(ochre);
-        boardConstrain.add(chessBoard, BorderLayout.CENTER);
-        boardConstrain.add(labelN, BorderLayout.NORTH);
-        gui.add(boardConstrain);
+        chessBoard.setBackground(new Color(211, 212, 209));
+        this.setBackground(new Color(63, 63, 68));
+        this.add(chessBoard, BorderLayout.CENTER);
+        this.add(topBar, BorderLayout.NORTH);
 
-        // create the chess board squares
+
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
             for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
@@ -104,10 +98,8 @@ public class MatchView {
                 }
             }
         }
-    }
+        setMatchGui();
 
-    public void setN(String nTofuck){
-        this.labelN.setText(nTofuck);
     }
 
     public final void setMatchGui(){
@@ -129,7 +121,6 @@ public class MatchView {
             i++;
         }
     }
-
 
     public void setPiece(char c, int x, int y){
         if (c == 'P')
@@ -161,11 +152,9 @@ public class MatchView {
         chessBoardSquares[x][y].setPiece(c);
         x++;
     }
-    public final JComponent getGui() {
-        return gui;
-    }
 
     public void tileAction(Tile pressedTile){
+        System.out.println(pressedTile.getTileX() + " " + pressedTile.getTileY());
         if(this.tileHighlighted == null){
             if (pressedTile.getPiece() != null){
                 this.tileHighlighted = pressedTile;
@@ -180,6 +169,13 @@ public class MatchView {
         }
     }
 
+
+    public void highlightPossibleTiles(String[] moves){
+        for(int i = 0; i < moves.length; i++){
+
+        }
+    }
+
     public void move(Tile init, Tile end){
 
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
@@ -188,12 +184,12 @@ public class MatchView {
         this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
-    public void addMouseListenerToTile(MouseListener mal) {
+    public void addActionListenerBoard(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
-                chessBoardSquares[jj][ii].addMouseListener(mal);
+                chessBoardSquares[jj][ii].setActionCommand(Actions.MOVE.name());
+                chessBoardSquares[jj][ii].addActionListener(mal);
             }
         }
     }
-
 }

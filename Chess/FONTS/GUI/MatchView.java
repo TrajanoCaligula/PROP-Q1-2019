@@ -24,6 +24,7 @@ public class MatchView extends JPanel {
     private String matchFEN = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
     private JLabel labelTime;
     private Tile tileHighlighted = null;
+    public boolean turn = false;
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -33,7 +34,7 @@ public class MatchView extends JPanel {
 
         this.setLayout(new BorderLayout(3, 3));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
-        this.setPreferredSize(new Dimension(500, 500));
+        this.setPreferredSize(new Dimension(800, 500));
         this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
         labelN = new JLabel("Round: 2", JLabel.LEFT);
@@ -50,6 +51,16 @@ public class MatchView extends JPanel {
         this.add(chessBoard, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
 
+        JTextArea term = new JTextArea();
+        term.setForeground(Color.WHITE);
+        term.setMargin( new Insets(2,2,2,2));
+        Font font = new Font("Terminal", Font.BOLD,14);
+        term.setFont(font);
+        term.setEditable(false);
+        term.setText("...Match Started!");
+        term.setBackground(Color.black);
+        term.setPreferredSize(new Dimension(200, 0));
+        this.add(term, BorderLayout.EAST);
 
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
@@ -176,8 +187,8 @@ public class MatchView extends JPanel {
         }
     }
 
-    public void move(Tile init, Tile end){
 
+    public void move(Tile init, Tile end){
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setPiece(init.getPiece());
         this.chessBoardSquares[init.getTileY()][init.getTileX()].setIcon(null);

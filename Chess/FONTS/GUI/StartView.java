@@ -116,7 +116,7 @@ public class StartView extends JPanel {
     }
 
     public void showScores(ArrayList<String> scores){
-
+        scoresRanking = new JPanel(new GridLayout(0,1));
         for(int i = 0; i < (scores.size() - 1); i++){
             scoresRanking.add(new JLabel(scores.get(i) + " " + scores.get(i+1)));
             i++;

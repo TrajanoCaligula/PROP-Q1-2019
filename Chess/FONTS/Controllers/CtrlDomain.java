@@ -37,7 +37,7 @@ public class CtrlDomain {
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
-    ArrayList<String> listProblems() throws IOException {
+    public ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblems();
     }
 
@@ -193,7 +193,7 @@ public class CtrlDomain {
         }
     }
 
-    ArrayList<String> topScores(int id) throws IOException {
+    public ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);
     }
 

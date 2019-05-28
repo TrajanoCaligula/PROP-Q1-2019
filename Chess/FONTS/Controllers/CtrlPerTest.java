@@ -43,13 +43,15 @@ public class CtrlPerTest {
         System.out.println();
         Ctrl.listRankings();
 
-
-
+        System.out.println("############################################################################################");
         t = Ctrl.loadScores(id);
         for(int i = 0; i < t.size(); i++) {
-            System.out.print(t.get(i));
-            if(i %2 == 0) System.out.println();
+            System.out.print(t.get(i)+" ");
+            if(i %2 != 0) System.out.println();
         }
+        System.out.println();
+        System.out.println("############################################################################################");
+
 
 
         Ctrl.addScore("KKK","350",id);
@@ -64,6 +66,13 @@ public class CtrlPerTest {
 
         t = Ctrl.loadScores(110733);
         for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
+
+        t = Ctrl.loadScores(id);
+        for(int i = 0; i < t.size(); i++) {
+            System.out.print(t.get(i)+" ");
+            if(i %2 != 0) System.out.println();
+        }
+        System.out.println();
 
         //Ctrl.deleteRanking(id);
 

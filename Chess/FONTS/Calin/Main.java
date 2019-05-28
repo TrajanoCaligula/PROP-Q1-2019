@@ -21,7 +21,7 @@ public class Main {
 
         System.out.println("Chess Game");
 
-        while (n != 10) {
+        while (n != 8) {
             System.out.println();
             System.out.println("Main Menu");
             System.out.println();
@@ -40,7 +40,7 @@ public class Main {
             if (n == 1) {   //New Game
                 if (humanName.isEmpty()) {
                     System.out.println();
-                    System.out.println("No Player selected! Select one by choosing the 4 option");
+                    System.out.println("No Player selected! Select one by choosing the 3 option");
                 } else
                     gameMenu(humanName);
             } else if (n == 2)

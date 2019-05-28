@@ -90,17 +90,17 @@ public class Match {
      * @param color: indicates who has to play
      */
 
-    public void playGame(Color color) {
+    public void playGame(Color color, Piece p, Coord c) {
         if (board.isCheck(color))
             System.out.println("You are in check!");
         if (color == Color.WHITE) {
-            whitePlayer.play(board, whiteScore, color);
+            whitePlayer.play(board, whiteScore, color,p,c);
             color = Color.BLACK;
             if (firstColor == Color.BLACK)
                 round++;
         }
         else {
-            blackPlayer.play(board, blackScore, color);
+            blackPlayer.play(board, blackScore, color,p,c);
             color = Color.WHITE;
             if (firstColor == Color.WHITE)
                 round++;

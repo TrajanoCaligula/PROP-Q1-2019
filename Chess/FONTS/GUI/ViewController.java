@@ -15,18 +15,20 @@ import java.util.ArrayList;
 
 public class ViewController{
     private Match currentMatch;
-    private MatchView view;
+    private ChessView view;
     private CtrlDomain domainController;
 
-    public ViewController(MatchView currentView) throws IOException {
+    public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
-        view.addActionListenerChess(new ActionListenerChess());
         domainController = CtrlDomain.getInstance();
+
+        this.view.addActionListenerTiles(new ActionListenerChess());
+        this.view.setProblems(domainController.listProblems());
     }
 
     public void move(ActionEvent ae){
         Tile tile = (Tile) ae.getSource();
-        view.tileAction(tile);
+        view.boardCard.tileAction(tile);
     }
 
 
@@ -35,11 +37,20 @@ public class ViewController{
         @Override
         public void actionPerformed(ActionEvent evt) {
             if (evt.getActionCommand().equals(Actions.MOVE.name())) {
-                view.tileAction((Tile) evt.getSource());
+                view.boardCard.tileAction((Tile) evt.getSource());
             } else if(evt.getActionCommand().equals(Actions.PLAY.name())){
-                view.showPlayOptions();
+                view.menuCard.showPlayOptions();
             } else if(evt.getActionCommand().equals(Actions.START.name())){
-                view.changeState();
+                view.startMatch();
+            } else if(evt.getActionCommand().equals(Actions.RANKING.name())){
+                String idP = view.menuCard.getSelectedItem();
+                ArrayList<String> scores = new ArrayList<>();
+                try {
+                    scores = domainController.topScores(Integer.parseInt(idP));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                view.menuCard.showScores(scores);
             }
         }
     }

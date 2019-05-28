@@ -37,7 +37,7 @@ public class CtrlDomain {
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
-    ArrayList<String> listProblems() throws IOException {
+    public ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblems();
     }
 
@@ -110,7 +110,11 @@ public class CtrlDomain {
         return match.getN();
     }
 
+<<<<<<< HEAD
     ArrayList<String> getLegalMoves(String piece){ //TEST
+=======
+    ArrayList<String> getLegalMoves(String piece){ //NEED TEST
+>>>>>>> 41cd7bd9cd6e5ed9ded564c7e58205ee25baac31
         Coord coo = new Coord(piece);
         Piece aux = match.getBoard().getPieceInCoord(coo);
         ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());
@@ -193,7 +197,7 @@ public class CtrlDomain {
         }
     }
 
-    ArrayList<String> topScores(int id) throws IOException {
+    public ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);
     }
 

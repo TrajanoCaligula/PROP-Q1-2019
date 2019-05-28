@@ -1,5 +1,7 @@
 package GUI;
 
+import javax.swing.*;
+import java.awt.*;
 import Jaume.*;
 import java.io.File;
 import java.awt.*;
@@ -14,123 +16,25 @@ import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
 
-enum Actions {
-    PLAY,
-    START,
-    MOVE
-}
+public class MatchView extends JPanel {
 
-public class MatchView{
-
-
-    JFrame frame = new JFrame("CardLayout demo");
-    private JPanel cards = new JPanel();
-
-    private JButton playButton = new JButton("Play");
-    private JButton problemsButton = new JButton("Problems");
-    private JButton rankingsButton = new JButton("Rankings");
-    private final JPanel menuCard = new JPanel();
     private Tile[][] chessBoardSquares = new Tile[8][8];
-
-    private final JPanel boardCard = new JPanel(new BorderLayout(3, 3));
     private JPanel chessBoard;
-    private String matchFEN;
-    private JPanel playOptions;
     private JLabel labelN;
+    private String matchFEN = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
     private JLabel labelTime;
-    private JButton startButton;
     private Tile tileHighlighted = null;
-
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
 
-    public MatchView(String matchFEN) {
-        initializeGui();
-        this.matchFEN = matchFEN;
-        setMatchGui();
-    }
 
-    public final void initializeGui() {
-        // create the images for the chess pieces
+    public MatchView() {
 
-        // set up the main GUI
-        cards.setLayout(new CardLayout());
-
-        //Start Card
-        menuCard.setLayout(new BorderLayout());
-        menuCard.setPreferredSize(new Dimension(600,700));
-        JLabel title = new JLabel("Chess");
-        title.setFont(new Font("Serif", Font.PLAIN, 65));
-        Border border = title.getBorder();
-        Border margin = new EmptyBorder(30,15,10,10);
-        title.setBorder(new CompoundBorder(border, margin));
-        menuCard.add(title, BorderLayout.NORTH);
-
-        JPanel botonesInit = new JPanel(new GridLayout(0,2));
-        botonesInit.add(playButton);
-
-
-
-
-        //Play options
-        playOptions = new JPanel(new BorderLayout());
-        startButton = new JButton("Start Match");
-        String problems[]={"P-13432","P-64536","P-6542765","P-98697","P-3650672"};
-        JComboBox cb = new JComboBox(problems);
-        cb.setBounds(50, 50,90,20);
-        playOptions.add(cb, BorderLayout.NORTH);
-        playOptions.add(startButton, BorderLayout.SOUTH);
-
-        JPanel players = new JPanel(new GridLayout(0,2));
-
-        ButtonGroup player1 = new ButtonGroup();
-        JRadioButton machineP1 = new JRadioButton("Machine");
-        JRadioButton humanP1 = new JRadioButton("Human");
-        player1.add(machineP1);
-        player1.add(humanP1);
-        JPanel radioPanel1 = new JPanel();
-        radioPanel1.setLayout(new GridLayout(3, 1));
-        radioPanel1.add(machineP1);
-        radioPanel1.add(humanP1);
-        //... Add a titled border to the button panel.
-        radioPanel1.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Player 1"));
-
-        players.add(radioPanel1);
-
-        ButtonGroup player2 = new ButtonGroup();
-        JRadioButton machineP2 = new JRadioButton("Machine");
-        JRadioButton humanP2 = new JRadioButton("Human");
-        player2.add(machineP2);
-        player2.add(humanP2);
-        JPanel radioPanel2 = new JPanel();
-        radioPanel2.setLayout(new GridLayout(3, 1));
-        radioPanel2.add(machineP2);
-        radioPanel2.add(humanP2);
-        //... Add a titled border to the button panel.
-        radioPanel2.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Player 2"));
-        players.add(radioPanel2);
-
-        playOptions.add(players, BorderLayout.CENTER);
-        playOptions.setVisible(false);
-        botonesInit.add(playOptions);
-
-        botonesInit.add(problemsButton);
-        botonesInit.add(rankingsButton);
-
-        menuCard.add(botonesInit, BorderLayout.CENTER);
-
-
-        cards.add(menuCard, "MENU");
-
-
-
-        //BOARD CARD
-        boardCard.setBorder(new EmptyBorder(5, 5, 5, 5));
-        boardCard.setPreferredSize(new Dimension(500, 500));
-        boardCard.setBackground(new Color(43,43,43));
+        this.setLayout(new BorderLayout(3, 3));
+        this.setBorder(new EmptyBorder(5, 5, 5, 5));
+        this.setPreferredSize(new Dimension(500, 500));
+        this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
         labelN = new JLabel("Round: 2", JLabel.LEFT);
         labelTime = new JLabel("1:32", JLabel.CENTER);
@@ -142,14 +46,11 @@ public class MatchView{
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
         chessBoard.setBackground(new Color(211, 212, 209));
-        boardCard.setBackground(new Color(63, 63, 68));
-        boardCard.add(chessBoard, BorderLayout.CENTER);
-        boardCard.add(topBar, BorderLayout.NORTH);
-        cards.add(boardCard, "BOARD");
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "MENU");
+        this.setBackground(new Color(63, 63, 68));
+        this.add(chessBoard, BorderLayout.CENTER);
+        this.add(topBar, BorderLayout.NORTH);
 
-        // create the chess board squares
+
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
             for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
@@ -197,12 +98,9 @@ public class MatchView{
                 }
             }
         }
-    }
+        setMatchGui();
 
-    public void setN(String nTofuck){
-        this.labelN.setText(nTofuck);
     }
-
 
     public final void setMatchGui(){
         int i = 0, y = 0, x = 0;
@@ -223,7 +121,6 @@ public class MatchView{
             i++;
         }
     }
-
 
     public void setPiece(char c, int x, int y){
         if (c == 'P')
@@ -255,11 +152,9 @@ public class MatchView{
         chessBoardSquares[x][y].setPiece(c);
         x++;
     }
-    public final JComponent getGui() {
-        return this.cards;
-    }
 
     public void tileAction(Tile pressedTile){
+        System.out.println(pressedTile.getTileX() + " " + pressedTile.getTileY());
         if(this.tileHighlighted == null){
             if (pressedTile.getPiece() != null){
                 this.tileHighlighted = pressedTile;
@@ -274,6 +169,13 @@ public class MatchView{
         }
     }
 
+
+    public void highlightPossibleTiles(String[] moves){
+        for(int i = 0; i < moves.length; i++){
+
+        }
+    }
+
     public void move(Tile init, Tile end){
 
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
@@ -282,31 +184,12 @@ public class MatchView{
         this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
-    public void addActionListenerChess(ActionListener mal) {
+    public void addActionListenerBoard(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
                 chessBoardSquares[jj][ii].setActionCommand(Actions.MOVE.name());
                 chessBoardSquares[jj][ii].addActionListener(mal);
             }
         }
-
-        playButton.setActionCommand(Actions.PLAY.name());
-        playButton.addActionListener(mal);
-
-        startButton.setActionCommand(Actions.START.name());
-        startButton.addActionListener(mal);
-
     }
-
-    public void showPlayOptions(){
-        this.playOptions.setVisible(!this.playOptions.isVisible());
-        this.playButton.setVisible(!this.playOptions.isVisible());
-    }
-
-
-    public void changeState(){
-        CardLayout cl = (CardLayout)(cards.getLayout());
-        cl.show(cards, "BOARD");
-    }
-
 }

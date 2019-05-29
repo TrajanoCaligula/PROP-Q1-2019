@@ -228,9 +228,10 @@ public class CtrlPersistance {
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
-                String FEN = lineSplitted[0];
+                lineSplitted = lineSplitted[0].split("\\s");
+                String dif = lineSplitted[7];
                 //String res = id + "-" + FEN;
-                String res = "P-"+id;
+                String res = "P-"+id+" "+dif;
                 problemList.add(res);
                 reader.close();
             }

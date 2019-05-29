@@ -19,7 +19,7 @@ public class CtrlPerTest {
         System.out.println(Ctrl.existsProblem(id));
         System.out.println(Ctrl.existsProblem(15));
 
-        ArrayList<String> t = Ctrl.listProblems();
+        ArrayList<String> t = Ctrl.listProblemsid();
         for(int i = 0; i < t.size(); i++) System.out.println(t.get(i));
 
         System.out.println("\n");

@@ -94,8 +94,7 @@ public class CtrlDomain {
         players[1] = two;
 
         Problem problem = problems.get(problemID);
-        problem.getFirstPlayer();
-        match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
+        match = new Match(players[0],players[1],problem,1,problem.getFirstPlayer());
         return match.getBoard().toFEN();
     }
 
@@ -111,6 +110,9 @@ public class CtrlDomain {
         return match.getN();
     }
 
+    public int getTurn(){
+        return match.getRound();
+    }
 
     public ArrayList<String> getLegalMoves(String piece){ //NEED TEST
         Coord coo = new Coord(piece);

@@ -21,10 +21,11 @@ public class MatchView extends JPanel {
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
     private JLabel labelN;
-    private String matchFEN = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
-    private JLabel labelTime;
+    private JLabel labelScore;
+    private JTextArea term;
     private Tile tileHighlighted = null;
-    public boolean turn = false;
+    private Tile[] tilesMove = new Tile[2];
+    public boolean turn = true;
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -34,14 +35,14 @@ public class MatchView extends JPanel {
 
         this.setLayout(new BorderLayout(3, 3));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
-        this.setPreferredSize(new Dimension(800, 500));
+        this.setPreferredSize(new Dimension(850, 500));
         this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
         labelN = new JLabel("Round: 2", JLabel.LEFT);
-        labelTime = new JLabel("1:32", JLabel.CENTER);
+        labelScore = new JLabel("Score: 34", JLabel.CENTER);
         topBar.setBackground(new Color(211, 212, 209));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
-        topBar.add(labelTime);
+        topBar.add(labelScore);
         topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -51,13 +52,14 @@ public class MatchView extends JPanel {
         this.add(chessBoard, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
 
-        JTextArea term = new JTextArea();
+        term = new JTextArea();
         term.setForeground(Color.WHITE);
         term.setMargin( new Insets(2,2,2,2));
         Font font = new Font("Terminal", Font.BOLD,12);
         term.setFont(font);
         term.setEditable(false);
-        term.setText("...Match Started!");
+        term.setText("...Match Started!\n");
+        term.append("Pau's turn:\n");
         term.setBackground(new Color(23, 23, 23));
         term.setPreferredSize(new Dimension(200, 0));
         this.add(term, BorderLayout.EAST);
@@ -79,7 +81,7 @@ public class MatchView extends JPanel {
                         //) {
                         || (jj % 2 == 0 && ii % 2 == 0)) {
 
-                    b.setBackground(new Color(162, 115, 60));
+                    b.setBackground(new Color(162, 131, 91));
                 } else {
                     b.setBackground(new Color(74, 48, 23));
                 }
@@ -109,15 +111,14 @@ public class MatchView extends JPanel {
                 }
             }
         }
-        setMatchGui();
 
     }
 
-    public final void setMatchGui(){
+    public final void setMatchBoard(String matchFEN){
         int i = 0, y = 0, x = 0;
         Character c;
-        while (i < this.matchFEN.length()) {
-            c = this.matchFEN.charAt(i);
+        while (i < matchFEN.length()) {
+            c = matchFEN.charAt(i);
             if (isDigit(c)) {
                 x += getNumericValue(c);
             }
@@ -132,6 +133,7 @@ public class MatchView extends JPanel {
             i++;
         }
     }
+
 
     public void setPiece(char c, int x, int y){
         if (c == 'P')
@@ -164,7 +166,15 @@ public class MatchView extends JPanel {
         x++;
     }
 
-    public void tileAction(Tile pressedTile){
+    public String[] getTilesInMove(){
+        String[] tilesInMove = new String[2];
+        tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
+        tilesInMove[1] = this.tilesMove[2].getTileX() + " " + this.tilesMove[2].getTileY();
+        return tilesInMove;
+    }
+
+    public boolean tileAction(Tile pressedTile){
+        boolean moveMade = false;
         System.out.println(pressedTile.getTileX() + " " + pressedTile.getTileY());
         if(this.tileHighlighted == null){
             if (pressedTile.getPiece() != null){
@@ -175,20 +185,30 @@ public class MatchView extends JPanel {
             this.tileHighlighted.undoHighlightTile();
             if(!pressedTile.equals(this.tileHighlighted)) {
                 move(this.tileHighlighted, pressedTile);
+                moveMade = true;
+                this.turn = false;
             }
             this.tileHighlighted = null;
         }
+        return  moveMade;
     }
 
-
-    public void highlightPossibleTiles(String[] moves){
-        for(int i = 0; i < moves.length; i++){
-
-        }
+    public void addTermLine(String lineToAdd){
+        this.term.append(lineToAdd);
     }
 
+    public void updatedScore(int currentScore){
+        this.labelScore.setText(String.valueOf(currentScore));
+    }
+
+    public void updateN(int currentTurn){
+        this.labelN.setText(String.valueOf(currentTurn));
+    }
 
     public void move(Tile init, Tile end){
+        tilesMove[0] = init;
+        tilesMove[1] = end;
+
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
         this.chessBoardSquares[end.getTileY()][end.getTileX()].setPiece(init.getPiece());
         this.chessBoardSquares[init.getTileY()][init.getTileX()].setIcon(null);

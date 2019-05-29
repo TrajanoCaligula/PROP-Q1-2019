@@ -18,7 +18,8 @@ enum Actions {
     PLAY,
     START,
     MOVE,
-    RANKING
+    RANKING,
+    NAME
 }
 
 public class ChessView{
@@ -28,7 +29,7 @@ public class ChessView{
     private JPanel cards = new JPanel();
 
     public StartView menuCard;
-    public MatchView boardCard;
+    public MatchView matchCard;
 
 
     public ChessView() {
@@ -46,8 +47,8 @@ public class ChessView{
         cards.add(menuCard, "MENU");
 
         //BOARD CARD
-        boardCard = new MatchView();
-        cards.add(boardCard, "BOARD");
+        matchCard = new MatchView();
+        cards.add(matchCard, "BOARD");
 
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, "MENU");
@@ -67,12 +68,13 @@ public class ChessView{
 
     public void addActionListenerTiles(ActionListener mal) {
         menuCard.addActionListenerChess(mal);
-        boardCard.addActionListenerBoard(mal);
+        matchCard.addActionListenerBoard(mal);
     }
 
 
-    public void startMatch(){
+    public void startMatch(String matchFEN){
         CardLayout cl = (CardLayout)(cards.getLayout());
+        matchCard.setMatchBoard(matchFEN);
         cl.show(cards, "BOARD");
     }
 

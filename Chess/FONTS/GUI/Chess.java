@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import java.io.IOException;
 
 public class Chess {
+    static String fen = "1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B";
     public Chess() {
 
     }

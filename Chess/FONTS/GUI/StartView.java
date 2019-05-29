@@ -18,12 +18,20 @@ import javax.imageio.ImageIO;
 public class StartView extends JPanel {
     private JButton playButton = new JButton("Play");
     private JPanel playOptions;
+
+    private JRadioButton humanP1 = new JRadioButton("Human");
+    private JRadioButton machineP1 = new JRadioButton("Machine");
+    private JRadioButton machineP2 = new JRadioButton("Machine");
+    private JTextField nameP1 = new JTextField("Introduce player's name");
+    private JTextField nameP2 = new JTextField("Introduce player's name");
+    private JRadioButton humanP2 = new JRadioButton("Human");
     private JComboBox problemsMatch;
     private JComboBox problemsRanking;
     private JButton problemsButton = new JButton("Problems");
     private JPanel problems = new JPanel();
     private JButton rankingsButton = new JButton("Rankings");
     private JPanel rankingPanel = new JPanel();
+    private String[] players = new String[2];
     JPanel scoresRanking = new JPanel(new GridLayout(0,1));
     private JButton startButton;
 
@@ -55,14 +63,14 @@ public class StartView extends JPanel {
         JPanel players = new JPanel(new GridLayout(0,2));
 
         ButtonGroup player1 = new ButtonGroup();
-        JRadioButton machineP1 = new JRadioButton("Machine");
-        JRadioButton humanP1 = new JRadioButton("Human");
         player1.add(machineP1);
         player1.add(humanP1);
         JPanel radioPanel1 = new JPanel();
         radioPanel1.setLayout(new GridLayout(3, 1));
         radioPanel1.add(machineP1);
         radioPanel1.add(humanP1);
+        radioPanel1.add(nameP1);
+        nameP1.setVisible(false);
         //... Add a titled border to the button panel.
         radioPanel1.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Player 1"));
@@ -70,14 +78,14 @@ public class StartView extends JPanel {
         players.add(radioPanel1);
 
         ButtonGroup player2 = new ButtonGroup();
-        JRadioButton machineP2 = new JRadioButton("Machine");
-        JRadioButton humanP2 = new JRadioButton("Human");
         player2.add(machineP2);
         player2.add(humanP2);
         JPanel radioPanel2 = new JPanel();
         radioPanel2.setLayout(new GridLayout(3, 1));
         radioPanel2.add(machineP2);
         radioPanel2.add(humanP2);
+        radioPanel2.add(nameP2);
+        nameP2.setVisible(false);
         //... Add a titled border to the button panel.
         radioPanel2.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Player 2"));
@@ -104,6 +112,7 @@ public class StartView extends JPanel {
     }
 
     public void setProblems(ArrayList<String> problems){
+        /*
         Object[] array = problems.toArray();
         String[] probToSet = new String[problems.size()];
 
@@ -113,10 +122,11 @@ public class StartView extends JPanel {
             this.problemsRanking.addItem(probToSet[i]);
 
         }
+        */
     }
 
     public void showScores(ArrayList<String> scores){
-        scoresRanking = new JPanel(new GridLayout(0,1));
+        //scoresRanking = new JPanel(new GridLayout(0,1));
         for(int i = 0; i < (scores.size() - 1); i++){
             scoresRanking.add(new JLabel(scores.get(i) + " " + scores.get(i+1)));
             i++;
@@ -146,7 +156,35 @@ public class StartView extends JPanel {
         problemsRanking.setActionCommand(Actions.RANKING.name());
         problemsRanking.addActionListener(mal);
 
+        humanP1.setActionCommand(Actions.NAME.name());
+        humanP1.addActionListener(mal);
+
+        humanP2.setActionCommand(Actions.NAME.name());
+        humanP2.addActionListener(mal);
 
 
     }
+
+    public String[] getPlayers(){
+        return players;
+    }
+
+    public int getidProblem(){
+        int idProblem = (int) problemsMatch.getSelectedItem();
+        return idProblem;
+    }
+
+
+    public void showInputPlayer(String player){
+        if(player.equals("Player1")){
+            this.nameP1.setVisible(true);
+        } else {
+            this.nameP2.setVisible(true);
+        }
+    }
+
+    public String getP1id(){
+        return humanP1.getUIClassID();
+    }
+
 }

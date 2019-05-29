@@ -41,7 +41,6 @@ public class CtrlPerTest {
         }
 
         System.out.println();
-        Ctrl.listRankings();
 
         System.out.println("############################################################################################");
         t = Ctrl.loadScores(id);
@@ -52,13 +51,9 @@ public class CtrlPerTest {
         System.out.println();
         System.out.println("############################################################################################");
 
-
-
         Ctrl.addScore("KKK","350",id);
         Ctrl.addScore("tr3","353",id);
         Ctrl.addScore("final test","0",id);
-
-        Ctrl.listRankings();
 
         Ctrl.existsRanking(2314);
 

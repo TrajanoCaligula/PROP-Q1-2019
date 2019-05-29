@@ -103,6 +103,7 @@ public class CtrlDomain {
         Piece pi = match.getBoard().getPieceInCoord(coo);
         coo = new Coord(finalpos);
         match.getBoard().movePiece(pi,coo);
+        match.setRound();
         return match.getBoard().toFEN();
     }
 

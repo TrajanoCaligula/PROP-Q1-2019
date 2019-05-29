@@ -107,6 +107,10 @@ public class Match {
         }
     }
 
+    public void setRound(){
+        round++;
+    }
+
     /**
      * This function looks if a certain color if checkmated or not
      * @param color: the color to look for

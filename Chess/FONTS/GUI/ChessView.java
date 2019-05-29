@@ -20,6 +20,8 @@ enum Actions {
     PROBLEM_MANAGER,
     MOVE,
     RANKING,
+    DIFFICULTY1,
+    DIFFICULTY2,
     NAME
 }
 

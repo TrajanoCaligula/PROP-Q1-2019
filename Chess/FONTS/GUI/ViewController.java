@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class ViewController{
@@ -26,36 +27,6 @@ public class ViewController{
         this.view.setProblems(domainController.listProblems());
     }
 
-    public void move(ActionEvent ae){
-        Tile tile = (Tile) ae.getSource();
-        view.matchCard.tileAction(tile);
-    }
-
-    public String[] humanMoves(){
-        view.matchCard.turn = true;
-
-        while(view.matchCard.turn){
-            //waiting for player inputs
-        }
-        String[] tilesMove = view.matchCard.getTilesInMove();
-        return tilesMove;
-    }
-
-
-    public void update(){
-
-        /*
-        view.matchCard.setMatchBoard();
-        view.matchCard.updatedScore(score);
-        view.matchCard.updateN(N);
-
-        String toAppend = playersNameTurn + "'s turn:";
-        view.matchCard.addTermLine(toAppend);
-        if(playersNameTurn.equals("Machine")){
-            view.matchCard.addTermLine("Thinking...");
-        }
-        */
-    }
 
     public void startMatch() throws IOException {
         String[] players = view.menuCard.getPlayers();
@@ -68,14 +39,11 @@ public class ViewController{
         splitted = matchFEN.split("\\s");
         domainController.newGameComplete(idPr, "Pau", 0, -1, "Jaume", 1, 2);
         view.startMatch(splitted[0]);
-
     }
-
 
     class ActionListenerChess implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
-
             if(evt.getActionCommand().equals(Actions.NAME.name())){
                 JRadioButton humanSelected = (JRadioButton) evt.getSource();
                 if(humanSelected.getUIClassID().equals(view.menuCard.getP1id())){
@@ -102,16 +70,22 @@ public class ViewController{
                 view.menuCard.showScores(scores);
             } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
                 view.menuCard.showProblemOptions();
+            } else if(evt.getActionCommand().equals(Actions.DIFFICULTY1.name())) {
+                view.menuCard.showDifficulty1();
+            } else if(evt.getActionCommand().equals(Actions.DIFFICULTY2.name())) {
+                view.menuCard.showDifficulty2();
             }
+            System.out.println(domainController.getTurn());
             if (!((domainController.getTurn()%2) == 0)) {
                 if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                     if(view.matchCard.tileAction((Tile) evt.getSource())){
-                        String fenUp = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
-                        System.out.println(fenUp);
+                        String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
+                        view.matchCard.updateBoard(currentFEN);
+
+                        currentFEN = domainController.playMachine();
+                        view.matchCard.updateBoard(currentFEN);
                     }
                 }
-            } else {
-
             }
         }
     }

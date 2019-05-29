@@ -194,6 +194,19 @@ public class MatchView extends JPanel {
         return  moveMade;
     }
 
+    public boolean updateBoard(String fen){
+        boolean ended = false;
+        for(int i = 0; i < chessBoardSquares.length; i++){
+            for(int j = 0; j < chessBoardSquares[0].length; j++){
+                chessBoardSquares[i][j].setPiece(null);
+                chessBoardSquares[i][j].setIcon(null);
+            }
+        }
+        setMatchBoard(fen);
+        ended = true;
+        return ended;
+    }
+
     public void addTermLine(String lineToAdd){
         this.term.append(lineToAdd);
     }

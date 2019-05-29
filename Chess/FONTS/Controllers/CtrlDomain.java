@@ -99,10 +99,12 @@ public class CtrlDomain {
     }
 
     public String makeMove(String piece, String finalpos){
+        match.getBoard().printBoard();
         Coord coo = new Coord(piece);
         Piece pi = match.getBoard().getPieceInCoord(coo);
         coo = new Coord(finalpos);
         match.getBoard().movePiece(pi,coo);
+        match.getBoard().printBoard();
         match.setRound();
         return match.getBoard().toFEN();
     }
@@ -114,6 +116,7 @@ public class CtrlDomain {
     public int getTurn(){
         return match.getRound();
     }
+
 
     public boolean isInCheck(String color){
         if(color == "BLACK") return match.getBoard().isCheck(Color.BLACK);
@@ -217,5 +220,12 @@ public class CtrlDomain {
      */
     public ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);
+    }
+
+    public String playMachine(){
+        System.out.println(match.getBoard().toFEN() + "--------");
+        players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
+        match.setRound();
+        return this.match.getBoard().toFEN();
     }
 }

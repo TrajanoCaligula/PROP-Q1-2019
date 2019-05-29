@@ -197,13 +197,4 @@ public class CtrlDomain {
     public ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);
     }
-
-
-    //PRE: El player tiene que ser Machine
-
-    String playMachine(String FEN, int playerNumber, Color color, int score) {
-        players[playerNumber].playView(FEN, score, color);
-        return FEN;
-    }
-
 }

@@ -36,8 +36,8 @@ public class Coord {
      */
 
     public Coord(String realCoord) {
-        this.x = realCoord.charAt(0) - 'a';
-        this.y = '8' - realCoord.charAt(1);
+        this.x = realCoord.charAt(0);
+        this.y = realCoord.charAt(1);
     }
 
     /**

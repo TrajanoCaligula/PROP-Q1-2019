@@ -41,16 +41,9 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        if(!validateFen(FEN)){
-            System.out.println("This FEN is invalid!");
-        }
-        if (!validateProblem()){
-            System.out.println("This problem has no solution!");
-        }
-        else {
-            Random rand = new Random();
-            this.id = rand.nextInt(1000*1000);
-        }
+        Random rand = new Random();
+        this.id = rand.nextInt(1000*1000);
+        this.FEN = FEN;
     }
 
     /**

@@ -38,7 +38,7 @@ public class CtrlDomain {
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
     public ArrayList<String> listProblems() throws IOException {
-        return ctrlIO.listProblems();
+        return ctrlIO.listProblemsid();
     }
 
     String getFENFromId(int id) throws IOException {
@@ -170,7 +170,6 @@ public class CtrlDomain {
             String FEN = splitted[2]+"- -"+splitted[3];
             splitted = splitted[4].split("\\s");
             FEN += splitted[0]+splitted[1]+" "+splitted[2]+" "+splitted[3];
-            System.out.println(FEN);
             int N = Integer.parseInt(splitted[3]);
             String diff = splitted[4];
             Problem res = new Problem(FEN);

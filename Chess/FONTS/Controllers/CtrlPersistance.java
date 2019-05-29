@@ -213,6 +213,10 @@ public class CtrlPersistance {
         return problemList;
     }
 
+    /**
+     * Iterates through our database and we take all the problems and save it in an array.
+     * @return Returns the array list with all the ids' of the problems that exist in our DB.
+     */
     ArrayList<String> listProblemsid() throws IOException {//FUNCIONA
         ArrayList<String> problemList = new ArrayList<>();
         File[] files = new File(filePath).listFiles();
@@ -225,7 +229,7 @@ public class CtrlPersistance {
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 String FEN = lineSplitted[0];
-                //String res = id + " - " + FEN;
+                //String res = id + "-" + FEN;
                 String res = "P-"+id;
                 problemList.add(res);
                 reader.close();
@@ -264,10 +268,9 @@ public class CtrlPersistance {
      * Deletes (if exists) the problem on our DB identified by (@param id).
      * We also use it as a bool to check if exists the problem.
      * @param id identifier of the problem we want to delete
-     * @return Returns true if exists, false otherwise.
+     * @return Returns true if exists a ranking related to the problem identified by id, false otherwise.
      */
     boolean deleteProblem(int id) throws IOException {//FUNCIONA
-        boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         File del = getFile("R-"+id);
         del.delete();
@@ -282,9 +285,17 @@ public class CtrlPersistance {
                 }
             }
         }
-        return trobat;
+        return false;
     }
 
+    /**
+     * Saves a new problem on the DB
+     * @param FEN contains all the information of the problem on FEN notation
+     * @param id identifier of the problem we want to save
+     * @param N number of turns to beat the enemy
+     * @param difficulty defined by the number of turns (N) ans describes how hard is to beat the enemy
+     * @throws IOException
+     */
     void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {//FUNCIONA
         File problemFile = new File(filePath+ "P-" +  id + ".txt");
         String aux = FEN+" "+N+" "+difficulty;

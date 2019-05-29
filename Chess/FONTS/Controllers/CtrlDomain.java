@@ -165,11 +165,12 @@ public class CtrlDomain {
     void updateProblems() throws IOException {
         ArrayList<String> aux = ctrlIO.listProblems();
         for(int i = 0; i < aux.size(); i++) {
-            String[] splitted = aux.get(i).split(" - ");
-            int id = Integer.parseInt(splitted[0]);
-            String FEN = splitted[1];
-            splitted = splitted[2].split("\\s");
-            FEN += splitted[0]+" "+splitted[1]+" "+splitted[2];
+            String[] splitted = aux.get(i).split("-");
+            int id = Integer.parseInt(splitted[1]);
+            String FEN = splitted[2]+"- -"+splitted[3];
+            splitted = splitted[4].split("\\s");
+            FEN += splitted[0]+splitted[1]+" "+splitted[2]+" "+splitted[3];
+            System.out.println(FEN);
             int N = Integer.parseInt(splitted[3]);
             String diff = splitted[4];
             Problem res = new Problem(FEN);

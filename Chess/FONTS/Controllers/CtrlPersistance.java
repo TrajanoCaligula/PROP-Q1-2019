@@ -204,6 +204,27 @@ public class CtrlPersistance {
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 String FEN = lineSplitted[0];
+                String res = "P-"+id + "-" + FEN;
+                //String res = "P-"+id;
+                problemList.add(res);
+                reader.close();
+            }
+        }
+        return problemList;
+    }
+
+    ArrayList<String> listProblemsid() throws IOException {//FUNCIONA
+        ArrayList<String> problemList = new ArrayList<>();
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                String[] lineSplitted = (line).split("\\.");
+                String FEN = lineSplitted[0];
                 //String res = id + " - " + FEN;
                 String res = "P-"+id;
                 problemList.add(res);
@@ -212,6 +233,7 @@ public class CtrlPersistance {
         }
         return problemList;
     }
+
 
     /**
      *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem

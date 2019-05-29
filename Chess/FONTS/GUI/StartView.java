@@ -27,8 +27,12 @@ public class StartView extends JPanel {
     private JRadioButton humanP2 = new JRadioButton("Human");
     private JComboBox problemsMatch;
     private JComboBox problemsRanking;
-    private JButton problemsButton = new JButton("Problems");
-    private JPanel problems = new JPanel();
+    private JButton problemsButton = new JButton("Problem Manager");
+    private JPanel problemOptions = new JPanel(new GridLayout(0, 1));
+    private JButton createNewProblem = new JButton("Create new Problem");
+    private JButton modifyExistingProblem = new JButton("Modify");
+    private JButton deleteProblem = new JButton("Delete Problem");
+    private JButton cloneProblem = new JButton("Clone Problem");
     private JButton rankingsButton = new JButton("Rankings");
     private JPanel rankingPanel = new JPanel();
     private String[] players = new String[2];
@@ -39,7 +43,7 @@ public class StartView extends JPanel {
     public StartView(){
 
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(600,700));
+        this.setPreferredSize(new Dimension(480,600));
 
         JLabel title = new JLabel(new ImageIcon("../PROP4/Chess/FONTS/assets/icons/logo.png"));
         title.setFont(new Font("Serif", Font.PLAIN, 65));
@@ -63,12 +67,13 @@ public class StartView extends JPanel {
         JPanel players = new JPanel(new GridLayout(0,2));
 
         ButtonGroup player1 = new ButtonGroup();
-        player1.add(machineP1);
+        ButtonGroup machine1 = new ButtonGroup();
         player1.add(humanP1);
+        player1.add(machineP1);
         JPanel radioPanel1 = new JPanel();
         radioPanel1.setLayout(new GridLayout(3, 1));
-        radioPanel1.add(machineP1);
         radioPanel1.add(humanP1);
+        radioPanel1.add(machineP1);
         radioPanel1.add(nameP1);
         nameP1.setVisible(false);
         //... Add a titled border to the button panel.
@@ -78,12 +83,13 @@ public class StartView extends JPanel {
         players.add(radioPanel1);
 
         ButtonGroup player2 = new ButtonGroup();
+        ButtonGroup machine2 = new ButtonGroup();
         player2.add(machineP2);
         player2.add(humanP2);
         JPanel radioPanel2 = new JPanel();
         radioPanel2.setLayout(new GridLayout(3, 1));
-        radioPanel2.add(machineP2);
         radioPanel2.add(humanP2);
+        radioPanel2.add(machineP2);
         radioPanel2.add(nameP2);
         nameP2.setVisible(false);
         //... Add a titled border to the button panel.
@@ -96,7 +102,13 @@ public class StartView extends JPanel {
         botonesInit.add(playOptions);
 
         botonesInit.add(problemsButton);
-        botonesInit.add(problems);
+        problemOptions.add(createNewProblem);
+        problemOptions.add(modifyExistingProblem);
+        problemOptions.add(cloneProblem);
+        problemOptions.add(deleteProblem);
+        problemOptions.setVisible(false);
+
+        botonesInit.add(problemOptions);
 
         botonesInit.add(rankingsButton);
         rankingPanel.setLayout(new BorderLayout());
@@ -112,17 +124,15 @@ public class StartView extends JPanel {
     }
 
     public void setProblems(ArrayList<String> problems){
-        /*
+
         Object[] array = problems.toArray();
         String[] probToSet = new String[problems.size()];
 
         for(int i = 0; i < probToSet.length; i++) {
             probToSet[i] = (String) array[i];
             this.problemsMatch.addItem(probToSet[i]);
-            this.problemsRanking.addItem(probToSet[i]);
-
         }
-        */
+
     }
 
     public void showScores(ArrayList<String> scores){
@@ -142,6 +152,8 @@ public class StartView extends JPanel {
     public void showPlayOptions(){
         this.playOptions.setVisible(!this.playOptions.isVisible());
         this.playButton.setVisible(!this.playOptions.isVisible());
+        this.problemOptions.setVisible(false);
+        this.problemsButton.setVisible(true);
     }
 
 
@@ -153,6 +165,9 @@ public class StartView extends JPanel {
         startButton.setActionCommand(Actions.START.name());
         startButton.addActionListener(mal);
 
+        problemsButton.setActionCommand(Actions.PROBLEM_MANAGER.name());
+        problemsButton.addActionListener(mal);
+
         problemsRanking.setActionCommand(Actions.RANKING.name());
         problemsRanking.addActionListener(mal);
 
@@ -162,16 +177,14 @@ public class StartView extends JPanel {
         humanP2.setActionCommand(Actions.NAME.name());
         humanP2.addActionListener(mal);
 
-
     }
 
     public String[] getPlayers(){
         return players;
     }
 
-    public int getidProblem(){
-        int idProblem = (int) problemsMatch.getSelectedItem();
-        return idProblem;
+    public String getidProblem(){
+        return (String) problemsMatch.getSelectedItem();
     }
 
 
@@ -185,6 +198,15 @@ public class StartView extends JPanel {
 
     public String getP1id(){
         return humanP1.getUIClassID();
+    }
+
+
+    public void showProblemOptions(){
+        this.problemOptions.setVisible(true);
+        this.problemsButton.setVisible(false);
+        this.playOptions.setVisible(false);
+        this.playButton.setVisible(true);
+        this.rankingPanel.setVisible(false);
     }
 
 }

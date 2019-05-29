@@ -1,5 +1,6 @@
 package GUI;
 
+
 import javax.swing.*;
 import java.awt.*;
 import Jaume.*;
@@ -16,7 +17,7 @@ import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
 
-public class MatchView extends JPanel {
+public class ProblemView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
@@ -31,7 +32,7 @@ public class MatchView extends JPanel {
     public static final int BLACK = 0, WHITE = 1;
 
 
-    public MatchView() {
+    public ProblemView() {
 
         this.setLayout(new BorderLayout(3, 3));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -125,7 +126,6 @@ public class MatchView extends JPanel {
             else if (isLetter(c)) {
                 //UpperCase
                 setPiece(c, x, y);
-                x++;
             }
             else if(c == '/') {
                 y++;
@@ -163,7 +163,6 @@ public class MatchView extends JPanel {
             chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_queen.png"));
         else if (c == 'k')
             chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_king.png"));
-
         chessBoardSquares[x][y].setPiece(c);
         x++;
     }
@@ -177,6 +176,7 @@ public class MatchView extends JPanel {
 
     public boolean tileAction(Tile pressedTile){
         boolean moveMade = false;
+        System.out.println(pressedTile.getTileX() + " " + pressedTile.getTileY());
         if(this.tileHighlighted == null){
             if (pressedTile.getPiece() != null){
                 this.tileHighlighted = pressedTile;
@@ -225,3 +225,4 @@ public class MatchView extends JPanel {
         }
     }
 }
+

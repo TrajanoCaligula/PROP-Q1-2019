@@ -54,14 +54,18 @@ public class ViewController{
         }
     }
 
-    public void startMatch(){
+    public void startMatch() throws IOException {
         String[] players = view.menuCard.getPlayers();
-        int idProblem = view.menuCard.getidProblem();
-        /*
-        String matchFEN = domainController.getFENFromId(idProblem);
-        domainController.newGame(idProblem, Players);
-        view.startMatch(matchFEN);
-         */
+        String prob = view.menuCard.getidProblem();
+        String[] splitted = prob.split("-");
+        splitted = splitted[1].split("\\s");
+        int idPr = Integer.parseInt(splitted[0]);
+
+        String matchFEN = domainController.getFENFromId(idPr);
+        splitted = matchFEN.split("\\s");
+        domainController.newGameComplete(idPr, "Pau", 0, -1, "Jaume", 0, -1);
+        view.startMatch(splitted[0]);
+
     }
 
 
@@ -77,26 +81,30 @@ public class ViewController{
                 } else {
                     view.menuCard.showInputPlayer("Player2");
                 }
+            } else if (evt.getActionCommand().equals(Actions.PLAY.name())) {
+                view.menuCard.showPlayOptions();
+            } else if (evt.getActionCommand().equals(Actions.START.name())) {
+                try {
+                    startMatch();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (evt.getActionCommand().equals(Actions.RANKING.name())) {
+                String idP = view.menuCard.getSelectedItem();
+                ArrayList<String> scores = new ArrayList<>();
+                try {
+                    scores = domainController.topScores(Integer.parseInt(idP));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                view.menuCard.showScores(scores);
+            } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
+                view.menuCard.showProblemOptions();
             }
             if (view.matchCard.turn) {
                 if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                     view.matchCard.tileAction((Tile) evt.getSource());
-                } else if (evt.getActionCommand().equals(Actions.PLAY.name())) {
-                    view.menuCard.showPlayOptions();
-                } else if (evt.getActionCommand().equals(Actions.START.name())) {
-                    startMatch();
-                } else if (evt.getActionCommand().equals(Actions.RANKING.name())) {
-                    String idP = view.menuCard.getSelectedItem();
-                    ArrayList<String> scores = new ArrayList<>();
-                    try {
-                        scores = domainController.topScores(Integer.parseInt(idP));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    view.menuCard.showScores(scores);
                 }
-            } else {
-
             }
         }
     }

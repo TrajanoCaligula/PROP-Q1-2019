@@ -44,6 +44,9 @@ public class Problem{
         Random rand = new Random();
         this.id = rand.nextInt(1000*1000);
         this.FEN = FEN;
+        System.out.println(FEN);
+        String[] splitted = FEN.split("\\s");
+        this.firstPlayer = splitted[1];
     }
 
     /**

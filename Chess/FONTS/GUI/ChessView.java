@@ -17,6 +17,7 @@ import static java.lang.Character.*;
 enum Actions {
     PLAY,
     START,
+    PROBLEM_MANAGER,
     MOVE,
     RANKING,
     NAME

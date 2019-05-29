@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ViewController{
     private ChessView view;
     private CtrlDomain domainController;
+    private String currentFEN;
 
     public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
@@ -36,14 +37,15 @@ public class ViewController{
         while(view.matchCard.turn){
             //waiting for player inputs
         }
-
         String[] tilesMove = view.matchCard.getTilesInMove();
         return tilesMove;
     }
 
 
-    public void update(String updatedFEN, int score, int N, String playersNameTurn){
-        view.matchCard.setMatchBoard(updatedFEN);
+    public void update(){
+
+        /*
+        view.matchCard.setMatchBoard();
         view.matchCard.updatedScore(score);
         view.matchCard.updateN(N);
 
@@ -52,6 +54,7 @@ public class ViewController{
         if(playersNameTurn.equals("Machine")){
             view.matchCard.addTermLine("Thinking...");
         }
+        */
     }
 
     public void startMatch() throws IOException {
@@ -63,7 +66,7 @@ public class ViewController{
 
         String matchFEN = domainController.getFENFromId(idPr);
         splitted = matchFEN.split("\\s");
-        domainController.newGameComplete(idPr, "Pau", 0, -1, "Jaume", 0, -1);
+        domainController.newGameComplete(idPr, "Pau", 0, -1, "Jaume", 1, 2);
         view.startMatch(splitted[0]);
 
     }
@@ -74,7 +77,6 @@ public class ViewController{
         public void actionPerformed(ActionEvent evt) {
 
             if(evt.getActionCommand().equals(Actions.NAME.name())){
-                System.out.println("HEdd");
                 JRadioButton humanSelected = (JRadioButton) evt.getSource();
                 if(humanSelected.getUIClassID().equals(view.menuCard.getP1id())){
                     view.menuCard.showInputPlayer("Player1");
@@ -101,10 +103,15 @@ public class ViewController{
             } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
                 view.menuCard.showProblemOptions();
             }
-            if (view.matchCard.turn) {
+            if (!((domainController.getTurn()%2) == 0)) {
                 if (evt.getActionCommand().equals(Actions.MOVE.name())) {
-                    view.matchCard.tileAction((Tile) evt.getSource());
+                    if(view.matchCard.tileAction((Tile) evt.getSource())){
+                        String fenUp = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
+                        System.out.println(fenUp);
+                    }
                 }
+            } else {
+
             }
         }
     }

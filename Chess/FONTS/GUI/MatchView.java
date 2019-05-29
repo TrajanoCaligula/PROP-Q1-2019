@@ -171,7 +171,7 @@ public class MatchView extends JPanel {
     public String[] getTilesInMove(){
         String[] tilesInMove = new String[2];
         tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
-        tilesInMove[1] = this.tilesMove[2].getTileX() + " " + this.tilesMove[2].getTileY();
+        tilesInMove[1] = this.tilesMove[1].getTileX() + " " + this.tilesMove[1].getTileY();
         return tilesInMove;
     }
 

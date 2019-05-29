@@ -94,6 +94,7 @@ public class CtrlDomain {
         players[1] = two;
 
         Problem problem = problems.get(problemID);
+        problem.getFirstPlayer();
         match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
         return match.getBoard().toFEN();
     }
@@ -195,6 +196,12 @@ public class CtrlDomain {
         }
     }
 
+    /**
+     *
+     * @param id identifies the problem
+     * @return arraylist with the username and puntuation of the top5 scores ofthe problem identified by id
+     * @throws IOException
+     */
     public ArrayList<String> topScores(int id) throws IOException {
         return ctrlIO.loadScores(id);
     }

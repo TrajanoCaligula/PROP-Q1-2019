@@ -31,8 +31,13 @@ public class CtrlPersistance {
 
     // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
 
-
-
+    /**
+     * Adds a new score into a ranking
+     * @param name name of the player that made the new score
+     * @param points amount of points that deserve to be saved on a ranking
+     * @param id identifier of the problem where the new score has been achieved
+     * @throws IOException
+     */
     void addScore(String name, String points, int id) throws IOException {
         if(existsRanking(id)) {
             ArrayList<String> scores = loadScores(id);
@@ -64,11 +69,21 @@ public class CtrlPersistance {
         }
     }
 
+    /**
+     * Deletes a ranking from the DB
+     * @param id identifier of the problem with the ranking
+     * @throws IOException
+     */
     void deleteRanking(int id) throws IOException {
         File del = getFile("R-"+Integer.toString(id));
         del.delete();
     }
 
+    /**
+     * Saves a new ranking on the DB
+     * @param scores ArrayList with size 10 with the username of the bests on the problem identified by id and its puntuation
+     * @param id identifies the problem of the ranking
+     */
     void saveRanking(ArrayList<String> scores, int id){
         File problemFile = new File(filePath+ "R-" +  id + ".txt");
         try {
@@ -84,6 +99,12 @@ public class CtrlPersistance {
         }
     }
 
+    /**
+     * Gets the arraylist with the names and puntuations of the top5 players of the problem
+     * @param id identifies the problem related to the scores
+     * @return arrayList with the names and puntuations of the top5 players of the problem
+     * @throws IOException
+     */
     ArrayList<String> loadScores(int id) throws IOException {
         ArrayList<String> scoresLoaded = new ArrayList<String>();
         File rankingFileLD = getFile("R-"+id);
@@ -102,7 +123,12 @@ public class CtrlPersistance {
         return scoresLoaded;
     }
 
-    ArrayList<ArrayList<String>> listRankings() throws IOException { //fer? CREC QUE NO CAL-------------+-+-++++++++++++++++++++++++++++++++
+    /**
+     * Save all the problems with ranking and stores the its identificator and the top 5 puntuations
+     * @return an ArrayList of ArrayList that contains the top 5 scores of each problem existing in the DB
+     * @throws IOException
+     */
+    ArrayList<ArrayList<String>> listRankings() throws IOException {
         ArrayList<ArrayList<String>> rankingsList = new ArrayList<ArrayList<String>>();
         File[] files = new File(filePath).listFiles();
         int i = 0;
@@ -129,18 +155,18 @@ public class CtrlPersistance {
         }
         for(int l = 0; l < rankingsList.size(); l++){
             for(int j = 0; j < rankingsList.get(l).size();j++) {
-                if(j != 0) {
-                    System.out.println(rankingsList.get(l).get(j));
-                }else {
-                    System.out.println(rankingsList.get(l).get(j) + " " + rankingsList.get(l).get(j + 1));
-                    ++j;
-                }
+                ++j;
             }
-            System.out.println();
+
         }
         return rankingsList;
     }
 
+    /**
+     * Check if there is a ranking of the problem identified by id
+     * @param id identifies the ranking to search
+     * @return true if exists, otherwise false
+     */
     boolean existsRanking(int id){ //FUNCIONA
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
@@ -149,7 +175,6 @@ public class CtrlPersistance {
             if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
                 String[] fileName = splitted[1].split("\\.");
                 if(fileName[0].equals(Integer.toString(id))){
-                    System.out.println(file.getName());
                     trobat = true;
                 }
             }
@@ -157,6 +182,12 @@ public class CtrlPersistance {
         return trobat;
     }
 
+    /**
+     * Get the whole file of the problem identified by id
+     * @param id identifies the problem to get
+     * @return returns a file with all the information of a problem
+     * @throws IOException
+     */
     File getFile(String id) throws IOException {//FUNCIONA
         id += ".txt";
         File[] files = new File(filePath).listFiles();
@@ -169,6 +200,12 @@ public class CtrlPersistance {
         return null;
     }
 
+    /**
+     * Gets the FEN notation of the problem identified by id
+     * @param id identifies the problem to search
+     * @return return an string with the information of the positions, turns and so one of the problem
+     * @throws IOException
+     */
     String getFEN(int id) throws IOException {//FUNCIONA
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
@@ -267,7 +304,7 @@ public class CtrlPersistance {
     }
     /**
      * Deletes (if exists) the problem on our DB identified by (@param id).
-     * We also use it as a bool to check if exists the problem.
+     * We also use it as a bool to check if the problem has a ranking. If so, it will be deleted as well.
      * @param id identifier of the problem we want to delete
      * @return Returns true if exists a ranking related to the problem identified by id, false otherwise.
      */
@@ -325,7 +362,6 @@ public class CtrlPersistance {
             if (file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
                 String[] fileName = splitted[1].split("\\.");
                 if(fileName[0].equals(Integer.toString(idPR))){
-                    System.out.println(file.getName());
                     trobat = true;
                 }
             }

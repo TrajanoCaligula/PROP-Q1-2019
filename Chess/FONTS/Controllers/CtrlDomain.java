@@ -41,13 +41,13 @@ public class CtrlDomain {
         return ctrlIO.listProblemsid();
     }
 
-    String getFENFromId(int id) throws IOException {
+    public String getFENFromId(int id) throws IOException {
         return ctrlIO.getFEN(id);
     }
 
     //MATCH
 
-    void newPlayerMachine(String name, String color, int type, int depth){
+    public void newPlayerMachine(String name, String color, int type, int depth){
         Color cl;
         if(color == "WHITE")cl = Color.WHITE;
         else cl = Color.BLACK;
@@ -62,12 +62,12 @@ public class CtrlDomain {
         else players[1] = pl;
     }
 
-    void newPlayerHuman(String name, String color){
+    public void newPlayerHuman(String name, String color){
         if(color == "WHITE") players[0] = new Human(name,Color.WHITE);
         else players[1] = new Human(name,Color.BLACK);
     }
 
-    boolean newGame(int problemID){
+    public boolean newGame(int problemID){
         Problem problem = problems.get(problemID);
         if(problem != null){
             match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
@@ -76,7 +76,7 @@ public class CtrlDomain {
         return false;
     }
 
-    String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
+    public String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
         Player one = null;
         Player two = null;
         switch (type1){
@@ -98,7 +98,7 @@ public class CtrlDomain {
         return match.getBoard().toFEN();
     }
 
-    String makeMove(String piece, String finalpos){
+    public String makeMove(String piece, String finalpos){
         Coord coo = new Coord(piece);
         Piece pi = match.getBoard().getPieceInCoord(coo);
         coo = new Coord(finalpos);
@@ -106,12 +106,12 @@ public class CtrlDomain {
         return match.getBoard().toFEN();
     }
 
-    int getN(){
+    public int getN(){
         return match.getN();
     }
 
 
-    ArrayList<String> getLegalMoves(String piece){ //NEED TEST
+    public ArrayList<String> getLegalMoves(String piece){ //NEED TEST
         Coord coo = new Coord(piece);
         Piece aux = match.getBoard().getPieceInCoord(coo);
         ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());
@@ -124,7 +124,7 @@ public class CtrlDomain {
 
     //PROBLEM
 
-    int createProblem(String FEN,int N, String difficulty) throws IOException {
+    public int createProblem(String FEN,int N, String difficulty) throws IOException {
         Problem prob = new Problem(FEN);
         if(prob.validateFen(FEN) && prob.validateProblem()) {
             if(N <= 5) difficulty = "Hard";
@@ -139,16 +139,17 @@ public class CtrlDomain {
         }else return-1;
     }
 
-    String copyProblem(int id){
+    public String copyProblem(int id){
         Problem prob = problems.get(id);
         probToMod = new Problem(prob.getFen());
         return probToMod.getFen();
     }
 
-    String modifyFEN(String init,String fin){
+    public String modifyFEN(String init,String fin){
         return probToMod.movePiece(init,fin);
     }
-    int saveModProb() throws IOException {
+
+    public int saveModProb() throws IOException {
         if(probToMod.validateFen(probToMod.getFen()) && probToMod.validateProblem()){
             ctrlIO.saveProblem(probToMod.getFen(),probToMod.getId(),probToMod.getN(),probToMod.getDifficulty());
             problems.put(probToMod.getId(),probToMod);
@@ -157,7 +158,7 @@ public class CtrlDomain {
         return -1;
     }
 
-    void dropProblem(int id) throws IOException {
+    public void dropProblem(int id) throws IOException {
         ctrlIO.deleteProblem(id);
         problems.remove(id);
     }

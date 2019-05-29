@@ -114,6 +114,16 @@ public class CtrlDomain {
         return match.getRound();
     }
 
+    public boolean isInCheck(String color){
+        if(color == "BLACK") return match.getBoard().isCheck(Color.BLACK);
+        else return match.getBoard().isCheck(Color.WHITE);
+    }
+
+    public boolean youAreDonete(String color){
+        if(color == "BLACK") return match.getBoard().isGameOver(Color.BLACK);
+        else return match.getBoard().isGameOver(Color.WHITE);
+    }
+
     public ArrayList<String> getLegalMoves(String piece){ //NEED TEST
         Coord coo = new Coord(piece);
         Piece aux = match.getBoard().getPieceInCoord(coo);

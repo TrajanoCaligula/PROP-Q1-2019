@@ -284,12 +284,12 @@ public class CtrlPersistance {
             if(file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
                 splitted = splitted[1].split("\\.");
                 String id = splitted[0];
-                String res = "P-"+id;
+                String res = "R-"+id;
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 lineSplitted = lineSplitted[0].split("\\s");
-                String dif = lineSplitted[7];
+                //String dif = lineSplitted[7];
                 //String res = id + "-" + FEN;
                 //String res = "P-"+id+" "+dif;
                 problemList.add(res);

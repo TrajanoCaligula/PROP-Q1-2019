@@ -37,45 +37,38 @@ public class CtrlDomain {
 
     //CAL FER UNA FUNCIO UPDATE PER ACTUALITZAR problems SI JA NHI HAVIA DABANS
 
+    /**
+     * Gets the problems stored on the DB
+     * @return arraylist with the ids of the problems stored on the DB
+     * @throws IOException
+     */
     public ArrayList<String> listProblems() throws IOException {
         return ctrlIO.listProblemsid();
     }
 
+    /**
+     * Gets the FEN of the problem identified by id
+     * @param id identifies the problem you want to search
+     * @return the FEN of the problem identified by id
+     * @throws IOException
+     */
     public String getFENFromId(int id) throws IOException {
         return ctrlIO.getFEN(id);
     }
 
     //MATCH
 
-    public void newPlayerMachine(String name, String color, int type, int depth){
-        Color cl;
-        if(color == "WHITE")cl = Color.WHITE;
-        else cl = Color.BLACK;
-        Player pl = null;
-        if(type == 1){
-            pl = new Machine(name, cl,depth);
-        }
-        else {
-            pl = new Machine2(name,cl, depth);
-        }
-        if(color == "WHITE") players[0] = pl;
-        else players[1] = pl;
-    }
-
-    public void newPlayerHuman(String name, String color){
-        if(color == "WHITE") players[0] = new Human(name,Color.WHITE);
-        else players[1] = new Human(name,Color.BLACK);
-    }
-
-    public boolean newGame(int problemID){
-        Problem problem = problems.get(problemID);
-        if(problem != null){
-            match = new Match(players[0],players[1],problem,0,problem.getFirstPlayer());
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * Creates a new match with all the information
+     * @param problemID identifies the problem on the DB
+     * @param name1 name of the white player
+     * @param type1 0 if human, 1 if machine1, 2 if machine2
+     * @param depth1 depth of the algorithm if type1 > 0
+     * @param name2 name of the black player
+     * @param type2 0 if human, 1 if machine1, 2 if machine2
+     * @param depth2 depth of the algorithm if type2 > 0
+     * @return the FEN of the problem
+     */
     public String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
         Player one = null;
         Player two = null;
@@ -117,6 +110,12 @@ public class CtrlDomain {
         return match.getBoard().toFEN();
     }
 
+    /**
+     * Moves a piece into a new position
+     * @param piece string that describes the position of the piece you want to move
+     * @param finalpos string that describes the new position of the piece
+     * @return the FEN with the new position of the piece
+     */
     public String makeMove(String piece, String finalpos){
         Coord coo = new Coord(piece);
         Piece pi = match.getBoard().getPieceInCoord(coo);
@@ -126,25 +125,47 @@ public class CtrlDomain {
         return match.getBoard().toFEN();
     }
 
+    /**
+     * Gets the number of turns remainding to finish the match
+     * @return number of rounds until the match ends
+     */
     public int getN(){
         return match.getN();
     }
 
+    /**
+     * Gets the current round of the match
+     * @return the current round of the match
+     */
     public int getTurn(){
         return match.getRound();
     }
 
-
+    /**
+     * Checks if the player's king is in danger
+     * @param color if "BLACK" checks if the black team is in danger, if "WHITE" checks the white team
+     * @return true if the player's(color) king is in danger, false otherwise
+     */
     public boolean isInCheck(String color){
         if(color == "BLACK") return match.getBoard().isCheck(Color.BLACK);
         else return match.getBoard().isCheck(Color.WHITE);
     }
 
+    /**
+     * Chescks if the player has lost
+     * @param color if true, chaecks the white team, if false, the black one
+     * @return true if the player (color) has lost, false otherwise
+     */
     public boolean youAreDonete(boolean color){
         if(!color) return match.getBoard().isGameOver(Color.BLACK);
         else return match.getBoard().isGameOver(Color.WHITE);
     }
 
+    /**
+     * Get the legal movemnt that you can make with a certain piece
+     * @param piece string that describes the position of the piece
+     * @return arraylist with the positions where you can move the piece
+     */
     public ArrayList<String> getLegalMoves(String piece){ //NEED TEST
         Coord coo = new Coord(piece);
         Piece aux = match.getBoard().getPieceInCoord(coo);
@@ -158,6 +179,14 @@ public class CtrlDomain {
 
     //PROBLEM
 
+    /**
+     * Creates a new problem and saves on the DB if its not allready there
+     * @param FEN information of the positions of the pieces of the problem
+     * @param N number of turns to beat the enemy
+     * @param difficulty describes the difficulty of the problem
+     * @return the id of the new problem, -1 if it has not been saved successfully
+     * @throws IOException
+     */
     public int createProblem(String FEN,int N, String difficulty) throws IOException {
         Problem prob = new Problem(FEN);
         if(prob.validateFen(FEN) && prob.validateProblem()) {
@@ -173,16 +202,32 @@ public class CtrlDomain {
         }else return-1;
     }
 
+    /**
+     * Clone a problem
+     * @param id identifier of the problem you want to clone
+     * @return FEN of the problem
+     */
     public String copyProblem(int id){
         Problem prob = problems.get(id);
         probToMod = new Problem(prob.getFen());
         return probToMod.getFen();
     }
 
+    /**
+     * Modify a position in the board of a piece and return the resulting FEN
+     * @param init string that describes the position of the pieace you want to move
+     * @param fin string that describes the position where you want to move that piece
+     * @return FEN with the new position of the pieace
+     */
     public String modifyFEN(String init,String fin){
         return probToMod.movePiece(init,fin);
     }
 
+    /**
+     * Saves a problem into the DB
+     * @return return the id of the problem if its has been saved, -1 otherwise
+     * @throws IOException
+     */
     public int saveModProb() throws IOException {
         if(probToMod.validateFen(probToMod.getFen()) && probToMod.validateProblem()){
             ctrlIO.saveProblem(probToMod.getFen(),probToMod.getId(),probToMod.getN(),probToMod.getDifficulty());
@@ -192,11 +237,20 @@ public class CtrlDomain {
         return -1;
     }
 
+    /**
+     * Destroy a problem from the DB and its ranking
+     * @param id
+     * @throws IOException
+     */
     public void dropProblem(int id) throws IOException {
         ctrlIO.deleteProblem(id);
         problems.remove(id);
     }
 
+    /**
+     * Updates the problems existing on the program from the DB
+     * @throws IOException
+     */
     void updateProblems() throws IOException {
         ArrayList<String> aux = ctrlIO.listProblems();
         for(int i = 0; i < aux.size(); i++) {
@@ -216,6 +270,10 @@ public class CtrlDomain {
 
     //RANKING
 
+    /**
+     * Updates the rankings existing on the program from the DB
+     * @throws IOException
+     */
     void updateRankings() throws IOException { //NEED TEST
         ArrayList<ArrayList<String>> aux = ctrlIO.listRankings();
         for(int i = 0; i < aux.size(); i++) {
@@ -239,20 +297,16 @@ public class CtrlDomain {
         return ctrlIO.loadScores(id);
     }
 
-    public String playMachine(int i){
-        if(i == 0) {
-            players[0].play(match.getBoard(), this.match.getBlackScore(), Color.WHITE);
-            match.setRound();
-            return this.match.getBoard().toFEN();
-        }
-        else{
-            players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
-            match.setRound();
-            return this.match.getBoard().toFEN();
-        }
+    public String playMachine(){
+        players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
+        match.setRound();
+        return this.match.getBoard().toFEN();
     }
 
-
+    /**
+     * Gets the type of white player
+     * @return 0 if its a human, 1 if its a machine1, 2 if its a machine2
+     */
     public Integer getPlayer1Type(){
         if(players[0] instanceof Human)
             return 0;
@@ -263,10 +317,18 @@ public class CtrlDomain {
         return null;
     }
 
+    /**
+     * Gets the name of the black player
+     * @return the name of the player number two
+     */
     public String getPlayer1Name(){
         return players[0].getName();
     }
 
+    /**
+     * Gets the type of black player
+     * @return 0 if its a human, 1 if its a machine1, 2 if its a machine2
+     */
     public Integer getPlayer2Type(){
         if(players[1] instanceof Human)
             return 0;
@@ -277,6 +339,10 @@ public class CtrlDomain {
         return null;
     }
 
+    /**
+     * Gets the name of the white player
+     * @return the name of the player number one
+     */
     public String getPlayer2Name(){
         return players[1].getName();
     }

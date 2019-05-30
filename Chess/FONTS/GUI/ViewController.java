@@ -1,6 +1,8 @@
 package GUI;
 
 import Controllers.CtrlDomain;
+import Jaume.Color;
+import sun.jvm.hotspot.debugger.win32.coff.COFFLineNumber;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,7 @@ public class ViewController{
     private CtrlDomain domainController;
     private boolean matchStarted = false;
     private boolean humanMoves = false;
-    private boolean currentPlayerTurn;
+    private boolean currentPlayerTurn; //false - white, true - black
 
     public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
@@ -61,6 +63,13 @@ public class ViewController{
 
 
     public void play(){
+        view.matchCard.revalidate();
+        view.matchCard.repaint();
+        if(domainController.youAreDonete(!currentPlayerTurn)){
+            view.matchCard.gameEnd(false);
+            System.out.println("fdagfdsaf");
+        }
+
         updatedTerminal();
         currentPlayerTurn = !currentPlayerTurn;
         if((domainController.getTurn()%2) != 0){
@@ -68,18 +77,26 @@ public class ViewController{
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(0);//---------------------------------------------------------
                 view.matchCard.updateBoard(currentFEN);
+                view.matchCard.revalidate();
+                view.matchCard.repaint();
                 play();
             } else {
                 humanMoves = true;
+                view.matchCard.revalidate();
+                view.matchCard.repaint();
             }
         } else {
             if(domainController.getPlayer2Type() != 0){
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(1);
                 view.matchCard.updateBoard(currentFEN);
+                view.matchCard.revalidate();
+                view.matchCard.repaint();
                 play();
             } else {
                 humanMoves = true;
+                view.matchCard.revalidate();
+                view.matchCard.repaint();
             }
         }
     }
@@ -121,11 +138,13 @@ public class ViewController{
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                         Tile currentTile = (Tile) evt.getSource();
-                        //String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
-                        //System.out.println(coords);
-                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn/*, domainController.getLegalMoves(coords)*/)) {
+                        String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
+                        System.out.println(coords);
+                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, domainController.getLegalMoves(coords))) {
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
+                            view.matchCard.revalidate();
+                            view.matchCard.repaint();
                             play();
                         }
                     }

@@ -20,6 +20,7 @@ public class MatchView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
+    private String currentFEN;
     private JLabel labelN;
     private JLabel labelScore;
     private JTextArea term;
@@ -114,6 +115,7 @@ public class MatchView extends JPanel {
     }
 
     public final void setMatchBoard(String matchFEN){
+        this.currentFEN = matchFEN;
         int i = 0, y = 0, x = 0;
         Character c;
         while (i < matchFEN.length()) {
@@ -190,21 +192,22 @@ public class MatchView extends JPanel {
         }
     }
 
-    public boolean tileAction(Tile pressedTile, boolean turn/*, ArrayList<String> tileLegalMoves*/){
+    public boolean tileAction(Tile pressedTile, boolean turn, ArrayList<String> tileLegalMoves){
         boolean moveMade = false;
         if(this.tileHighlighted == null){
             if ((pressedTile.getPiece() != null) && pieceYourColor(turn, pressedTile)){
                 this.tileHighlighted = pressedTile;
                 pressedTile.highlightTile();
-                //highilghtLegalMoves(tileLegalMoves);
+                highilghtLegalMoves(tileLegalMoves);
             }
         } else {
             this.tileHighlighted.undoHighlightTile();
+            undoHighlightLegalMoves(tileLegalMoves);
             if(!pressedTile.equals(this.tileHighlighted)) {
                 move(this.tileHighlighted, pressedTile);
                 moveMade = true;
                 this.turn = false;
-                //highilghtLegalMoves(tileLegalMoves);
+                highilghtLegalMoves(tileLegalMoves);
             }
             this.tileHighlighted = null;
         }

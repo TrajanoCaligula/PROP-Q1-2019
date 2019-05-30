@@ -3,32 +3,22 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import Jaume.*;
 import java.io.File;
-import java.awt.*;
 import java.awt.Color;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import javax.swing.border.*;
-import java.net.URL;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-
-import static java.lang.Character.*;
 
 public class ProblemView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
     private JPanel piecePicker;
-    private Tile[] pieces = new Tile[16];
-    private Tile[] tilesMove = new Tile[2];
+    private Tile[] pieces = new Tile[12];
     public Tile pieceSelected = null;
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
-
 
     public ProblemView() {
 

@@ -4,25 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Tile extends JButton implements Cloneable {
+public class Tile extends JButton {
     private int tx, ty;
     private Character piece;
     public boolean highlighted = false;
+
+
     public Tile(int x, int y){
         super();
 
         this.tx = x;
         this.ty = y;
     }
-    public Tile(Character piece, int x, int y){
-        super();
-
-        this.tx = x;
-        this.ty = y;
-        this.piece = piece;
-    }
 
     public Tile(Icon pieceIcon, int x){
+        super();
+
         this.tx = x;
         this.ty = 0;
         this.setIcon(pieceIcon);

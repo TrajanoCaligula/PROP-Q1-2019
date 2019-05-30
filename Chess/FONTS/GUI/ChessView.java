@@ -31,7 +31,6 @@ enum Actions {
 public class ChessView{
 
 
-    JFrame frame = new JFrame("CardLayout demo");
     private JPanel cards = new JPanel();
 
     public StartView menuCard;
@@ -41,7 +40,6 @@ public class ChessView{
 
     public ChessView() {
         initializeGui();
-        //setMatchGui();
     }
 
     public final void initializeGui() {
@@ -80,6 +78,7 @@ public class ChessView{
     public void addActionListenerTiles(ActionListener mal) {
         menuCard.addActionListenerChess(mal);
         matchCard.addActionListenerBoard(mal);
+        newProblemCard.addActionListenerBoard(mal);
     }
 
 

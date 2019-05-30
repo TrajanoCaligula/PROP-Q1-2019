@@ -239,10 +239,17 @@ public class CtrlDomain {
         return ctrlIO.loadScores(id);
     }
 
-    public String playMachine(){
-        players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
-        match.setRound();
-        return this.match.getBoard().toFEN();
+    public String playMachine(int i){
+        if(i == 0) {
+            players[0].play(match.getBoard(), this.match.getBlackScore(), Color.WHITE);
+            match.setRound();
+            return this.match.getBoard().toFEN();
+        }
+        else{
+            players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
+            match.setRound();
+            return this.match.getBoard().toFEN();
+        }
     }
 
 

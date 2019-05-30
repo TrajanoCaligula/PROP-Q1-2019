@@ -301,7 +301,7 @@ public class CtrlPersistance {
     /**
      *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem
      *  in our DB.
-     * @param idPR identifier of the problem we want find
+     * @param idPR identifier of the problem you want find
      * @return Returns true if it founds a file of the problem identified by (@param idPR)
      */
     boolean problemExists(String inFEN) throws IOException {//FUNCIONA

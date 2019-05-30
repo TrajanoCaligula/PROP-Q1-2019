@@ -180,7 +180,7 @@ public class CtrlDomain {
     //PROBLEM
 
     /**
-     * Creates a new problem and saves on the DB if its not allready there
+     * Creates a new problem and saves on the DB if its not already there
      * @param FEN information of the positions of the pieces of the problem
      * @param N number of turns to beat the enemy
      * @param difficulty describes the difficulty of the problem
@@ -288,7 +288,7 @@ public class CtrlDomain {
     }
 
     /**
-     *
+     * List the top 5 scores on a problem
      * @param id identifies the problem
      * @return arraylist with the username and puntuation of the top5 scores ofthe problem identified by id
      * @throws IOException
@@ -297,6 +297,11 @@ public class CtrlDomain {
         return ctrlIO.loadScores(id);
     }
 
+    /**
+     * Lists the problems with ranking of the system
+     * @return ArrayList of string in the format "P-id" where id is the identifier of problem
+     * @throws IOException
+     */
     public ArrayList<String>listRankingsId() throws IOException {
         return ctrlIO.listRankingsid();
     }

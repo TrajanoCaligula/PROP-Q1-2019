@@ -75,7 +75,7 @@ public class ViewController{
         if((domainController.getTurn()%2) != 0){
             if(domainController.getPlayer1Type() != 0){
                 humanMoves = false;
-                String currentFEN = domainController.playMachine(0);//---------------------------------------------------------
+                String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 view.matchCard.revalidate();
                 view.matchCard.repaint();
@@ -88,7 +88,7 @@ public class ViewController{
         } else {
             if(domainController.getPlayer2Type() != 0){
                 humanMoves = false;
-                String currentFEN = domainController.playMachine(1);
+                String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 view.matchCard.revalidate();
                 view.matchCard.repaint();

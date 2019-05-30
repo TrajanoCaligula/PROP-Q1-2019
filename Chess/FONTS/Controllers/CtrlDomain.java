@@ -297,7 +297,7 @@ public class CtrlDomain {
         return ctrlIO.loadScores(id);
     }
 
-    public ArrayList<String>listRankingsId(){
+    public ArrayList<String>listRankingsId() throws IOException {
         return ctrlIO.listRankingsid();
     }
 

@@ -136,6 +136,7 @@ public class StartView extends JPanel {
         problemsRanking = new JComboBox();
 
         rankingPanel.add(problemsRanking, BorderLayout.NORTH);
+        this.problemsRanking.setVisible(true);
         rankingPanel.add(scoresRanking, BorderLayout.CENTER);
 
         botonesInit.add(rankingPanel);
@@ -204,8 +205,8 @@ public class StartView extends JPanel {
         problemsButton.setActionCommand(Actions.PROBLEM_MANAGER.name());
         problemsButton.addActionListener(mal);
 
-        problemsRanking.setActionCommand(Actions.RANKING.name());
-        problemsRanking.addActionListener(mal);
+        rankingsButton.setActionCommand(Actions.RANKING.name());
+        rankingsButton.addActionListener(mal);
 
         machineP1.setActionCommand(Actions.DIFFICULTY1.name());
         machineP1.addActionListener(mal);

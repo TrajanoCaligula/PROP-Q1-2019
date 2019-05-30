@@ -116,15 +116,6 @@ public class ViewController{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (evt.getActionCommand().equals(Actions.RANKING.name())) {
-                String idP = view.menuCard.getSelectedItem();
-                ArrayList<String> scores = new ArrayList<>();
-                try {
-                    scores = domainController.topScores(Integer.parseInt(idP));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                view.menuCard.showScores(scores);
             } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
                 view.menuCard.showProblemOptions();
             } else if(evt.getActionCommand().equals(Actions.DIFFICULTY1.name())) {
@@ -137,7 +128,11 @@ public class ViewController{
                 Tile currentTile = (Tile) evt.getSource();
                 view.newProblemCard.move(currentTile);
             } else if(evt.getActionCommand().equals(Actions.RANKING.name())){
-                view.menuCard.showRankingOptions(domainController.getRankingsId);
+                try {
+                    view.menuCard.showRankingOptions(domainController.listRankingsId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             if(matchStarted) {
                 if (humanMoves) {

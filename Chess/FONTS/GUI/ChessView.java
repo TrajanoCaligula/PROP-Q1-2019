@@ -43,6 +43,15 @@ public class ChessView{
         initializeGui();
     }
 
+    /**
+     * Initialize the GUI of the chess game. Creating three main cards: Menu, Board & Problem. Each card with its implementations.
+     * Menu: sets the main menu,where you can check the existing problems (and modify them if wanted), rankings and create new matches
+     * (choosing the problem, the players and the difficulty)
+     * Board: sets the board from a given FEN and update it with every piece movement, checking every movement and the end of the match
+     * as well as updates the turn counter, and points of every player.
+     * Problem: allow the player to create a problem from zero, with an empty board and several pieces to choose from and
+     * place them where ever you want. Then, the backtracking will check if exists a solution and if so it will be stored on the system
+     */
     public final void initializeGui() {
         // create the images for the chess pieces
         cards.setLayout(new CardLayout());

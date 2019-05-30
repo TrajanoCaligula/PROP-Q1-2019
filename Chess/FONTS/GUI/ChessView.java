@@ -16,6 +16,7 @@ import static java.lang.Character.*;
 
 enum Actions {
     PLAY,
+    PLAY_OPTIONS,
     START,
     PROBLEM_MANAGER,
     NEW_PROBLEM,
@@ -65,10 +66,9 @@ public class ChessView{
 
 
 
-    public void setProblems(ArrayList<String> problems){
-        menuCard.setProblems(problems);
+    public void setRankings(ArrayList<String> rankings){
+        menuCard.setRankings(rankings);
     }
-
 
     public final JComponent getGui() {
         return this.cards;

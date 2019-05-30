@@ -22,7 +22,6 @@ public class ViewController{
         domainController = CtrlDomain.getInstance();
 
         this.view.addActionListenerTiles(new ActionListenerChess());
-        this.view.setProblems(domainController.listProblems());
     }
 
 
@@ -106,7 +105,11 @@ public class ViewController{
         @Override
         public void actionPerformed(ActionEvent evt) {
             if (evt.getActionCommand().equals(Actions.PLAY.name())) {
-                view.menuCard.showPlayOptions();
+                try {
+                    view.menuCard.showPlayOptions(domainController.listProblems());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if (evt.getActionCommand().equals(Actions.START.name())) {
                 try {
                     startMatch();
@@ -133,6 +136,8 @@ public class ViewController{
             } else if(evt.getActionCommand().equals(Actions.SET.name())){
                 Tile currentTile = (Tile) evt.getSource();
                 view.newProblemCard.move(currentTile);
+            } else if(evt.getActionCommand().equals(Actions.RANKING.name())){
+                view.menuCard.showRankingOptions(domainController.getRankingsId);
             }
             if(matchStarted) {
                 if (humanMoves) {

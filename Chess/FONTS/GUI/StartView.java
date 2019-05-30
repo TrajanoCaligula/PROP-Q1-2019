@@ -34,6 +34,8 @@ public class StartView extends JPanel {
     private JButton modifyExistingProblem = new JButton("Modify");
     private JButton deleteProblem = new JButton("Delete Problem");
     private JButton cloneProblem = new JButton("Clone Problem");
+
+
     private JButton rankingsButton = new JButton("Rankings");
     private JPanel rankingPanel = new JPanel();
     private String[] players = new String[2];
@@ -51,6 +53,10 @@ public class StartView extends JPanel {
         Border border = title.getBorder();
         Border margin = new EmptyBorder(30,0,10,10);
         title.setBorder(new CompoundBorder(border, margin));
+
+        Font font = new Font("Terminal", Font.BOLD,40);
+        playButton.setMargin(new Insets(20, 20, 20, 20));
+        playButton.setFont(font);
 
         this.add(title, BorderLayout.NORTH);
 
@@ -150,6 +156,16 @@ public class StartView extends JPanel {
 
     }
 
+    public void setRankings(ArrayList<String> problemsRanking){
+        Object[] array = problemsRanking.toArray();
+        String[] probToSet = new String[problemsRanking.size()];
+
+        for(int i = 0; i < probToSet.length; i++) {
+            probToSet[i] = (String) array[i];
+            this.problemsRanking.addItem(probToSet[i]);
+        }
+    }
+
     public void showScores(ArrayList<String> scores){
         //scoresRanking = new JPanel(new GridLayout(0,1));
         for(int i = 0; i < (scores.size() - 1); i++){
@@ -164,13 +180,18 @@ public class StartView extends JPanel {
         return splitted[0];
     }
 
-    public void showPlayOptions(){
+    public void showPlayOptions(ArrayList<String> problems){
+        this.setProblems(problems);
         this.playOptions.setVisible(!this.playOptions.isVisible());
         this.playButton.setVisible(!this.playOptions.isVisible());
         this.problemOptions.setVisible(false);
         this.problemsButton.setVisible(true);
     }
 
+    public void showRankingOptions(ArrayList<String> rankings){
+        this.setRankings(rankings);
+        this.problemsRanking.setVisible(true);
+    }
 
     public void addActionListenerChess(ActionListener mal) {
 
@@ -261,14 +282,6 @@ public class StartView extends JPanel {
         return (String) problemsMatch.getSelectedItem();
     }
 
-
-    public void showInputPlayer(String player){
-        if(player.equals("Player1")){
-            this.nameP1.setVisible(true);
-        } else {
-            this.nameP2.setVisible(true);
-        }
-    }
 
     public void showDifficulty1(){
         this.machineP1easy.setVisible(true);

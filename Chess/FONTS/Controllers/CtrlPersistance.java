@@ -276,6 +276,27 @@ public class CtrlPersistance {
         return problemList;
     }
 
+    ArrayList<String> listRankingsid() throws IOException {//FUNCIONA
+        ArrayList<String> problemList = new ArrayList<>();
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String[] splitted = file.getName().split("-");
+            if(file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
+                splitted = splitted[1].split("\\.");
+                String id = splitted[0];
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                String[] lineSplitted = (line).split("\\.");
+                lineSplitted = lineSplitted[0].split("\\s");
+                String dif = lineSplitted[7];
+                //String res = id + "-" + FEN;
+                String res = "P-"+id+" "+dif;
+                problemList.add(res);
+                reader.close();
+            }
+        }
+        return problemList;
+    }
 
     /**
      *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem

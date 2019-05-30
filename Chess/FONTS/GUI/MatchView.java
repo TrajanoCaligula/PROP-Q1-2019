@@ -192,22 +192,19 @@ public class MatchView extends JPanel {
         }
     }
 
-    public boolean tileAction(Tile pressedTile, boolean turn, ArrayList<String> tileLegalMoves){
+    public boolean tileAction(Tile pressedTile, boolean turn){
         boolean moveMade = false;
         if(this.tileHighlighted == null){
             if ((pressedTile.getPiece() != null) && pieceYourColor(turn, pressedTile)){
                 this.tileHighlighted = pressedTile;
                 pressedTile.highlightTile();
-                highilghtLegalMoves(tileLegalMoves);
             }
         } else {
             this.tileHighlighted.undoHighlightTile();
-            undoHighlightLegalMoves(tileLegalMoves);
             if(!pressedTile.equals(this.tileHighlighted)) {
                 move(this.tileHighlighted, pressedTile);
                 moveMade = true;
                 this.turn = false;
-                highilghtLegalMoves(tileLegalMoves);
             }
             this.tileHighlighted = null;
         }
@@ -246,9 +243,17 @@ public class MatchView extends JPanel {
 
     public void gameEnd(boolean won){
         if(won){
-            JOptionPane.showMessageDialog(this,"You WON!");
+            int input = JOptionPane.showOptionDialog(null, "You WON!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if(input == JOptionPane.OK_OPTION)
+            {
+                System.out.println("fdsafds");
+            }
         } else {
-            JOptionPane.showMessageDialog(this,"You LOST!");
+            int input = JOptionPane.showOptionDialog(null, "You LOST!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+            if(input == JOptionPane.OK_OPTION)
+            {
+                System.out.println("fdsafds");
+            }
         }
     }
     public void move(Tile init, Tile end){

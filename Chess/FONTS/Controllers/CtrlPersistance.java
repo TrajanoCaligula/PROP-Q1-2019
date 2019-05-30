@@ -113,8 +113,7 @@ public class CtrlPersistance {
             String line = reader.readLine();
             while (line != null) {
                 String[] lineSplitted = (line).split("\\s");
-                scoresLoaded.add(lineSplitted[0]);
-                scoresLoaded.add(lineSplitted[1]);
+                scoresLoaded.add(lineSplitted[0] + " " + lineSplitted[1]);
                 line = reader.readLine();
             }
             reader.close();

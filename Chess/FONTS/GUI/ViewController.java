@@ -1,13 +1,10 @@
 package GUI;
 
 import Controllers.CtrlDomain;
-import Jaume.Color;
-import sun.jvm.hotspot.debugger.win32.coff.COFFLineNumber;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class ViewController{
@@ -66,7 +63,6 @@ public class ViewController{
         view.matchCard.repaint();
         if(domainController.youAreDonete(!currentPlayerTurn)){
             view.matchCard.gameEnd(false);
-            System.out.println("fdagfdsaf");
         }
 
         updatedTerminal();
@@ -133,14 +129,23 @@ public class ViewController{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }  else if(evt.getActionCommand().equals(Actions.SCORES.name())){
+                String str = view.menuCard.getIdRanking();
+                String[] splitted = str.split("-");
+                int idProblemRanking = Integer.parseInt(splitted[1]);
+                try {
+                    view.menuCard.showScores(domainController.topScores(idProblemRanking));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             if(matchStarted) {
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                         Tile currentTile = (Tile) evt.getSource();
-                        String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
-                        System.out.println(coords);
-                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, domainController.getLegalMoves(coords))) {
+                        /*String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
+                        System.out.println(coords);*/
+                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn)) {
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
                             view.matchCard.revalidate();

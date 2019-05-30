@@ -297,6 +297,10 @@ public class CtrlDomain {
         return ctrlIO.loadScores(id);
     }
 
+    public ArrayList<String>listRankingsId(){
+        return ctrlIO.listRankingsid();
+    }
+
     public String playMachine(){
         players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
         match.setRound();

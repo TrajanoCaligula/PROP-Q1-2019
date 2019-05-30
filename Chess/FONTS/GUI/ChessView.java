@@ -90,13 +90,20 @@ public class ChessView{
         newProblemCard.addActionListenerBoard(mal);
     }
 
-
+    /**
+     * Sets the card "BOARD" in front and the board with the input FEN, so the player can start the match
+     * @param matchFEN FEN of the new match you want to play
+     */
     public void startMatch(String matchFEN){
         CardLayout cl = (CardLayout)(cards.getLayout());
         matchCard.setMatchBoard(matchFEN);
         cl.show(cards, "BOARD");
     }
 
+    /**
+     * Let the player create a new problem and set the position of each piece and seating the card "PROBLEM" in front of
+     * the others
+     */
     public void newProblem(){
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, "PROBLEM");

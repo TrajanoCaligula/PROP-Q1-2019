@@ -24,6 +24,7 @@ enum Actions {
     MOVE,
     SET,
     RANKING,
+    SCORES,
     DIFFICULTY1,
     DIFFICULTY2,
     NAME

@@ -39,7 +39,8 @@ public class StartView extends JPanel {
     private JButton rankingsButton = new JButton("Rankings");
     private JPanel rankingPanel = new JPanel();
     private String[] players = new String[2];
-    JPanel scoresRanking = new JPanel(new GridLayout(0,1));
+    private JPanel scoresRanking = new JPanel(new GridLayout(0, 3));
+    private JLabel[][] scores = new JLabel[6][3];
     private JButton startButton;
 
 
@@ -136,7 +137,7 @@ public class StartView extends JPanel {
         problemsRanking = new JComboBox();
 
         rankingPanel.add(problemsRanking, BorderLayout.NORTH);
-        this.problemsRanking.setVisible(true);
+        this.problemsRanking.setVisible(false);
         rankingPanel.add(scoresRanking, BorderLayout.CENTER);
 
         botonesInit.add(rankingPanel);
@@ -160,6 +161,7 @@ public class StartView extends JPanel {
     public void setRankings(ArrayList<String> problemsRanking){
         Object[] array = problemsRanking.toArray();
         String[] probToSet = new String[problemsRanking.size()];
+        this.problemsRanking.removeAllItems();
 
         for(int i = 0; i < probToSet.length; i++) {
             probToSet[i] = (String) array[i];
@@ -167,18 +169,36 @@ public class StartView extends JPanel {
         }
     }
 
-    public void showScores(ArrayList<String> scores){
-        //scoresRanking = new JPanel(new GridLayout(0,1));
-        for(int i = 0; i < (scores.size() - 1); i++){
-            scoresRanking.add(new JLabel(scores.get(i) + " " + scores.get(i+1)));
-            i++;
+    public void showScores(ArrayList<String> scoresToAdd){
+        resetScores();
+
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 3; j++){
+                JLabel currentLabel = new JLabel(" ");
+                currentLabel.setBorder(BorderFactory.createLineBorder(new Color(31, 31, 31)));
+                scores[i][j] = currentLabel;
+                scoresRanking.add(scores[i][j]);
+            }
         }
+
+        for(int i = 1; i < 6; i++){
+            scores[i][0].setText(String.valueOf(i));
+        }
+        scores[0][0].setText("          Position");
+        scores[0][1].setText("          Play");
+        scores[0][2].setText("          Score");
+
+
+        for(int i = 0; i < scoresToAdd.size(); i++){
+            String[] splitted = scoresToAdd.get(i).split("\\s");
+            scores[i+1][1].setText(splitted[0]);
+            scores[i+1][2].setText(splitted[1]);
+        }
+
     }
 
-    public String getSelectedItem(){
-        String idProblemRanking = (String) problemsRanking.getSelectedItem();
-        String[] splitted = idProblemRanking.split("\\s");
-        return splitted[0];
+    public void resetScores(){
+        scoresRanking.removeAll();
     }
 
     public void showPlayOptions(ArrayList<String> problems){
@@ -190,8 +210,9 @@ public class StartView extends JPanel {
     }
 
     public void showRankingOptions(ArrayList<String> rankings){
-        this.setRankings(rankings);
+        this.problemsRanking.setVisible(false);
         this.problemsRanking.setVisible(true);
+        this.setRankings(rankings);
     }
 
     public void addActionListenerChess(ActionListener mal) {
@@ -219,6 +240,9 @@ public class StartView extends JPanel {
 
         modifyExistingProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
         modifyExistingProblem.addActionListener(mal);
+
+        problemsRanking.setActionCommand(Actions.SCORES.name());
+        problemsRanking.addActionListener(mal);
 
 
     }
@@ -283,6 +307,7 @@ public class StartView extends JPanel {
         return (String) problemsMatch.getSelectedItem();
     }
 
+    public String getIdRanking(){ return (String) problemsRanking.getSelectedItem(); }
 
     public void showDifficulty1(){
         this.machineP1easy.setVisible(true);
@@ -300,7 +325,6 @@ public class StartView extends JPanel {
         this.problemsButton.setVisible(false);
         this.playOptions.setVisible(false);
         this.playButton.setVisible(true);
-        this.rankingPanel.setVisible(false);
     }
 
 }

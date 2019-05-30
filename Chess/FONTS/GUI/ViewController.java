@@ -1,23 +1,18 @@
 package GUI;
 
 import Controllers.CtrlDomain;
-import Pau.Match;
 
-import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 
 public class ViewController{
     private ChessView view;
     private CtrlDomain domainController;
-    private String currentFEN;
+    private boolean matchStarted = false;
+    private boolean humanMoves = false;
 
     public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
@@ -29,7 +24,18 @@ public class ViewController{
 
 
     public void startMatch() throws IOException {
-        String[] players = view.menuCard.getPlayers();
+        String player1 = view.menuCard.getPlayer1Name();
+        String player2 = view.menuCard.getPlayer2Name();
+
+
+        Integer player1type = view.menuCard.getPlayer1Type();
+        Integer player2type = view.menuCard.getPlayer2Type();
+
+
+        if(player1type == null || player2type == null){
+            //displayJOptionPane! error player not selected
+        }
+
         String prob = view.menuCard.getidProblem();
         String[] splitted = prob.split("-");
         splitted = splitted[1].split("\\s");
@@ -37,21 +43,42 @@ public class ViewController{
 
         String matchFEN = domainController.getFENFromId(idPr);
         splitted = matchFEN.split("\\s");
-        domainController.newGameComplete(idPr, "Pau", 0, -1, "Jaume", 1, 2);
+        domainController.newGameComplete(idPr, player1, player1type, 1, player2, player2type, 2);
+        matchStarted = true;
         view.startMatch(splitted[0]);
+        play();
+
     }
+
+
+    public void play(){
+
+        if((domainController.getTurn()%2) != 0){
+            if(domainController.getPlayer1Type() != 0){
+                humanMoves = false;
+                String currentFEN = domainController.playMachine();
+                view.matchCard.updateBoard(currentFEN);
+                play();
+            } else {
+                humanMoves = true;
+            }
+        } else {
+            if(domainController.getPlayer2Type() != 0){
+                humanMoves = false;
+                String currentFEN = domainController.playMachine();
+                view.matchCard.updateBoard(currentFEN);
+                play();
+            } else {
+                humanMoves = true;
+            }
+        }
+    }
+
 
     class ActionListenerChess implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evt) {
-            if(evt.getActionCommand().equals(Actions.NAME.name())){
-                JRadioButton humanSelected = (JRadioButton) evt.getSource();
-                if(humanSelected.getUIClassID().equals(view.menuCard.getP1id())){
-                    view.menuCard.showInputPlayer("Player1");
-                } else {
-                    view.menuCard.showInputPlayer("Player2");
-                }
-            } else if (evt.getActionCommand().equals(Actions.PLAY.name())) {
+            if (evt.getActionCommand().equals(Actions.PLAY.name())) {
                 view.menuCard.showPlayOptions();
             } else if (evt.getActionCommand().equals(Actions.START.name())) {
                 try {
@@ -75,15 +102,14 @@ public class ViewController{
             } else if(evt.getActionCommand().equals(Actions.DIFFICULTY2.name())) {
                 view.menuCard.showDifficulty2();
             }
-            System.out.println(domainController.getTurn());
-            if (!((domainController.getTurn()%2) == 0)) {
-                if (evt.getActionCommand().equals(Actions.MOVE.name())) {
-                    if(view.matchCard.tileAction((Tile) evt.getSource())){
-                        String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
-                        view.matchCard.updateBoard(currentFEN);
-
-                        currentFEN = domainController.playMachine();
-                        view.matchCard.updateBoard(currentFEN);
+            if(matchStarted) {
+                if (humanMoves) {
+                    if (evt.getActionCommand().equals(Actions.MOVE.name())) {
+                        if (view.matchCard.tileAction((Tile) evt.getSource())) {
+                            String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
+                            view.matchCard.updateBoard(currentFEN);
+                            play();
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import java.util.Enumeration;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.border.*;
@@ -10,6 +11,11 @@ public class StartView extends JPanel {
     private JButton playButton = new JButton("Play");
     private JPanel playOptions;
 
+    private ButtonGroup player1;
+    private ButtonGroup machine1;
+    private ButtonGroup player2;
+    private ButtonGroup machine2;
+
     private JRadioButton humanP1 = new JRadioButton("Human");
     private JRadioButton machineP1 = new JRadioButton("Machine");
     private JRadioButton machineP1easy = new JRadioButton("Easy");
@@ -17,8 +23,8 @@ public class StartView extends JPanel {
     private JRadioButton machineP2 = new JRadioButton("Machine");
     private JRadioButton machineP2easy = new JRadioButton("Easy");
     private JRadioButton machineP2hard = new JRadioButton("Hard");
-    private JTextField nameP1 = new JTextField("Pau");
-    private JTextField nameP2 = new JTextField("Jaume");
+    private JTextField nameP1 = new JTextField("...");
+    private JTextField nameP2 = new JTextField("...");
     private JRadioButton humanP2 = new JRadioButton("Human");
     private JComboBox problemsMatch;
     private JComboBox problemsRanking;
@@ -61,14 +67,16 @@ public class StartView extends JPanel {
 
         JPanel players = new JPanel(new GridLayout(0,2));
 
-        ButtonGroup player1 = new ButtonGroup();
-        ButtonGroup machine1 = new ButtonGroup();
+        player1 = new ButtonGroup();
+        machine1 = new ButtonGroup();
         machine1.add(machineP1easy);
         machine1.add(machineP1hard);
         player1.add(humanP1);
         player1.add(machineP1);
         JPanel radioPanel1 = new JPanel();
-        radioPanel1.setLayout(new GridLayout(3, 1));
+        radioPanel1.setLayout(new GridLayout(3, 0));
+        radioPanel1.add(nameP1);
+        radioPanel1.add(new JPanel());
         radioPanel1.add(humanP1);
         radioPanel1.add(machineP1);
         radioPanel1.add(machineP1easy);
@@ -82,14 +90,15 @@ public class StartView extends JPanel {
 
         players.add(radioPanel1);
 
-        ButtonGroup player2 = new ButtonGroup();
-        ButtonGroup machine2 = new ButtonGroup();
+        player2 = new ButtonGroup();
+        machine2 = new ButtonGroup();
         machine2.add(machineP2easy);
         machine2.add(machineP2hard);
         player2.add(machineP2);
         player2.add(humanP2);
         JPanel radioPanel2 = new JPanel();
         radioPanel2.setLayout(new GridLayout(3, 1));
+        radioPanel2.add(nameP2);
         radioPanel2.add(humanP2);
         radioPanel2.add(machineP2);
         radioPanel2.add(machineP2easy);
@@ -98,7 +107,6 @@ public class StartView extends JPanel {
         machineP2easy.setVisible(false);
         machineP2hard.setVisible(false);
 
-        nameP2.setVisible(false);
         //... Add a titled border to the button panel.
         radioPanel2.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Player 2"));
@@ -150,7 +158,7 @@ public class StartView extends JPanel {
         }
     }
 
-    public String  getSelectedItem(){
+    public String getSelectedItem(){
         String idProblemRanking = (String) problemsRanking.getSelectedItem();
         String[] splitted = idProblemRanking.split("\\s");
         return splitted[0];
@@ -187,8 +195,60 @@ public class StartView extends JPanel {
 
     }
 
-    public String[] getPlayers(){
-        return players;
+    public Integer getPlayer1Type(){
+        for (Enumeration<AbstractButton> buttons = player1.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                if(button.getText().equals("Machine")){
+                    for (Enumeration<AbstractButton> machines = machine1.getElements(); machines.hasMoreElements();) {
+                        AbstractButton machineButton = machines.nextElement();
+                        if (machineButton.isSelected()) {
+                            if(machineButton.getText().equals("Easy")){
+                                return 1;
+                            } else {
+                                return 2;
+                            }
+                        }
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getPlayer1Name(){
+        return nameP1.getText();
+    }
+
+
+    public Integer getPlayer2Type(){
+
+        for (Enumeration<AbstractButton> buttons = player2.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                if(button.getText().equals("Machine")){
+                    for (Enumeration<AbstractButton> machines = machine2.getElements(); machines.hasMoreElements();) {
+                        AbstractButton machineButton = machines.nextElement();
+                        if (machineButton.isSelected()) {
+                            if(machineButton.getText().equals("Easy")){
+                                return 1;
+                            } else {
+                                return 2;
+                            }
+                        }
+                    }
+                } else {
+                    return 0;
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getPlayer2Name(){
+        return nameP2.getText();
     }
 
     public String getidProblem(){
@@ -212,10 +272,6 @@ public class StartView extends JPanel {
     public void showDifficulty2(){
         this.machineP2easy.setVisible(true);
         this.machineP2hard.setVisible(true);
-    }
-
-    public String getP1id(){
-        return humanP1.getUIClassID();
     }
 
 

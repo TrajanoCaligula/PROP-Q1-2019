@@ -79,16 +79,22 @@ public class CtrlDomain {
     public String newGameComplete(int problemID, String name1, int type1,int depth1,String name2, int type2, int depth2){
         Player one = null;
         Player two = null;
-        switch (type1){
-            case 0: one = new Human(name1,Color.WHITE);
-            case 1: one = new Machine(name1,Color.WHITE,depth1);
-            default: one = new Machine2(name1,Color.WHITE,depth1);
-        }
-        switch (type2){
-            case 0: two = new Human(name2,Color.BLACK);
-            case 1: two = new Machine(name2,Color.BLACK,depth2);
-            default: two = new Machine2(name2,Color.BLACK,depth2);
-        }
+
+        if (type1 == 0)
+            one = new Human(name1,Color.WHITE);
+        else if (type1 == 1)
+            one = new Machine(name1,Color.WHITE,depth1);
+        else
+            one = new Machine2(name1,Color.WHITE,depth1);
+
+
+        if (type2 == 0)
+            two = new Human(name2,Color.BLACK);
+        else if (type2 == 1)
+            two = new Machine(name2,Color.BLACK,depth1);
+        else
+            two = new Machine2(name2,Color.BLACK,depth1);
+
 
         players[0] = one;
         players[1] = two;
@@ -223,9 +229,29 @@ public class CtrlDomain {
     }
 
     public String playMachine(){
-        System.out.println(match.getBoard().toFEN() + "--------");
         players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
         match.setRound();
         return this.match.getBoard().toFEN();
+    }
+
+
+    public Integer getPlayer1Type(){
+        if(players[0] instanceof Human)
+            return 0;
+        else if (players[0] instanceof Machine)
+            return 1;
+        else if (players[0] instanceof Machine2)
+            return 2;
+        return null;
+    }
+
+    public Integer getPlayer2Type(){
+        if(players[1] instanceof Human)
+            return 0;
+        else if (players[1] instanceof Machine)
+            return 1;
+        else if (players[1] instanceof Machine2)
+            return 2;
+        return null;
     }
 }

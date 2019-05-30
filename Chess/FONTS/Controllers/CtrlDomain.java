@@ -80,21 +80,34 @@ public class CtrlDomain {
         Player one = null;
         Player two = null;
 
-        if (type1 == 0)
-            one = new Human(name1,Color.WHITE);
-        else if (type1 == 1)
-            one = new Machine(name1,Color.WHITE,depth1);
-        else
-            one = new Machine2(name1,Color.WHITE,depth1);
-
-
-        if (type2 == 0)
-            two = new Human(name2,Color.BLACK);
-        else if (type2 == 1)
-            two = new Machine(name2,Color.BLACK,depth1);
-        else
-            two = new Machine2(name2,Color.BLACK,depth1);
-
+        switch(type1){
+            case 0: {
+                one = new Human(name1,Color.WHITE);
+                break;
+            }
+            case 1: {
+                one = new Machine(name1,Color.WHITE,depth1);
+                break;
+            }
+            default:{
+                one = new Machine2(name1,Color.WHITE,depth1);
+                break;
+            }
+        }
+        switch(type2){
+            case 0: {
+                two = new Human(name2,Color.WHITE);
+                break;
+            }
+            case 1: {
+                two = new Machine(name2,Color.WHITE,depth2);
+                break;
+            }
+            default:{
+                two = new Machine2(name2,Color.WHITE,depth2);
+                break;
+            }
+        }
 
         players[0] = one;
         players[1] = two;

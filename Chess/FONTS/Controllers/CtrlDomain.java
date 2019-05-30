@@ -96,15 +96,15 @@ public class CtrlDomain {
         }
         switch(type2){
             case 0: {
-                two = new Human(name2,Color.WHITE);
+                two = new Human(name2,Color.BLACK);
                 break;
             }
             case 1: {
-                two = new Machine(name2,Color.WHITE,depth2);
+                two = new Machine(name2,Color.BLACK,depth2);
                 break;
             }
             default:{
-                two = new Machine2(name2,Color.WHITE,depth2);
+                two = new Machine2(name2,Color.BLACK,depth2);
                 break;
             }
         }

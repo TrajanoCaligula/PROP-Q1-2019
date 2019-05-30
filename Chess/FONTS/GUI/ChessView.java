@@ -18,7 +18,10 @@ enum Actions {
     PLAY,
     START,
     PROBLEM_MANAGER,
+    NEW_PROBLEM,
+    MODIFY_PROBLEM,
     MOVE,
+    SET,
     RANKING,
     DIFFICULTY1,
     DIFFICULTY2,
@@ -33,6 +36,7 @@ public class ChessView{
 
     public StartView menuCard;
     public MatchView matchCard;
+    public ProblemView newProblemCard;
 
 
     public ChessView() {
@@ -52,6 +56,10 @@ public class ChessView{
         //BOARD CARD
         matchCard = new MatchView();
         cards.add(matchCard, "BOARD");
+
+        //NEW PROBLEM CARD
+        newProblemCard = new ProblemView();
+        cards.add(newProblemCard, "PROBLEM");
 
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, "MENU");
@@ -79,6 +87,11 @@ public class ChessView{
         CardLayout cl = (CardLayout)(cards.getLayout());
         matchCard.setMatchBoard(matchFEN);
         cl.show(cards, "BOARD");
+    }
+
+    public void newProblem(){
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "PROBLEM");
     }
 
 }

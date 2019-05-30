@@ -22,6 +22,13 @@ public class Tile extends JButton implements Cloneable {
         this.piece = piece;
     }
 
+    public Tile(Icon pieceIcon, int x){
+        this.tx = x;
+        this.ty = 0;
+        this.setIcon(pieceIcon);
+        this.piece = 'Q';
+    }
+
     public void setPiece(Character piece){
         this.piece = piece;
     }

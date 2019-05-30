@@ -105,12 +105,10 @@ public class CtrlDomain {
     }
 
     public String makeMove(String piece, String finalpos){
-        match.getBoard().printBoard();
         Coord coo = new Coord(piece);
         Piece pi = match.getBoard().getPieceInCoord(coo);
         coo = new Coord(finalpos);
         match.getBoard().movePiece(pi,coo);
-        match.getBoard().printBoard();
         match.setRound();
         return match.getBoard().toFEN();
     }
@@ -129,8 +127,8 @@ public class CtrlDomain {
         else return match.getBoard().isCheck(Color.WHITE);
     }
 
-    public boolean youAreDonete(String color){
-        if(color == "BLACK") return match.getBoard().isGameOver(Color.BLACK);
+    public boolean youAreDonete(boolean color){
+        if(!color) return match.getBoard().isGameOver(Color.BLACK);
         else return match.getBoard().isGameOver(Color.WHITE);
     }
 
@@ -245,6 +243,10 @@ public class CtrlDomain {
         return null;
     }
 
+    public String getPlayer1Name(){
+        return players[0].getName();
+    }
+
     public Integer getPlayer2Type(){
         if(players[1] instanceof Human)
             return 0;
@@ -253,5 +255,9 @@ public class CtrlDomain {
         else if (players[1] instanceof Machine2)
             return 2;
         return null;
+    }
+
+    public String getPlayer2Name(){
+        return players[1].getName();
     }
 }

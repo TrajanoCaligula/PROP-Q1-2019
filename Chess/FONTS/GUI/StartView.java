@@ -192,6 +192,12 @@ public class StartView extends JPanel {
         machineP2.setActionCommand(Actions.DIFFICULTY2.name());
         machineP2.addActionListener(mal);
 
+        createNewProblem.setActionCommand(Actions.NEW_PROBLEM.name());
+        createNewProblem.addActionListener(mal);
+
+        modifyExistingProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
+        modifyExistingProblem.addActionListener(mal);
+
 
     }
 

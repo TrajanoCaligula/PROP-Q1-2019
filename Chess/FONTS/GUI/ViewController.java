@@ -13,6 +13,7 @@ public class ViewController{
     private CtrlDomain domainController;
     private boolean matchStarted = false;
     private boolean humanMoves = false;
+    private boolean currentPlayerTurn;
 
     public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
@@ -46,13 +47,22 @@ public class ViewController{
         domainController.newGameComplete(idPr, player1, player1type, 1, player2, player2type, 2);
         matchStarted = true;
         view.startMatch(splitted[0]);
+        currentPlayerTurn = false;
         play();
+    }
 
+    public void updatedTerminal(){
+        if(!currentPlayerTurn){
+            view.matchCard.addTermLine(domainController.getPlayer1Name());
+        } else {
+            view.matchCard.addTermLine(domainController.getPlayer2Name());
+        }
     }
 
 
     public void play(){
-
+        updatedTerminal();
+        currentPlayerTurn = !currentPlayerTurn;
         if((domainController.getTurn()%2) != 0){
             if(domainController.getPlayer1Type() != 0){
                 humanMoves = false;
@@ -101,11 +111,19 @@ public class ViewController{
                 view.menuCard.showDifficulty1();
             } else if(evt.getActionCommand().equals(Actions.DIFFICULTY2.name())) {
                 view.menuCard.showDifficulty2();
+            } else if(evt.getActionCommand().equals(Actions.NEW_PROBLEM.name())) {
+                view.newProblem();
+            } else if(evt.getActionCommand().equals(Actions.SET.name())){
+                Tile currentTile = (Tile) evt.getSource();
+                view.newProblemCard.move(currentTile);
             }
             if(matchStarted) {
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
-                        if (view.matchCard.tileAction((Tile) evt.getSource())) {
+                        Tile currentTile = (Tile) evt.getSource();
+                        //String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
+                        //System.out.println(coords);
+                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn/*, domainController.getLegalMoves(coords)*/)) {
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
                             play();

@@ -21,12 +21,10 @@ public class ProblemView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
-    private JLabel labelN;
-    private JLabel labelScore;
-    private JTextArea term;
-    private Tile tileHighlighted = null;
+    private JPanel piecePicker;
+    private Tile[] pieces = new Tile[16];
     private Tile[] tilesMove = new Tile[2];
-    public boolean turn = true;
+    public Tile pieceSelected = null;
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -39,12 +37,8 @@ public class ProblemView extends JPanel {
         this.setPreferredSize(new Dimension(850, 500));
         this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
-        labelN = new JLabel("Round: 2", JLabel.LEFT);
-        labelScore = new JLabel("Score: 34", JLabel.CENTER);
         topBar.setBackground(new Color(211, 212, 209));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
-        topBar.add(labelScore);
-        topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
@@ -53,17 +47,10 @@ public class ProblemView extends JPanel {
         this.add(chessBoard, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
 
-        term = new JTextArea();
-        term.setForeground(Color.WHITE);
-        term.setMargin( new Insets(2,2,2,2));
-        Font font = new Font("Terminal", Font.BOLD,12);
-        term.setFont(font);
-        term.setEditable(false);
-        term.setText("...Match Started!\n");
-        term.append("Pau's turn:\n");
-        term.setBackground(new Color(23, 23, 23));
-        term.setPreferredSize(new Dimension(200, 0));
-        this.add(term, BorderLayout.EAST);
+        piecePicker = new JPanel(new GridLayout(0,2));
+        piecePicker.setBackground(new Color(23, 23, 23));
+        piecePicker.setPreferredSize(new Dimension(200, 0));
+        this.add(piecePicker, BorderLayout.EAST);
 
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
@@ -90,6 +77,7 @@ public class ProblemView extends JPanel {
             }
         }
 
+
         /*
          * fill the chess board
          */
@@ -113,115 +101,43 @@ public class ProblemView extends JPanel {
             }
         }
 
+        setPiecePicker();
+
     }
 
-    public final void setMatchBoard(String matchFEN){
-        int i = 0, y = 0, x = 0;
-        Character c;
-        while (i < matchFEN.length()) {
-            c = matchFEN.charAt(i);
-            if (isDigit(c)) {
-                x += getNumericValue(c);
-            }
-            else if (isLetter(c)) {
-                //UpperCase
-                setPiece(c, x, y);
-            }
-            else if(c == '/') {
-                y++;
-                x = 0;
-            }
+    public void setPiecePicker(){
+        String path = "../PROP4/Chess/FONTS/assets/pieces";
+        File[] pieceIcons = new File("../PROP4/Chess/FONTS/assets/pieces").listFiles();
+        int i = 0;
+        for(File file : pieceIcons) {
+            String pieceIcon = file.getName();
+            Tile currenTile = new Tile(new ImageIcon(path + "/" + pieceIcon), i);
+            pieces[i] = currenTile;
+            piecePicker.add(pieces[i]);
             i++;
         }
     }
 
-
-    public void setPiece(char c, int x, int y){
-        if (c == 'P')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_pawn.png"));
-        else if (c == 'R')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_rook.png"));
-        else if (c == 'N')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_knight.png"));
-        else if (c == 'B')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_bishop.png"));
-        else if (c == 'Q')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_queen.png"));
-        else if (c == 'K')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/white_king.png"));
-
-            //LowerCase
-        else if (c == 'p')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_pawn.png"));
-        else if (c == 'r')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_rook.png"));
-        else if (c == 'n')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_knight.png"));
-        else if (c == 'b')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_bishop.png"));
-        else if (c == 'q')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_queen.png"));
-        else if (c == 'k')
-            chessBoardSquares[x][y].setIcon(new ImageIcon("../PROP4/Chess/FONTS/assets/pieces/black_king.png"));
-        chessBoardSquares[x][y].setPiece(c);
-        x++;
-    }
-
-    public String[] getTilesInMove(){
-        String[] tilesInMove = new String[2];
-        tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
-        tilesInMove[1] = this.tilesMove[2].getTileX() + " " + this.tilesMove[2].getTileY();
-        return tilesInMove;
-    }
-
-    public boolean tileAction(Tile pressedTile){
-        boolean moveMade = false;
-        System.out.println(pressedTile.getTileX() + " " + pressedTile.getTileY());
-        if(this.tileHighlighted == null){
-            if (pressedTile.getPiece() != null){
-                this.tileHighlighted = pressedTile;
-                pressedTile.highlightTile();
-            }
-        } else {
-            this.tileHighlighted.undoHighlightTile();
-            if(!pressedTile.equals(this.tileHighlighted)) {
-                move(this.tileHighlighted, pressedTile);
-                moveMade = true;
-                this.turn = false;
-            }
-            this.tileHighlighted = null;
+    public void move(Tile pressedTile){
+        if(pieceSelected == null)
+            pieceSelected = pressedTile;
+        else {
+            this.chessBoardSquares[pressedTile.getTileY()][pressedTile.getTileX()].setIcon(pieceSelected.getIcon());
+            this.chessBoardSquares[pressedTile.getTileY()][pressedTile.getTileX()].setPiece(pressedTile.getPiece());
+            pieceSelected = null;
         }
-        return  moveMade;
-    }
-
-    public void addTermLine(String lineToAdd){
-        this.term.append(lineToAdd);
-    }
-
-    public void updatedScore(int currentScore){
-        this.labelScore.setText(String.valueOf(currentScore));
-    }
-
-    public void updateN(int currentTurn){
-        this.labelN.setText(String.valueOf(currentTurn));
-    }
-
-    public void move(Tile init, Tile end){
-        tilesMove[0] = init;
-        tilesMove[1] = end;
-
-        this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
-        this.chessBoardSquares[end.getTileY()][end.getTileX()].setPiece(init.getPiece());
-        this.chessBoardSquares[init.getTileY()][init.getTileX()].setIcon(null);
-        this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
     public void addActionListenerBoard(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
-                chessBoardSquares[jj][ii].setActionCommand(Actions.MOVE.name());
+                chessBoardSquares[jj][ii].setActionCommand(Actions.SET.name());
                 chessBoardSquares[jj][ii].addActionListener(mal);
             }
+        }
+        for(int i = 0; i < pieces.length; i++){
+            pieces[i].setActionCommand(Actions.SET.name());
+            pieces[i].addActionListener(mal);
         }
     }
 }

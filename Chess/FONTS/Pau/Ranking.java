@@ -31,6 +31,15 @@ public class Ranking{
 	}
 
 	/**Getters*/
+
+	/**
+	 * Get the id of the ranking
+	 * @return the identifier of the ranking
+	 */
+	public int getID(){
+		return idProblemRanking;
+	}
+
 	/**
 	 * Get file name
 	 * @return Returns the name of the file of our Ranking
@@ -78,11 +87,13 @@ public class Ranking{
 	 * We add the parametre (@param scoreToAdd) to our attribut scores, we sort it in major-minor order and then update the ranking file.
 	 * @param scoreToAdd Score that's going to be added to our ranking.
 	 */
-	public void addScore(Score scoreToAdd){
+	public Score addScore(Score scoreToAdd){
 		if(scoresRanking.size() < 5) {
 			scoresRanking.add(scoreToAdd);
+			return scoreToAdd;
 		}
 		Collections.sort(scoresRanking);
+		return null;
 	}
 
 	/**

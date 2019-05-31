@@ -1,9 +1,0 @@
-Directori Calin:
-Conté tots els arxius fets per en Calin
-
-- Human.java: codi de la extensió Human de la classe Player
-- Machine.java: codi de la extensió Machine de la classe Player
-- Move.java: codi de la classe Move.
-- MoveDriver.java: codi del driver per testejar la classe Move.
-- Player.java: codi de la classe abstracta Player
-- PlayerDriver.java: codi del driver per testejar la classe Player i les seves extensions

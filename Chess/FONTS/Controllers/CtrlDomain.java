@@ -189,7 +189,7 @@ public class CtrlDomain {
      */
     public int createProblem(String FEN,int N, String difficulty) throws IOException {
         Problem prob = new Problem(FEN);
-        if(prob.validateFen(FEN) && prob.validateProblem()) {
+        if(prob.validateFen(FEN)) {
             if(N <= 5) difficulty = "Hard";
             else if(N <= 10) difficulty = "Normal";
             else difficulty = "Easy";
@@ -199,7 +199,7 @@ public class CtrlDomain {
             ctrlIO.saveProblem(FEN, id, N, difficulty);
             problems.put(id, prob);
             return id;
-        }else return-1;
+        } else return-1;
     }
 
     /**

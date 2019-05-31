@@ -6,8 +6,9 @@ import java.awt.image.BufferedImage;
 
 public class Tile extends JButton {
     private int tx, ty;
-    private Character piece;
-    public boolean highlighted = false;
+    private Character piece = '0';
+    private boolean highlighted = false;
+    private boolean isPicker = false;
 
 
     public Tile(int x, int y){
@@ -22,9 +23,12 @@ public class Tile extends JButton {
 
         this.tx = x;
         this.ty = 0;
-        this.setIcon(pieceIcon);
+        this.isPicker = true;
         this.piece = 'Q';
+        this.setIcon(pieceIcon);
     }
+
+    public boolean isPicker(){ return isPicker; }
 
     public void setPiece(Character piece){
         this.piece = piece;

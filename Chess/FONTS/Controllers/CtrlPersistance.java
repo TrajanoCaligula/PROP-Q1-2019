@@ -331,7 +331,7 @@ public class CtrlPersistance {
      */
     boolean deleteProblem(int id) throws IOException {//FUNCIONA
         File[] files = new File(filePath).listFiles();
-        File del = getFile("R-"+id);
+        File del = getFile("P-"+id);
         del.delete();
         for(File file : files) {
             String[] splitted = file.getName().split("-");

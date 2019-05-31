@@ -31,10 +31,6 @@ public class ViewController{
         Integer player2type = view.menuCard.getPlayer2Type();
 
 
-        if(player1type == null || player2type == null){
-            //displayJOptionPane! error player not selected
-        }
-
         String prob = view.menuCard.getidProblem();
         String[] splitted = prob.split("-");
         splitted = splitted[1].split("\\s");
@@ -59,10 +55,10 @@ public class ViewController{
 
 
     public void play(){
-        view.matchCard.revalidate();
-        view.matchCard.repaint();
         if(domainController.youAreDonete(!currentPlayerTurn)){
-            view.matchCard.gameEnd(false);
+            if(view.matchCard.gameEnd(false) == 0){
+                view.back();
+            }
         }
 
         updatedTerminal();
@@ -72,27 +68,31 @@ public class ViewController{
                 humanMoves = false;
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
-                view.matchCard.revalidate();
-                view.matchCard.repaint();
                 play();
             } else {
                 humanMoves = true;
-                view.matchCard.revalidate();
-                view.matchCard.repaint();
             }
         } else {
             if(domainController.getPlayer2Type() != 0){
                 humanMoves = false;
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
-                view.matchCard.revalidate();
-                view.matchCard.repaint();
                 play();
             } else {
                 humanMoves = true;
-                view.matchCard.revalidate();
-                view.matchCard.repaint();
             }
+        }
+    }
+
+    public void createProblem(){
+        int N = view.newProblemCard.getRounds();
+        String difficulty = view.newProblemCard.getDifficulty();
+        String FEN = view.newProblemCard.getFEN();
+        int id = 0;
+        try {
+            id = domainController.createProblem(FEN, N, difficulty);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -113,13 +113,18 @@ public class ViewController{
                     e.printStackTrace();
                 }
             } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
-                view.menuCard.showProblemOptions();
+                try {
+                    view.menuCard.showProblemOptions(domainController.listProblems());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else if(evt.getActionCommand().equals(Actions.DIFFICULTY1.name())) {
                 view.menuCard.showDifficulty1();
             } else if(evt.getActionCommand().equals(Actions.DIFFICULTY2.name())) {
                 view.menuCard.showDifficulty2();
             } else if(evt.getActionCommand().equals(Actions.NEW_PROBLEM.name())) {
                 view.newProblem();
+                view.newProblemCard.setOp("Create Problem!");
             } else if(evt.getActionCommand().equals(Actions.SET.name())){
                 Tile currentTile = (Tile) evt.getSource();
                 view.newProblemCard.move(currentTile);
@@ -138,6 +143,42 @@ public class ViewController{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            } else if(evt.getActionCommand().equals(Actions.CREATE_PROBLEM.name())){
+                createProblem();
+                if(view.newProblemCard.endDialog("Done!") == 0){
+                    view.back();
+                }
+            } else if(evt.getActionCommand().equals(Actions.MODIFY_PROBLEM.name())){
+                String str = view.menuCard.getIdProblemToManage();
+                String[] splitted = str.split("-");
+                splitted = splitted[1].split("\\s");
+                int idProblemToManage = Integer.parseInt(splitted[0]);
+                try {
+                    String FEN = domainController.getFENFromId(idProblemToManage);
+                    splitted = FEN.split("\\s");
+                    view.newProblemCard.setMatchBoard(splitted[0]);
+                    view.newProblemCard.setOp("Modify Problem!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                view.newProblem();
+            } else if(evt.getActionCommand().equals(Actions.DELETE_PROBLEM.name())){
+                String str = view.menuCard.getIdProblemToManage();
+                String[] splitted = str.split("-");
+                splitted = splitted[1].split("\\s");
+                int idProblemToManage = Integer.parseInt(splitted[0]);
+                try {
+                    domainController.dropProblem(idProblemToManage);
+                    view.menuCard.setProblemsToManage(domainController.listProblems());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if(evt.getActionCommand().equals(Actions.CLONE_PROBLEM.name())){
+                String str = view.menuCard.getIdProblemToManage();
+                String[] splitted = str.split("-");
+                splitted = splitted[1].split("\\s");
+                int idProblemToManage = Integer.parseInt(splitted[0]);
+                domainController.copyProblem(idProblemToManage);
             }
             if(matchStarted) {
                 if (humanMoves) {
@@ -148,8 +189,6 @@ public class ViewController{
                         if(view.matchCard.tileAction(currentTile, currentPlayerTurn)) {
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
-                            view.matchCard.revalidate();
-                            view.matchCard.repaint();
                             play();
                         }
                     }

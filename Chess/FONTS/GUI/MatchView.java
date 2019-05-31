@@ -241,20 +241,14 @@ public class MatchView extends JPanel {
         this.labelN.setText(String.valueOf(currentTurn));
     }
 
-    public void gameEnd(boolean won){
+    public int gameEnd(boolean won){
+        int input;
         if(won){
-            int input = JOptionPane.showOptionDialog(null, "You WON!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-            if(input == JOptionPane.OK_OPTION)
-            {
-                System.out.println("fdsafds");
-            }
+            input = JOptionPane.showOptionDialog(this, "You WON!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         } else {
-            int input = JOptionPane.showOptionDialog(null, "You LOST!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-            if(input == JOptionPane.OK_OPTION)
-            {
-                System.out.println("fdsafds");
-            }
+            input = JOptionPane.showOptionDialog(this, "You LOST!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         }
+        return input;
     }
     public void move(Tile init, Tile end){
         tilesMove[0] = init;

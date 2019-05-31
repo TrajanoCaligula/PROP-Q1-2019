@@ -20,14 +20,18 @@ enum Actions {
     START,
     PROBLEM_MANAGER,
     NEW_PROBLEM,
+    CREATE_PROBLEM,
     MODIFY_PROBLEM,
+    DELETE_PROBLEM,
+    CLONE_PROBLEM,
     MOVE,
     SET,
     RANKING,
     SCORES,
     DIFFICULTY1,
     DIFFICULTY2,
-    NAME
+    NAME,
+    END
 }
 
 public class ChessView{
@@ -75,11 +79,6 @@ public class ChessView{
     }
 
 
-
-    public void setRankings(ArrayList<String> rankings){
-        menuCard.setRankings(rankings);
-    }
-
     public final JComponent getGui() {
         return this.cards;
     }
@@ -99,6 +98,11 @@ public class ChessView{
         CardLayout cl = (CardLayout)(cards.getLayout());
         matchCard.setMatchBoard(matchFEN);
         cl.show(cards, "BOARD");
+    }
+
+    public void back(){
+        CardLayout cl = (CardLayout)(cards.getLayout());
+        cl.show(cards, "MENU");
     }
 
     /**

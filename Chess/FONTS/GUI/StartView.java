@@ -23,6 +23,7 @@ public class StartView extends JPanel {
     private JRadioButton machineP2 = new JRadioButton("Machine");
     private JRadioButton machineP2easy = new JRadioButton("Easy");
     private JRadioButton machineP2hard = new JRadioButton("Hard");
+    private JComboBox problemsToManage;
     private JTextField nameP1 = new JTextField("...");
     private JTextField nameP2 = new JTextField("...");
     private JRadioButton humanP2 = new JRadioButton("Human");
@@ -125,6 +126,8 @@ public class StartView extends JPanel {
 
         botonesInit.add(problemsButton);
         problemOptions.add(createNewProblem);
+        problemsToManage = new JComboBox();
+        problemOptions.add(problemsToManage);
         problemOptions.add(modifyExistingProblem);
         problemOptions.add(cloneProblem);
         problemOptions.add(deleteProblem);
@@ -147,13 +150,25 @@ public class StartView extends JPanel {
     }
 
     public void setProblems(ArrayList<String> problems){
-
         Object[] array = problems.toArray();
         String[] probToSet = new String[problems.size()];
+        problemsMatch.removeAllItems();
 
         for(int i = 0; i < probToSet.length; i++) {
             probToSet[i] = (String) array[i];
             this.problemsMatch.addItem(probToSet[i]);
+        }
+
+    }
+
+    public void setProblemsToManage(ArrayList<String> problems){
+        Object[] array = problems.toArray();
+        String[] probToSet = new String[problems.size()];
+        problemsToManage.removeAllItems();
+
+        for(int i = 0; i < probToSet.length; i++) {
+            probToSet[i] = (String) array[i];
+            this.problemsToManage.addItem(probToSet[i]);
         }
 
     }
@@ -244,6 +259,15 @@ public class StartView extends JPanel {
         problemsRanking.setActionCommand(Actions.SCORES.name());
         problemsRanking.addActionListener(mal);
 
+        modifyExistingProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
+        modifyExistingProblem.addActionListener(mal);
+
+        deleteProblem.setActionCommand(Actions.DELETE_PROBLEM.name());
+        deleteProblem.addActionListener(mal);
+
+        cloneProblem.setActionCommand(Actions.CLONE_PROBLEM.name());
+        cloneProblem.addActionListener(mal);
+
 
     }
 
@@ -309,6 +333,9 @@ public class StartView extends JPanel {
 
     public String getIdRanking(){ return (String) problemsRanking.getSelectedItem(); }
 
+    public String getIdProblemToManage() {
+            return (String) problemsToManage.getSelectedItem();
+    }
     public void showDifficulty1(){
         this.machineP1easy.setVisible(true);
         this.machineP1hard.setVisible(true);
@@ -320,7 +347,8 @@ public class StartView extends JPanel {
     }
 
 
-    public void showProblemOptions(){
+    public void showProblemOptions(ArrayList<String> problems){
+        this.setProblemsToManage(problems);
         this.problemOptions.setVisible(true);
         this.problemsButton.setVisible(false);
         this.playOptions.setVisible(false);

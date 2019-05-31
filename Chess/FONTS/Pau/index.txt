@@ -1,5 +1,5 @@
 Directori Pau:
-Conté tots els arxius fets per en Pau
+Conte tots els arxius fets per en Pau
 
 - Match.java: codi de la classe Match
 - MatchDriver.java: codi del driver per testejar la classe Match

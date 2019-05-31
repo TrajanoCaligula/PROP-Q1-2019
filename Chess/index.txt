@@ -9,5 +9,5 @@ pau.charques@est.fib.upc.edu
 Directori Arrel:
 
 /DOCS: Conte la documentacio del projecte
-/src: Conte el codi font del projecte
-/EXE: Conte els executables amb els seus respectius tests, l'hem anomenat src i no FONTS degut a incompatibilitats amb el sistema d'arxius intern.
+/FONTS: Conte el codi font del projecte
+/EXE: Conte els executables

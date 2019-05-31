@@ -4,7 +4,7 @@ Conté tots els arxius fets per en Jaume
 - Bishop.java: codi de la extensió Bishop de Piece
 - Board.java: codi de la classe Bard
 - BoardDriver.java: codi del driver per testejar la classe Board
-- Color.java: codi de l'enumeració que determina el l'equip d'una Piece
+- Color.java: codi de l'enumeracio que determina el l'equip d'una Piece
 - Coord.java: codi de la classe Coordenada
 - CoordDriver.java: codi del driver per testejar la classe Coord
 - King.java: codi de la extensió King de Piece

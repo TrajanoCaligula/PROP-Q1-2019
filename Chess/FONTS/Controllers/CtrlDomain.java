@@ -172,7 +172,8 @@ public class CtrlDomain {
         ArrayList<Coord> tmp = aux.getLegalMoves(match.getBoard());
         ArrayList<String> res = new ArrayList<String>();
         for(int i = 0; i < tmp.size(); ++i) {
-            res.add(aux.getPosition().add(tmp.get(i)).toRealCoord());
+            String toAdd = String.valueOf(aux.getPosition().add(tmp.get(i)).getX()) + String.valueOf(aux.getPosition().add(tmp.get(i)).getY());
+            res.add(toAdd);
         }
         return res;
     }
@@ -310,6 +311,10 @@ public class CtrlDomain {
         players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
         match.setRound();
         return this.match.getBoard().toFEN();
+    }
+
+    public void setRound(){
+        match.setRound();
     }
 
     /**

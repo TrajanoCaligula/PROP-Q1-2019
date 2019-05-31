@@ -1,18 +1,15 @@
+/**
+ * @author Pau Charques
+ */
 package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import Jaume.*;
-import java.io.File;
-import java.awt.*;
 import java.awt.Color;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 import javax.swing.border.*;
-import java.net.URL;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 
 import static java.lang.Character.*;
 
@@ -24,9 +21,7 @@ public class MatchView extends JPanel {
     private JLabel labelN;
     private JLabel labelScore;
     private JTextArea term;
-    public Tile tileHighlighted = null;
-    private Tile[] tilesMove = new Tile[2];
-    public boolean turn = true;
+    public Tile[] tilesMove = new Tile[2];
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -171,8 +166,8 @@ public class MatchView extends JPanel {
 
     public String[] getTilesInMove(){
         String[] tilesInMove = new String[2];
-        tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
-        tilesInMove[1] = this.tilesMove[1].getTileX() + " " + this.tilesMove[1].getTileY();
+        tilesInMove[0] = this.tilesMove[0].getTileY() + " " + this.tilesMove[0].getTileX();
+        tilesInMove[1] = this.tilesMove[1].getTileY() + " " + this.tilesMove[1].getTileX();
         return tilesInMove;
     }
 
@@ -194,25 +189,39 @@ public class MatchView extends JPanel {
 
     public boolean tileAction(Tile pressedTile, boolean turn, ArrayList<String> legalMoves){
         boolean moveMade = false;
-        if(this.tileHighlighted == null){
+        if(this.tilesMove[0] == null){
             if ((pressedTile.getPiece() != null) && pieceYourColor(turn, pressedTile)){
                 highilghtLegalMoves(legalMoves);
-                tilesMove[0] = pressedTile;
-                this.tileHighlighted = pressedTile;
+                this.tilesMove[0] = pressedTile;
                 pressedTile.highlightTile();
             }
         } else {
-            this.tileHighlighted.undoHighlightTile();
+            this.tilesMove[0].undoHighlightTile();
             undoHighlightLegalMoves(legalMoves);
-            tilesMove[0] = null;
-            if(!pressedTile.equals(this.tileHighlighted)) {
-                move(this.tileHighlighted, pressedTile);
-                moveMade = true;
-                this.turn = false;
+            if(!pressedTile.equals(this.tilesMove[0])) {
+                String pos = pressedTile.getTileY() + " " + pressedTile.getTileX();
+                if(legalMove(legalMoves, pos)) {
+                    this.tilesMove[1] = pressedTile;
+                    move(this.tilesMove[0], tilesMove[1]);
+                    moveMade = true;
+                }
             }
-            this.tileHighlighted = null;
+            this.tilesMove[0] = null;
+            this.tilesMove[1] = null;
         }
         return  moveMade;
+    }
+
+    public boolean legalMove(ArrayList<String> legalMoves, String move){
+        boolean valid = false;
+        for(int  i = 0; i < legalMoves.size() && !valid; i++){
+            System.out.println(move);
+            String aux = legalMoves.get(i).charAt(0) + " " + legalMoves.get(i).charAt(1);
+            System.out.println(aux);
+            if(aux.equals(move))
+                valid = true;
+        }
+        return valid;
     }
 
     public boolean pieceYourColor(Boolean turn, Tile piece){
@@ -231,7 +240,7 @@ public class MatchView extends JPanel {
     }
 
     public void addTermLine(String lineToAdd){
-        this.term.append(lineToAdd + "'s turn:\n");
+        this.term.append(lineToAdd + "'s turn\n");
     }
 
     public void updatedScore(int currentScore){

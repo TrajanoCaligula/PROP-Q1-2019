@@ -1,3 +1,7 @@
+/**
+ * @author Pau Charques
+ */
+
 package GUI;
 
 import Controllers.CtrlDomain;
@@ -63,24 +67,34 @@ public class ViewController{
         }
 
         updatedTerminal();
-        currentPlayerTurn = !currentPlayerTurn;
+
         if((domainController.getTurn()%2) != 0){
             if(domainController.getPlayer1Type() != 0){
+                System.out.println("p1m");
                 humanMoves = false;
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
+                currentPlayerTurn = !currentPlayerTurn;
                 play();
             } else {
                 humanMoves = true;
+                domainController.setRound();
+                currentPlayerTurn = !currentPlayerTurn;
+
             }
         } else {
             if(domainController.getPlayer2Type() != 0){
+                System.out.println("p2m");
                 humanMoves = false;
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
+                currentPlayerTurn = !currentPlayerTurn;
                 play();
             } else {
+                System.out.println("p2h");
                 humanMoves = true;
+                domainController.setRound();
+                currentPlayerTurn = !currentPlayerTurn;
             }
         }
     }
@@ -185,20 +199,21 @@ public class ViewController{
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                         Tile currentTile = (Tile) evt.getSource();
-                        ArrayList<String> mo = new ArrayList<String>();
-                        String coords;
-                        if(view.matchCard.tileHighlighted == null){
-                            coords = currentTile.getTileX() + " " + currentTile.getTileY();
-                            mo = domainController.getLegalMoves(coords);
-                        } else {
-                            mo = domainController.getLegalMoves(view.matchCard.getTilesInMove()[0]);
-                        }
-                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, mo)) {
 
+                        ArrayList<String> movements = new ArrayList<String>();
+                        String coords;
+                        if(view.matchCard.tilesMove[0] == null){
+                            coords = currentTile.getTileX() + " " + currentTile.getTileY();
+                            movements = domainController.getLegalMoves(coords);
+                        } else {
+                            coords = view.matchCard.tilesMove[0].getTileX() + " " + view.matchCard.tilesMove[0].getTileY();
+                            movements = domainController.getLegalMoves(coords);
+                        }
+                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, movements)) {
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
-                            play();
                         }
+                        play();
                     }
                 }
             }

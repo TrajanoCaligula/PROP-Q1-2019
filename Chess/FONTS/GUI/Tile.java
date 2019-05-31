@@ -1,8 +1,10 @@
+/**
+ * @author Pau Charques
+ */
 package GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Tile extends JButton {
     private int tx, ty;

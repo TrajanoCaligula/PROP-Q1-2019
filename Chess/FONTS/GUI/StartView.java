@@ -1,3 +1,6 @@
+/**
+ * @author Pau Charques
+ */
 package GUI;
 
 import javax.swing.*;

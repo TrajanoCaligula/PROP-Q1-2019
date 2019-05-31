@@ -180,7 +180,7 @@ public class MatchView extends JPanel {
         for(int i = 0; i < tileLegalMoves.size(); i++){
             int x = tileLegalMoves.get(i).charAt(0);
             int y = tileLegalMoves.get(i).charAt(1);
-            chessBoardSquares[Character.getNumericValue(y)][Character.getNumericValue(x)].highlightTile();
+            chessBoardSquares[Character.getNumericValue(x)][Character.getNumericValue(y)].highlightTile();
         }
     }
 
@@ -192,15 +192,19 @@ public class MatchView extends JPanel {
         }
     }
 
-    public boolean tileAction(Tile pressedTile, boolean turn){
+    public boolean tileAction(Tile pressedTile, boolean turn, ArrayList<String> legalMoves){
         boolean moveMade = false;
         if(this.tileHighlighted == null){
             if ((pressedTile.getPiece() != null) && pieceYourColor(turn, pressedTile)){
+                highilghtLegalMoves(legalMoves);
+                tilesMove[0] = pressedTile;
                 this.tileHighlighted = pressedTile;
                 pressedTile.highlightTile();
             }
         } else {
             this.tileHighlighted.undoHighlightTile();
+            undoHighlightLegalMoves(legalMoves);
+            tilesMove[0] = null;
             if(!pressedTile.equals(this.tileHighlighted)) {
                 move(this.tileHighlighted, pressedTile);
                 moveMade = true;
@@ -216,8 +220,7 @@ public class MatchView extends JPanel {
     }
 
 
-    public boolean updateBoard(String fen){
-        boolean ended = false;
+    public void updateBoard(String fen){
         for(int i = 0; i < chessBoardSquares.length; i++){
             for(int j = 0; j < chessBoardSquares[0].length; j++){
                 chessBoardSquares[i][j].setPiece(null);
@@ -225,8 +228,6 @@ public class MatchView extends JPanel {
             }
         }
         setMatchBoard(fen);
-        ended = true;
-        return ended;
     }
 
     public void addTermLine(String lineToAdd){

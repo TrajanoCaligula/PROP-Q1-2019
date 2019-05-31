@@ -5,6 +5,7 @@ import Controllers.CtrlDomain;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class ViewController{
@@ -184,9 +185,16 @@ public class ViewController{
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                         Tile currentTile = (Tile) evt.getSource();
-                        /*String coords = (String.valueOf(currentTile.getTileX()) + " " + String.valueOf(currentTile.getTileY()));
-                        System.out.println(coords);*/
-                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn)) {
+                        ArrayList<String> mo = new ArrayList<String>();
+                        String coords;
+                        if(view.matchCard.tileHighlighted == null){
+                            coords = currentTile.getTileX() + " " + currentTile.getTileY();
+                            mo = domainController.getLegalMoves(coords);
+                        } else {
+                            mo = domainController.getLegalMoves(view.matchCard.getTilesInMove()[0]);
+                        }
+                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, mo)) {
+
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
                             play();

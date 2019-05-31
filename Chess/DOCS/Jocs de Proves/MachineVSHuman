@@ -1,10 +1,11 @@
 1. Executar el programa
 2. Prèmer el botó "Play"
-3. Escollir un problema qualsevol del menú desplegable
+3. Escollir el problema P146162 del menú desplegable
 4. Escriure un nom per a Player 1
 5. Escriure un nom per a Player 2
 6. Escollir a Player 1 com a Machine
 7. Escollir la dificultat de Machine
 8. Escollir a Player 2 com a Human
 9. Prèmer el botó "Start Match!"
-10. Jugar
+10. Després de moure la màquina, moure la peça de h5 a h6
+12. Has perdut!

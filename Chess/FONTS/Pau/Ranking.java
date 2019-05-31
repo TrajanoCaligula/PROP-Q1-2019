@@ -14,7 +14,6 @@ import java.util.*;
 public class Ranking{
 	private int idProblemRanking;
 	private ArrayList<Score> scoresRanking = new ArrayList<Score>();
-	private File rankingFile;
 
 
 	/**Constructor*/
@@ -40,14 +39,6 @@ public class Ranking{
 		return idProblemRanking;
 	}
 
-	/**
-	 * Get file name
-	 * @return Returns the name of the file of our Ranking
-	 */
-	public String getFileName(){
-		return this.rankingFile.getName();
-	}
-
 	/**Setters*/
 	/**
 	 * Updates our private variable scores of the ranking so we can order it in > order then if we want to save it in our file
@@ -56,31 +47,6 @@ public class Ranking{
 	 */
 	private void setScores(ArrayList<Score> scoresRankingP){
 		this.scoresRanking = scoresRankingP;
-	}
-
-	/**
-	 *This function loads a problem from a file and initializes the object attributes. We use a buffered reader and read line by line
-	 * getting the score, then parsing it into a Score object and then adding it in to and array list.
-	 * @param rankingFileLD File of the ranking we want to load
-	 * @return Returns de array list of scores that where found inside the rankingFileLD
-	 */
-	public static ArrayList<Score> loadScores(File rankingFileLD) {
-		ArrayList<Score> scoresLoaded = new ArrayList<Score>();
-
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(rankingFileLD));
-			String line = reader.readLine();
-			while (line != null) {
-				String[] lineSplitted = (line).split("\\s");
-				Score scoreFromLineFile = new Score(lineSplitted[0], Integer.parseInt(lineSplitted[1]));
-				scoresLoaded.add(scoreFromLineFile);
-				// read next line
-				line = reader.readLine();
-			}
-			reader.close();
-		} catch (IOException e) {
-		}
-		return scoresLoaded;
 	}
 
 	/**
@@ -94,97 +60,6 @@ public class Ranking{
 		}
 		Collections.sort(scoresRanking);
 		return null;
-	}
-
-	/**
-	 * It uses the attribute scores to update the the scores inside the file of our object. We also keep sorted inside the file. Being the top
-	 * scores the higher ones.
-	 */
-	private void updateRankingFile(){
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(this.rankingFile));
-			for (int i = 0; i < scoresRanking.size(); i++) {
-				writer.write(scoresRanking.get(i).getPlayer() + " " + scoresRanking.get(i).getScore() + "\n");
-			}
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * This function resets the ranking/ clears the file by overwriting it with an empty string and also we use it to see if the ranking file
-	 * exists by returnin a boolean.
-	 * @param idPR The identifier of the problem we want to reset. We'll use it to compare it to the name of the files.
-	 * @return Returns true in case we find a file of the problem, false otherwise.
-	 */
-	public static boolean resetRanking(int idPR){
-		boolean trobat = false;
-		File[] files = new File("../").listFiles();
-		for(File file : files) {
-			String[] splitted = file.getName().split("-");
-			if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
-				String[] fileName = splitted[1].split("\\.");
-				if (fileName[0].equals(idPR)) {
-					try {
-						trobat = true;
-						BufferedWriter writer = new BufferedWriter(new FileWriter(file));
-						writer.write("");
-						writer.flush();
-						writer.close();
-					} catch (IOException e){
-
-					}
-				}
-			}
-		}
-		return trobat;
-	}
-
-	/**
-	 * Deletes the file of the ranking identified by the parametre. We also use it as a checker if the file exists in our DB
-	 * just as the function above
-	 * @param idPR identifier of the ranking
-	 * @return Returns true in case we find a file of the problem, false otherwise.
-	 */
-	public static boolean deleteRanking(int idPR){
-		boolean trobat = false;
-		File[] files = new File("../").listFiles();
-		for(File file : files) {
-			String[] splitted = file.getName().split("-");
-			if (file.getName().charAt(0) != '.' && splitted[0].equals("R")) {
-				String[] fileName = splitted[1].split("\\.");
-				if (fileName[0].equals(idPR)) {
-					trobat = true;
-					file.delete();
-				}
-			}
-		}
-		return trobat;
-	}
-
-	/**
-	 * Prints every ranking saved in our directory.
-	 */
-	public static void printRankings(){
-		File[] files = new File("../").listFiles();
-		for(File file : files){
-			String[] fileName = file.getName().split("\\.");
-			if(file.getName().charAt(0) != '.') {
-				System.out.println("");
-				System.out.println(fileName[0]);
-				System.out.println("--------");
-				ArrayList<Score> scoresLD = Ranking.loadScores(file);
-				for(int i = 0; i < scoresLD.size(); i++){
-					Score scoreToPrint = scoresLD.get(i);
-					System.out.println("[" + scoreToPrint.getPlayer() + ": " + scoreToPrint.getScore() + "]");
-				}
-				System.out.println("--------");
-				System.out.println("");
-			}
-		}
 	}
 
 	@Override

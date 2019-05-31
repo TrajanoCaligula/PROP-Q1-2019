@@ -109,6 +109,7 @@ public class MatchView extends JPanel {
 
     }
 
+
     public final void setMatchBoard(String matchFEN){
         this.currentFEN = matchFEN;
         int i = 0, y = 0, x = 0;
@@ -201,6 +202,7 @@ public class MatchView extends JPanel {
             if(!pressedTile.equals(this.tilesMove[0])) {
                 String pos = pressedTile.getTileY() + " " + pressedTile.getTileX();
                 if(legalMove(legalMoves, pos)) {
+
                     this.tilesMove[1] = pressedTile;
                     move(this.tilesMove[0], tilesMove[1]);
                     moveMade = true;
@@ -225,7 +227,7 @@ public class MatchView extends JPanel {
     }
 
     public boolean pieceYourColor(Boolean turn, Tile piece){
-        return ((!turn && Character.isLowerCase(piece.getPiece())) || (turn && Character.isUpperCase(piece.getPiece())));
+        return ((turn && Character.isLowerCase(piece.getPiece())) || (!turn && Character.isUpperCase(piece.getPiece())));
     }
 
 

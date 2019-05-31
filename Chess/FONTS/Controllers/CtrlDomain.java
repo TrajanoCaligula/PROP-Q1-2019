@@ -161,6 +161,10 @@ public class CtrlDomain {
         else return match.getBoard().isGameOver(Color.WHITE);
     }
 
+    public int getScore(){
+        return 1000 - match.getBlackScore();
+    }
+
     /**
      * Get the legal movemnt that you can make with a certain piece
      * @param piece string that describes the position of the piece

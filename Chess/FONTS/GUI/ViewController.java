@@ -17,7 +17,7 @@ public class ViewController{
     private CtrlDomain domainController;
     private boolean matchStarted = false;
     private boolean humanMoves = false;
-    private boolean currentPlayerTurn; //false - white, true - black
+    private boolean currentPlayerTurn = false; //false - white, true - black
 
     public ViewController(ChessView currentView) throws IOException {
         this.view = currentView;
@@ -46,7 +46,6 @@ public class ViewController{
         domainController.newGameComplete(idPr, player1, player1type, 1, player2, player2type, 2);
         matchStarted = true;
         view.startMatch(splitted[0]);
-        currentPlayerTurn = false;
         play();
     }
 
@@ -56,6 +55,7 @@ public class ViewController{
         } else {
             view.matchCard.addTermLine(domainController.getPlayer2Name());
         }
+        view.matchCard.updatedScore(domainController.getScore());
     }
 
 
@@ -79,8 +79,6 @@ public class ViewController{
             } else {
                 humanMoves = true;
                 domainController.setRound();
-                currentPlayerTurn = !currentPlayerTurn;
-
             }
         } else {
             if(domainController.getPlayer2Type() != 0){
@@ -94,7 +92,6 @@ public class ViewController{
                 System.out.println("p2h");
                 humanMoves = true;
                 domainController.setRound();
-                currentPlayerTurn = !currentPlayerTurn;
             }
         }
     }
@@ -199,21 +196,28 @@ public class ViewController{
                 if (humanMoves) {
                     if (evt.getActionCommand().equals(Actions.MOVE.name())) {
                         Tile currentTile = (Tile) evt.getSource();
-
+                        System.out.println(currentTile.getPiece());
+                        System.out.println(currentPlayerTurn);
                         ArrayList<String> movements = new ArrayList<String>();
                         String coords;
-                        if(view.matchCard.tilesMove[0] == null){
-                            coords = currentTile.getTileX() + " " + currentTile.getTileY();
-                            movements = domainController.getLegalMoves(coords);
+                        if (view.matchCard.tilesMove[0] == null) {
+                            if (!currentPlayerTurn && currentTile.getColor()) {
+                                coords = currentTile.getTileX() + " " + currentTile.getTileY();
+                                movements = domainController.getLegalMoves(coords);
+                            }
                         } else {
-                            coords = view.matchCard.tilesMove[0].getTileX() + " " + view.matchCard.tilesMove[0].getTileY();
-                            movements = domainController.getLegalMoves(coords);
+                            if (!currentPlayerTurn && view.matchCard.tilesMove[0].getColor()) {
+                                coords = view.matchCard.tilesMove[0].getTileX() + " " + view.matchCard.tilesMove[0].getTileY();
+                                movements = domainController.getLegalMoves(coords);
+                            }
                         }
-                        if(view.matchCard.tileAction(currentTile, currentPlayerTurn, movements)) {
+                        if (view.matchCard.tileAction(currentTile, currentPlayerTurn, movements)) {
+                            System.out.println("ara");
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
+                            currentPlayerTurn = !currentPlayerTurn;
+                            play();
                         }
-                        play();
                     }
                 }
             }

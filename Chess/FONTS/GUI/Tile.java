@@ -79,4 +79,8 @@ public class Tile extends JButton {
 
     public void setTileY(int yIn) {this.ty = yIn;}
     public int getTileY() {return this.ty;}
+
+    public boolean getColor(){
+        return Character.isUpperCase(this.piece);
+    }
 }

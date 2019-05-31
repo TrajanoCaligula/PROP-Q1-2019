@@ -10,6 +10,10 @@ import java.awt.event.*;
 import javax.swing.border.*;
 import java.util.ArrayList;
 
+
+/**
+ * StartView or MenuView, contains all the funcionalities the user has access to, explained with more detail in SegonLliurament.pdf
+ */
 public class StartView extends JPanel {
     private JButton playButton = new JButton("Play");
     private JPanel playOptions;

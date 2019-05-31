@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * The father class of all views, controls everything that happens in the view and displays it, explained with more details in our
+ * SegonLliurament.pdf
+ */
 public class ViewController{
     private ChessView view;
     private CtrlDomain domainController;
@@ -60,6 +64,7 @@ public class ViewController{
 
 
     public void play(){
+        view.matchCard.updateN(domainController.getTurn());
         if(domainController.youAreDonete(!currentPlayerTurn)){
             if(view.matchCard.gameEnd(false) == 0){
                 view.back();
@@ -68,22 +73,24 @@ public class ViewController{
 
         updatedTerminal();
 
+        System.out.println("play");
         if((domainController.getTurn()%2) != 0){
             if(domainController.getPlayer1Type() != 0){
                 System.out.println("p1m");
                 humanMoves = false;
+                System.out.println("play");
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
                 play();
             } else {
                 humanMoves = true;
-                domainController.setRound();
             }
         } else {
             if(domainController.getPlayer2Type() != 0){
                 System.out.println("p2m");
                 humanMoves = false;
+                System.out.println("play");
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
@@ -91,7 +98,6 @@ public class ViewController{
             } else {
                 System.out.println("p2h");
                 humanMoves = true;
-                domainController.setRound();
             }
         }
     }
@@ -193,29 +199,24 @@ public class ViewController{
                 domainController.copyProblem(idProblemToManage);
             }
             if(matchStarted) {
-                if (humanMoves) {
-                    if (evt.getActionCommand().equals(Actions.MOVE.name())) {
+                if (evt.getActionCommand().equals(Actions.MOVE.name())) {
+                    if (humanMoves) {
                         Tile currentTile = (Tile) evt.getSource();
-                        System.out.println(currentTile.getPiece());
-                        System.out.println(currentPlayerTurn);
                         ArrayList<String> movements = new ArrayList<String>();
                         String coords;
                         if (view.matchCard.tilesMove[0] == null) {
-                            if (!currentPlayerTurn && currentTile.getColor()) {
-                                coords = currentTile.getTileX() + " " + currentTile.getTileY();
-                                movements = domainController.getLegalMoves(coords);
-                            }
+                            coords = currentTile.getTileX() + " " + currentTile.getTileY();
+                            movements = domainController.getLegalMoves(coords);
                         } else {
-                            if (!currentPlayerTurn && view.matchCard.tilesMove[0].getColor()) {
-                                coords = view.matchCard.tilesMove[0].getTileX() + " " + view.matchCard.tilesMove[0].getTileY();
-                                movements = domainController.getLegalMoves(coords);
-                            }
+                            coords = view.matchCard.tilesMove[0].getTileX() + " " + view.matchCard.tilesMove[0].getTileY();
+                            movements = domainController.getLegalMoves(coords);
                         }
+
                         if (view.matchCard.tileAction(currentTile, currentPlayerTurn, movements)) {
-                            System.out.println("ara");
                             String currentFEN = domainController.makeMove(view.matchCard.getTilesInMove()[0], view.matchCard.getTilesInMove()[1]);
                             view.matchCard.updateBoard(currentFEN);
                             currentPlayerTurn = !currentPlayerTurn;
+                            view.matchCard.resetTilesInMove();
                             play();
                         }
                     }
@@ -223,6 +224,5 @@ public class ViewController{
             }
         }
     }
-
 
 }

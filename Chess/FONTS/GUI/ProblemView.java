@@ -14,6 +14,9 @@ import javax.swing.border.*;
 
 import static java.lang.Character.*;
 
+/**
+ * This class displays the board to modify a problem, it's explained with more detail in our SegonLliurament.pdf
+ */
 public class ProblemView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
@@ -66,15 +69,12 @@ public class ProblemView extends JPanel {
         eastPanel.setBackground(new Color(43, 43, 43));
         this.add(eastPanel, BorderLayout.EAST);
 
-        Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
             for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
                 Tile b = new Tile(ii, jj);
                 b.setBorderPainted(false);
                 b.setOpaque(true);
-                //b.setMargin(buttonMargin);
-                // our chess pieces are 64x64 px in size, so we'll
-                // 'fill this in' using a transparent icon..
+
                 ImageIcon icon = new ImageIcon(
                         new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
@@ -117,10 +117,19 @@ public class ProblemView extends JPanel {
         setPiecePicker();
     }
 
+    /**
+     * Sets the text field of the button create problem/ modify problem depending on the view
+     * @param c_m
+     */
     public void setOp(String c_m){
         this.createProblem.setText(c_m);
     }
 
+    /**
+     * Shows if player1 won o lost.
+     * @param message the text this dialog will display
+     * @return return 0 if the user pressed ok, otherwise return -1, will be useful for doing actions in case the user presses ok.
+     */
     public int endDialog(String message){
         int input = JOptionPane.showOptionDialog(this, message, "Problem Manager", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         if(input == JOptionPane.OK_OPTION)
@@ -130,6 +139,9 @@ public class ProblemView extends JPanel {
         return input;
     }
 
+    /**
+     * This function initializes de left bar of this view, the pieces you'll use to put on the board
+     */
     public void setPiecePicker(){
         String path = "../PROP4/Chess/FONTS/assets/pieces";
         File[] pieceIcons = new File("../PROP4/Chess/FONTS/assets/pieces").listFiles();
@@ -144,6 +156,10 @@ public class ProblemView extends JPanel {
         }
     }
 
+    /**
+     * Initial FEN of the board you'll display in the view
+     * @param matchFEN
+     */
     public final void setMatchBoard(String matchFEN){
         int i = 0, y = 0, x = 0;
         Character c;
@@ -164,6 +180,7 @@ public class ProblemView extends JPanel {
             i++;
         }
     }
+
 
 
     public void setPiece(char c, int x, int y){
@@ -227,6 +244,10 @@ public class ProblemView extends JPanel {
         return null;
     }
 
+    /**
+     * moves a piece from initial tile to the final tile
+     * @param pressedTile
+     */
     public void move(Tile pressedTile){
         System.out.println(pressedTile.isPicker());
         if(pieceSelected == null)
@@ -242,6 +263,10 @@ public class ProblemView extends JPanel {
         }
     }
 
+    /**
+     * function that manages the listener of the buttons
+     * @param mal is the listener that'll be added to the buttons
+     */
     public void addActionListenerBoard(ActionListener mal) {
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
@@ -258,6 +283,10 @@ public class ProblemView extends JPanel {
     }
     //      1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1
 
+    /**
+     * Converts from the board view to a fen
+     * @return FEN of the board in the view
+     */
     public String getFEN(){
         String FEN = "";
         int whiteTiles = 0;
@@ -287,6 +316,10 @@ public class ProblemView extends JPanel {
         return FEN;
     }
 
+    /**
+     * Return who we'll be the first player
+     * @return
+     */
     public String getFirstPlayer(){
         if(firstPlayer.getSelectedItem().equals("Black")){
             return "b";
@@ -294,9 +327,19 @@ public class ProblemView extends JPanel {
             return "w";
         }
     }
+
+    /**
+     * return the difficulty the user set on the topbar combobox(desplegable)
+     * @return
+     */
     public String getDifficulty(){
         return (String) difficulty.getSelectedItem();
     }
+
+    /**
+     * gets the rounds the user introduced in to the round: textfield on the top bar
+     * @return
+     */
     public int getRounds(){
         return Integer.parseInt(round.getText());
     }

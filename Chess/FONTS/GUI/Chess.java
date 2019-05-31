@@ -14,6 +14,8 @@ public class Chess {
 
     }
 
+
+    /** MAIN **/
     public static void main(String[] args) {
 
         ChessView chessView = new ChessView();

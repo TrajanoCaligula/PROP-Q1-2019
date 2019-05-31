@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 import static java.lang.Character.*;
 
+/**
+ * This class displays the match created, it's explained with more detail in our SegonLliurament.pdf
+ */
 public class MatchView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
@@ -33,12 +36,14 @@ public class MatchView extends JPanel {
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setPreferredSize(new Dimension(850, 500));
         this.setBackground(new Color(43, 43, 43));
-        JPanel topBar = new JPanel(new FlowLayout(10, 150, 5));
+        JPanel topBar = new JPanel(new FlowLayout(SwingConstants.RIGHT, 10, 5));
         labelN = new JLabel("Round: 2", JLabel.LEFT);
         labelScore = new JLabel("Score: 34", JLabel.CENTER);
         topBar.setBackground(new Color(255, 255, 255));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
+        topBar.add(new JLabel("Score:"));
         topBar.add(labelScore);
+        topBar.add(new JLabel("Round:"));
         topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -167,8 +172,8 @@ public class MatchView extends JPanel {
 
     public String[] getTilesInMove(){
         String[] tilesInMove = new String[2];
-        tilesInMove[0] = this.tilesMove[0].getTileY() + " " + this.tilesMove[0].getTileX();
-        tilesInMove[1] = this.tilesMove[1].getTileY() + " " + this.tilesMove[1].getTileX();
+        tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
+        tilesInMove[1] = this.tilesMove[1].getTileX() + " " + this.tilesMove[1].getTileY();
         return tilesInMove;
     }
 
@@ -179,6 +184,7 @@ public class MatchView extends JPanel {
             chessBoardSquares[Character.getNumericValue(x)][Character.getNumericValue(y)].highlightTile();
         }
     }
+
 
     public void undoHighlightLegalMoves(ArrayList<String> tileLegalMoves){
         for(int i = 0; i < tileLegalMoves.size(); i++){
@@ -202,14 +208,11 @@ public class MatchView extends JPanel {
             if(!pressedTile.equals(this.tilesMove[0])) {
                 String pos = pressedTile.getTileY() + " " + pressedTile.getTileX();
                 if(legalMove(legalMoves, pos)) {
-
                     this.tilesMove[1] = pressedTile;
                     move(this.tilesMove[0], tilesMove[1]);
                     moveMade = true;
                 }
             }
-            this.tilesMove[0] = null;
-            this.tilesMove[1] = null;
         }
         return  moveMade;
     }
@@ -228,6 +231,11 @@ public class MatchView extends JPanel {
 
     public boolean pieceYourColor(Boolean turn, Tile piece){
         return ((turn && Character.isLowerCase(piece.getPiece())) || (!turn && Character.isUpperCase(piece.getPiece())));
+    }
+
+    public void resetTilesInMove(){
+        this.tilesMove[0] = null;
+        this.tilesMove[1] = null;
     }
 
 

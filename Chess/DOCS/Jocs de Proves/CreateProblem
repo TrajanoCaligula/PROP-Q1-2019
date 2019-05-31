@@ -1,0 +1,9 @@
+1. Executar el programa
+2. Prèmer el botó "Problem Manager"
+3. Prèmer el botó "Create new Problem"
+4. Seleccionar el número de rondes en el TextBox que està al costat de "Round:"
+5. Escollir qui té el primer torn en el TextBox que està al costat de "First Player:"
+6. Escollir la dificultat del problema en el TextBoxx que està al costat de "Difficulty:"
+7. Ubicar en qualsevol casella un rei blanc, un rei negre, i les peces que es desitgin.
+8. Prèmer el botó "Create Problem!"
+9. En el menú de "Problem Manager", confirmar en el menú desplegable que el problema ha sigut creat.

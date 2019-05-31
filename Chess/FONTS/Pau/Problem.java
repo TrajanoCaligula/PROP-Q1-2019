@@ -184,56 +184,6 @@ public class Problem{
         this.problemDifficulty = "Easy";
     }
 
-
-    /**SaveProblem
-     * Saves our current problem into a file with the necessaries attributes so later we can load it.
-     */
-
-
-
-    /**
-     * Clones a problem
-     * @param idProblemToClone The identifier of the problem we want to clone
-     * @return Returns a object Problem that's a clone of the one passed by parametre (@idProblemToClone)
-     */
-    public static Problem cloneProblem(int idProblemToClone){
-        Problem clone = null;
-
-        ArrayList<Problem> problemList = new ArrayList<>();
-        File[] files = new File("../").listFiles();
-        for(File file : files){
-            String[] splitted = file.getName().split("-");
-            String[] fileName = splitted[1].split("\\.");
-            if(fileName[0].equals(Integer.toString(idProblemToClone))){
-                Random rand = new Random();
-                clone = new Problem(file);
-                clone.setId(rand.nextInt(1000*1000));
-            }
-        }
-        return clone;
-    }
-
-
-    /**
-     * Loads a problem from a file and returns it.
-     * @param id The identifier of the problem we want to load.
-     * @return The problem already loaded with its attributes.
-     */
-    public static Problem loadProblem(int id){
-        Problem problemLoaded = null;
-        File[] files = new File("../").listFiles();
-        for(File file : files){
-            String[] splitted = file.getName().split("-");
-            if(file.getName().charAt(0) != '.' && splitted[0].equals("P")) {
-                String[] fileName = splitted[1].split("\\.");
-                if (fileName[0].equals(Integer.toString(id))) {
-                    problemLoaded = new Problem(file);
-                }
-            }
-        }
-        return  problemLoaded;
-    }
-
     /**
      * We use backtracking algorithm to check if the problem has a solution
      * @return Returns true if it does, have a solution, otherwise returns false;

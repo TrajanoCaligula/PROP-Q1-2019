@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CtrlPersistance {
     private static CtrlPersistance ourInstance ;
     private String filePath;
-    private static final String defaultFolder = "./Chess/FONTS/data/";
+    private static final String defaultFolder = "./Chess/EXE/data/";
 
 
     public static CtrlPersistance getInstance() {

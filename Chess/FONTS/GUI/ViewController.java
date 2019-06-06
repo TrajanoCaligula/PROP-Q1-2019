@@ -104,11 +104,10 @@ public class ViewController{
 
     public void createProblem(){
         int N = view.newProblemCard.getRounds();
-        String difficulty = view.newProblemCard.getDifficulty();
         String FEN = view.newProblemCard.getFEN();
         int id = 0;
         try {
-            id = domainController.createProblem(FEN, N, difficulty);
+            id = domainController.createProblem(FEN, N);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,6 +128,10 @@ public class ViewController{
                     startMatch();
                 } catch (IOException e) {
                     e.printStackTrace();
+                }
+            } else if(evt.getActionCommand().equals(Actions.EXIT.name())){
+                if(view.matchCard.exitDialog() == 0){
+                    view.back();
                 }
             } else if(evt.getActionCommand().equals(Actions.PROBLEM_MANAGER.name())){
                 try {

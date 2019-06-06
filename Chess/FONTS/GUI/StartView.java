@@ -114,6 +114,7 @@ public class StartView extends JPanel {
         JPanel radioPanel2 = new JPanel();
         radioPanel2.setLayout(new GridLayout(3, 1));
         radioPanel2.add(nameP2);
+        radioPanel2.add(new JPanel());
         radioPanel2.add(humanP2);
         radioPanel2.add(machineP2);
         radioPanel2.add(machineP2easy);

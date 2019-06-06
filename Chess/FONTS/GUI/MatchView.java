@@ -22,6 +22,7 @@ public class MatchView extends JPanel {
     private JPanel chessBoard;
     private String currentFEN;
     private JLabel labelN;
+    private JButton exitButton = new JButton("Exit");
     private JLabel labelScore;
     private JTextArea term;
     public Tile[] tilesMove = new Tile[2];
@@ -53,6 +54,8 @@ public class MatchView extends JPanel {
         this.add(chessBoard, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
 
+        JPanel rightBar = new JPanel(new BorderLayout());
+        rightBar.setBackground(new Color(23, 23, 23));
         term = new JTextArea();
         term.setForeground(Color.WHITE);
         term.setMargin( new Insets(2,2,2,2));
@@ -62,7 +65,9 @@ public class MatchView extends JPanel {
         term.setText("...Match Started!\n");
         term.setBackground(new Color(23, 23, 23));
         term.setPreferredSize(new Dimension(200, 0));
-        this.add(term, BorderLayout.EAST);
+        rightBar.add(term);
+        rightBar.add(exitButton, BorderLayout.SOUTH);
+        this.add(rightBar, BorderLayout.EAST);
 
         Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
@@ -287,6 +292,13 @@ public class MatchView extends JPanel {
                 chessBoardSquares[jj][ii].addActionListener(mal);
             }
         }
+        exitButton.setActionCommand(Actions.EXIT.name());
+        exitButton.addActionListener(mal);
+    }
+
+    public int exitDialog(){
+        int input = JOptionPane.showOptionDialog(this, "Are you sure you want to exit the game?", "Match", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+        return input;
     }
 
 }

@@ -188,12 +188,12 @@ public class CtrlDomain {
      * Creates a new problem and saves on the DB if its not already there
      * @param FEN information of the positions of the pieces of the problem
      * @param N number of turns to beat the enemy
-     * @param difficulty describes the difficulty of the problem
      * @return the id of the new problem, -1 if it has not been saved successfully
      * @throws IOException
      */
-    public int createProblem(String FEN,int N, String difficulty) throws IOException {
+    public int createProblem(String FEN,int N) throws IOException {
         Problem prob = new Problem(FEN);
+        String difficulty;
         if(prob.validateFen(FEN)) {
             if(N <= 5) difficulty = "Hard";
             else if(N <= 10) difficulty = "Normal";

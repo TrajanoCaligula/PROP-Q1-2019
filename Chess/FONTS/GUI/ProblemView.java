@@ -24,9 +24,6 @@ public class ProblemView extends JPanel {
     private JTextField round = new JTextField("2");
     String[] players = { "White", "Black"};
     private JComboBox firstPlayer = new JComboBox(players);
-
-    String[] difficultys = { "Easy", "Hard"};
-    private JComboBox difficulty = new JComboBox(difficultys);
     private JPanel piecePicker;
     private Tile[] pieces = new Tile[12];
     public Tile pieceSelected = null;
@@ -50,8 +47,6 @@ public class ProblemView extends JPanel {
         topBar.add(round);
         topBar.add(new JLabel("First player:"));
         topBar.add(firstPlayer);
-        topBar.add(new JLabel("Difficulty:"));
-        topBar.add(difficulty);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
         // Set the BG to be ochre
@@ -326,14 +321,6 @@ public class ProblemView extends JPanel {
         } else {
             return "w";
         }
-    }
-
-    /**
-     * return the difficulty the user set on the topbar combobox(desplegable)
-     * @return
-     */
-    public String getDifficulty(){
-        return (String) difficulty.getSelectedItem();
     }
 
     /**

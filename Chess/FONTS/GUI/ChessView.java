@@ -33,7 +33,7 @@ enum Actions {
     SCORES,
     DIFFICULTY1,
     DIFFICULTY2,
-    NAME,
+    EXIT,
     END
 }
 

@@ -199,7 +199,11 @@ public class ViewController{
                 String[] splitted = str.split("-");
                 splitted = splitted[1].split("\\s");
                 int idProblemToManage = Integer.parseInt(splitted[0]);
-                domainController.copyProblem(idProblemToManage);
+                try {
+                    domainController.copyProblem(idProblemToManage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             if(matchStarted) {
                 if (evt.getActionCommand().equals(Actions.MOVE.name())) {

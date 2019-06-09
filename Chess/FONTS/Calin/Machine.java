@@ -139,11 +139,15 @@ public class Machine extends Player {
         }
     }
 
+    @Override
+    public String getType(){
+        return "M1";
+    }
+
     /**
      * Getter to get the Machine's depth
      * @return the Machine's depth
      */
-
     public int getDepth() {
         return depth;
     }

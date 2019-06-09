@@ -23,13 +23,48 @@ public class CtrlPersistance {
         filePath = defaultFolder;
     }
 
-    /* TODO
-    UPDATE RANKINGS
-    CREATE MATCH TO MODIFY
-    PARTIDA
-     */
+    void saveMatchP(String FEN, String players, String round, String turn) throws IOException {
+        String aux = FEN+" "+players+" "+round+" "+turn;
+        if(!matchExists("Match.txt")){
+            File matchFile = new File(filePath+ "Match"+ ".txt");
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(matchFile));
+                writer.write(aux);
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            deleteMatch();
+        }
+    }
 
-    // A PARTIR DAQUI FUNCIONA -------------------------------------------------------------------------------------------------
+    String loadMatch() throws IOException {
+        if(matchExists("Match.txt")) {
+            File mFile = getFile("Match.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(mFile));
+            String line = reader.readLine();
+            return line;
+        }
+        return null;
+    }
+
+    boolean matchExists(String name) throws IOException {
+        File[] files = new File(filePath).listFiles();
+        for(File file : files){
+            String nFile = file.getName();
+            if(nFile == name) return true;
+        }
+        return false;
+    }
+
+    void deleteMatch() throws IOException {
+        File del = getFile("Match.txt");
+        del.delete();
+    }
 
     /**
      * Adds a new score into a ranking
@@ -241,7 +276,6 @@ public class CtrlPersistance {
                 String[] lineSplitted = (line).split("\\.");
                 String FEN = lineSplitted[0];
                 String res = "P-"+id + "-" + FEN;
-                //String res = "P-"+id;
                 problemList.add(res);
                 reader.close();
             }

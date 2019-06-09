@@ -70,6 +70,16 @@ public class Human extends Player {
      * @return true if it is a piece of the same color as the Human, false otherwise
      */
 
+    @Override
+    public String getType(){
+        return "H";
+    }
+
+    @Override
+    public int getDepth(){
+        return 0;
+    }
+
     private boolean isValidPiece(String realCoord, Board board) {
         if(realCoord.length() != 2 || realCoord.charAt(0) > 'h' || realCoord.charAt(0) < 'a' || realCoord.charAt(1) < '0' || realCoord.charAt(1) > '9')
             return false;

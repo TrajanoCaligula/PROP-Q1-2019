@@ -49,7 +49,9 @@ public abstract class Player {
         return color;
     }
 
+    public abstract String getType();
 
+    public abstract int getDepth();
 
     /**
      * To convert the Player into String it is returned it's name

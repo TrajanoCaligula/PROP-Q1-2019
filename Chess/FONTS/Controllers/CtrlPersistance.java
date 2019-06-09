@@ -141,20 +141,24 @@ public class CtrlPersistance {
      * @throws IOException
      */
     ArrayList<String> loadScores(int id) throws IOException {
-        ArrayList<String> scoresLoaded = new ArrayList<String>();
-        File rankingFileLD = getFile("R-"+id);
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(rankingFileLD));
-            String line = reader.readLine();
-            while (line != null) {
-                String[] lineSplitted = (line).split("\\s");
-                scoresLoaded.add(lineSplitted[0] + " " + lineSplitted[1]);
-                line = reader.readLine();
+        if(existsRanking(id)) {
+            ArrayList<String> scoresLoaded = new ArrayList<String>();
+            System.out.println(id + " -------------");
+            File rankingFileLD = getFile("R-" + id);
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(rankingFileLD));
+                String line = reader.readLine();
+                while (line != null) {
+                    String[] lineSplitted = (line).split("\\s");
+                    scoresLoaded.add(lineSplitted[0] + " " + lineSplitted[1]);
+                    line = reader.readLine();
+                }
+                reader.close();
+            } catch (IOException e) {
             }
-            reader.close();
-        } catch (IOException e) {
+            return scoresLoaded;
         }
-        return scoresLoaded;
+        return null;
     }
 
     /**
@@ -299,6 +303,8 @@ public class CtrlPersistance {
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 lineSplitted = lineSplitted[0].split("\\s");
+                System.out.println(file.getName());
+                System.out.println("////////"+lineSplitted[7]);
                 String dif = lineSplitted[7];
                 //String res = id + "-" + FEN;
                 String res = "P-"+id+" "+dif;

@@ -14,6 +14,8 @@ public class CtrlPerTest {
         int N = 4;
         String dif = "Facil";
 
+        Ctrl.addScore("KKK","350",id);
+
         Ctrl.saveProblem(FEN,id,N,dif);
 
         System.out.println(Ctrl.existsProblem(id));
@@ -51,11 +53,14 @@ public class CtrlPerTest {
         System.out.println();
         System.out.println("############################################################################################");
 
-        Ctrl.addScore("KKK","350",id);
+        Ctrl.existsRanking(id);
+        System.out.println("888888888888888888888 "+id);
+
+        Ctrl.addScore("KKK","350",id);System.out.println("888888888888888888888 "+id);
         Ctrl.addScore("tr3","353",id);
         Ctrl.addScore("final test","0",id);
 
-        Ctrl.existsRanking(2314);
+        Ctrl.existsRanking(id);
 
         Ctrl.addScore("TEST","100",110733);
 

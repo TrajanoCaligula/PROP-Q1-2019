@@ -56,7 +56,7 @@ public class CtrlPersistance {
         File[] files = new File(filePath).listFiles();
         for(File file : files){
             String nFile = file.getName();
-            if(nFile == name) return true;
+            if(nFile.equals(name)) return true;
         }
         return false;
     }
@@ -80,9 +80,8 @@ public class CtrlPersistance {
             del.delete();
             boolean trobat = false;
             ArrayList<String> res = new ArrayList<String>();
-            int aux = 0;
             for (int i = 0; i < scores.size(); i += 2) {
-                if (Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points) && !trobat) {
+                if (!trobat && Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points)) {
                     res.add(name);
                     res.add(points);
                     trobat = true;
@@ -143,14 +142,14 @@ public class CtrlPersistance {
     ArrayList<String> loadScores(int id) throws IOException {
         if(existsRanking(id)) {
             ArrayList<String> scoresLoaded = new ArrayList<String>();
-            System.out.println(id + " -------------");
             File rankingFileLD = getFile("R-" + id);
             try {
                 BufferedReader reader = new BufferedReader(new FileReader(rankingFileLD));
                 String line = reader.readLine();
                 while (line != null) {
                     String[] lineSplitted = (line).split("\\s");
-                    scoresLoaded.add(lineSplitted[0] + " " + lineSplitted[1]);
+                    scoresLoaded.add(lineSplitted[0]);
+                    scoresLoaded.add(lineSplitted[1]);
                     line = reader.readLine();
                 }
                 reader.close();
@@ -205,7 +204,7 @@ public class CtrlPersistance {
      * @param id identifies the ranking to search
      * @return true if exists, otherwise false
      */
-    boolean existsRanking(int id){ //FUNCIONA
+    boolean existsRanking(int id){
         boolean trobat = false;
         File[] files = new File(filePath).listFiles();
         for(File file : files) {
@@ -303,10 +302,7 @@ public class CtrlPersistance {
                 String line = reader.readLine();
                 String[] lineSplitted = (line).split("\\.");
                 lineSplitted = lineSplitted[0].split("\\s");
-                System.out.println(file.getName());
-                System.out.println("////////"+lineSplitted[7]);
                 String dif = lineSplitted[7];
-                //String res = id + "-" + FEN;
                 String res = "P-"+id+" "+dif;
                 problemList.add(res);
                 reader.close();

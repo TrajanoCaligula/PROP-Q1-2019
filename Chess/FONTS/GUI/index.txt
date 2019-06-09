@@ -1,0 +1,9 @@
+Directoi GUI
+
+- Chess.java: conte la inicialitzacio del sistema.
+- ChessView.java: conte el codi necessari per al funcionament del conjunt de la interficie grafica. Es la classe "pare" del GUI.
+- MatchView.java: conte el codi necessari per poder jugar graficament una partida d'escacs.
+- ProblemView.java: conte el codi que permet modificar mitjançant la interficie grafica els problemes.
+- StartView.java: conte el codi per tal que al executar el programa aparegui el menu principal.
+- Tile.java: es una classe que exten la classe JButton per tal de poder construir un taulell d'escacs.
+- ViewController.java: conte el codi per a la transmissio de dades entre capes i traduccio d'aquestes.

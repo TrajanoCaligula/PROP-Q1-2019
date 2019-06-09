@@ -1,0 +1,9 @@
+Directori FONTS:
+
+assets: conté les imatges usades en la intefície gràfica
+Calin: conté els codis implementats per aquest membre del grup durant la primera part del projecte
+Controllers: conte la implementació dels controladors de cada capa de domini i persistència, així com una classe per provar-les.
+data: conté els problemes i els seus respectius rankings, si en té, per tal de mantenir una base de dades del sistema.
+GUI: conté les classes necessaries per a la representació gràfica del joc.
+Jaume: conté els codis implementats per aquest membre del grup durant la primera part del projecte.
+Pau: conté els codis implementats per aquest membre del grup durant la primera part del projecte.

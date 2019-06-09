@@ -1,0 +1,6 @@
+Directori Controllers
+
+- CtrlDomain.java: conté el codi necessari per al funcionament del sistema. Per transmetre les dades i la seva conversio entre capes.
+- CtrlDomTest.java: es un driver per provar les funcions de la classe CtrlDomain.
+- CtrlPersistance: conte el codi necessari per al funcionament del sistema. Accedir a les dades de la carpeta "data" i crear i modificar fitxers ja existents.
+- CtrlPerTest.java: es un driver per provar el funcionament de la classe CtrlPersistance.java.

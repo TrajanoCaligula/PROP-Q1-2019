@@ -1,0 +1,5 @@
+Directori assets
+
+- icons: conte imatges per enbellir la interfície grafica: logos, dibuixos...
+- pieces: conte imatges per a la representació de la partida.
+

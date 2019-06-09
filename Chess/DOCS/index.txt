@@ -1,0 +1,8 @@
+Directori DOCS
+
+- Calin: conte tota la informacio de les classes implementades per aquest membre del grup, generat amb JavaDocs.
+- Controllers: conte tota la informacio dels controladors de domini i persistencia, generat amb JavaDocs.
+- GUI: conte tota la informacio de les classes de la capa de presentacio, generat amb JavaDocs.
+- Jaume:  conte tota la informacio de les classes implementades per aquest membre del grup, generat amb JavaDocs.
+- Pau:  conte tota la informacio de les classes implementades per aquest membre del grup, generat amb JavaDocs.
+- La resta d'arxius son generats per JavaDocs amb informacio adicional.

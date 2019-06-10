@@ -48,7 +48,6 @@ public class MatchView extends JPanel {
         topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
-        // Set the BG to be ochre
         chessBoard.setBackground(new Color(255, 255, 255));
         this.setBackground(new Color(63, 63, 68));
         this.add(chessBoard, BorderLayout.CENTER);
@@ -69,23 +68,16 @@ public class MatchView extends JPanel {
         rightBar.add(exitButton, BorderLayout.SOUTH);
         this.add(rightBar, BorderLayout.EAST);
 
-        Insets buttonMargin = new Insets(0, 0, 0, 0);
         for (int ii = 0; ii < chessBoardSquares.length; ii++) {
             for (int jj = 0; jj < chessBoardSquares[ii].length; jj++) {
                 Tile b = new Tile(ii, jj);
                 b.setBorderPainted(false);
                 b.setOpaque(true);
-                //b.setMargin(buttonMargin);
-                // our chess pieces are 64x64 px in size, so we'll
-                // 'fill this in' using a transparent icon..
-                ImageIcon icon = new ImageIcon(
-                        new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB));
+
+                ImageIcon icon = new ImageIcon(new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB));
                 b.setIcon(icon);
 
-                if ((jj % 2 == 1 && ii % 2 == 1)
-                        //) {
-                        || (jj % 2 == 0 && ii % 2 == 0)) {
-
+                if ((jj % 2 == 1 && ii % 2 == 1) || (jj % 2 == 0 && ii % 2 == 0)) {
                     b.setBackground(new Color(203, 155, 100));
                 } else {
                     b.setBackground(new Color(105, 72, 30));
@@ -100,11 +92,9 @@ public class MatchView extends JPanel {
         chessBoard.add(new JLabel(""));
         // fill the top row
         for (int ii = 0; ii < 8; ii++) {
-            chessBoard.add(
-                    new JLabel(COLS.substring(ii, ii + 1),
-                            SwingConstants.CENTER));
+            chessBoard.add(new JLabel(COLS.substring(ii, ii + 1), SwingConstants.CENTER));
         }
-        // fill the black non-pawn piece row
+
         for (int ii = 0; ii < 8; ii++) {
             for (int jj = 0; jj < 8; jj++) {
                 switch (jj) {
@@ -117,6 +107,12 @@ public class MatchView extends JPanel {
             }
         }
 
+    }
+
+
+    public final void initMatch(String matchFEN){
+        term.setText("...Match Started!\n");
+        this.setMatchBoard(matchFEN);
     }
 
 
@@ -254,7 +250,8 @@ public class MatchView extends JPanel {
         setMatchBoard(fen);
     }
 
-    public void addTermLine(String lineToAdd){
+    public void addTermLine(String moveLine, String lineToAdd){
+        this.term.append(moveLine);
         this.term.append(lineToAdd + "'s turn\n");
     }
 

@@ -226,15 +226,36 @@ public class StartView extends JPanel {
 
     public void showPlayOptions(ArrayList<String> problems){
         this.setProblems(problems);
-        this.playOptions.setVisible(!this.playOptions.isVisible());
-        this.playButton.setVisible(!this.playOptions.isVisible());
+        this.playOptions.setVisible(true);
+        this.playButton.setVisible(false);
         this.problemOptions.setVisible(false);
         this.problemsButton.setVisible(true);
+        this.problemsRanking.setVisible(false);
+        this.rankingsButton.setVisible(true);
+        this.scoresRanking.setVisible(false);
     }
 
-    public void showRankingOptions(ArrayList<String> rankings){
+    public void showProblemOptions(ArrayList<String> problems){
+        this.setProblemsToManage(problems);
+        this.problemOptions.setVisible(true);
+        this.problemsButton.setVisible(false);
+        this.playOptions.setVisible(false);
+        this.playButton.setVisible(true);
         this.problemsRanking.setVisible(false);
+        this.rankingsButton.setVisible(true);
+        this.scoresRanking.setVisible(false);
+
+    }
+
+
+    public void showRankingOptions(ArrayList<String> rankings){
+        this.problemOptions.setVisible(false);
+        this.problemsButton.setVisible(true);
+        this.playOptions.setVisible(false);
+        this.playButton.setVisible(true);
         this.problemsRanking.setVisible(true);
+        this.rankingsButton.setVisible(false);
+        this.scoresRanking.setVisible(true);
         this.setRankings(rankings);
     }
 
@@ -354,13 +375,5 @@ public class StartView extends JPanel {
         this.machineP2hard.setVisible(true);
     }
 
-
-    public void showProblemOptions(ArrayList<String> problems){
-        this.setProblemsToManage(problems);
-        this.problemOptions.setVisible(true);
-        this.problemsButton.setVisible(false);
-        this.playOptions.setVisible(false);
-        this.playButton.setVisible(true);
-    }
 
 }

@@ -99,7 +99,7 @@ public class ChessView{
      */
     public void startMatch(String matchFEN){
         CardLayout cl = (CardLayout)(cards.getLayout());
-        matchCard.setMatchBoard(matchFEN);
+        matchCard.initMatch(matchFEN);
         cl.show(cards, "BOARD");
     }
 

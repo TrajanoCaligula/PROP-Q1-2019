@@ -396,9 +396,7 @@ public class CtrlPersistance {
 
         String test[]= FEN.split("\\s");
         String aux = FEN+" "+difficulty;
-        System.out.println(aux+"+++++++++++++++");
         if(test.length <= 6) aux = FEN+" "+ N +" "+difficulty;
-        else if(test[6].equals(Integer.toString(N))) aux = FEN+" "+difficulty;
 
         System.out.println(aux+"--------------------");
 

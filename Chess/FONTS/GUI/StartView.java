@@ -22,6 +22,7 @@ public class StartView extends JPanel {
     private ButtonGroup machine1;
     private ButtonGroup player2;
     private ButtonGroup machine2;
+    private JPanel problemSelectAndFen = new JPanel(new GridLayout(1,3));
 
     private JRadioButton humanP1 = new JRadioButton("Human");
     private JRadioButton machineP1 = new JRadioButton("Machine");
@@ -33,12 +34,15 @@ public class StartView extends JPanel {
     private JComboBox problemsToManage;
     private JTextField nameP1 = new JTextField("...");
     private JTextField nameP2 = new JTextField("...");
+    private JTextField fenProbl = new JTextField("FEN");
+    private JLabel probNLabel = new JLabel("N:");
+    private JTextField probN = new JTextField("2");
+    private JButton fenSel = new JButton("Create Problem");
     private JRadioButton humanP2 = new JRadioButton("Human");
     private JComboBox problemsMatch;
     private JComboBox problemsRanking;
     private JButton problemsButton = new JButton("Problem Manager");
     private JPanel problemOptions = new JPanel(new GridLayout(0, 1));
-    private JButton createNewProblem = new JButton("Create new Problem");
     private JButton modifyExistingProblem = new JButton("Modify");
     private JButton deleteProblem = new JButton("Delete Problem");
     private JButton cloneProblem = new JButton("Clone Problem");
@@ -46,7 +50,6 @@ public class StartView extends JPanel {
 
     private JButton rankingsButton = new JButton("Rankings");
     private JPanel rankingPanel = new JPanel();
-    private String[] players = new String[2];
     private JPanel scoresRanking = new JPanel(new GridLayout(0, 3));
     private JLabel[][] scores = new JLabel[6][3];
     private JButton startButton;
@@ -133,8 +136,13 @@ public class StartView extends JPanel {
         botonesInit.add(playOptions);
 
         botonesInit.add(problemsButton);
-        problemOptions.add(createNewProblem);
         problemsToManage = new JComboBox();
+
+        problemSelectAndFen.add(fenProbl);
+        problemSelectAndFen.add(probNLabel);
+        problemSelectAndFen.add(probN);
+        problemSelectAndFen.add(fenSel);
+        problemOptions.add(problemSelectAndFen);
         problemOptions.add(problemsToManage);
         problemOptions.add(modifyExistingProblem);
         problemOptions.add(cloneProblem);
@@ -279,11 +287,8 @@ public class StartView extends JPanel {
         machineP2.setActionCommand(Actions.DIFFICULTY2.name());
         machineP2.addActionListener(mal);
 
-        createNewProblem.setActionCommand(Actions.NEW_PROBLEM.name());
-        createNewProblem.addActionListener(mal);
-
-        modifyExistingProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
-        modifyExistingProblem.addActionListener(mal);
+        fenSel.setActionCommand(Actions.CREATE_PROBLEM.name());
+        fenSel.addActionListener(mal);
 
         problemsRanking.setActionCommand(Actions.SCORES.name());
         problemsRanking.addActionListener(mal);
@@ -375,5 +380,19 @@ public class StartView extends JPanel {
         this.machineP2hard.setVisible(true);
     }
 
+    public String getFENtoCreate(){
+        return fenProbl.getText();
+    }
+    public int getN(){
+        return Integer.parseInt(probN.getText());
+    }
+    public int createDialog(String message){
+        int input = JOptionPane.showOptionDialog(this, message, "Problem creator", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+        if(input == JOptionPane.OK_OPTION)
+        {
+
+        }
+        return input;
+    }
 
 }

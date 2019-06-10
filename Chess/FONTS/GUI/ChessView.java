@@ -24,6 +24,7 @@ enum Actions {
     PROBLEM_MANAGER,
     NEW_PROBLEM,
     CREATE_PROBLEM,
+    CREATE_FROM_FEN,
     MODIFY_PROBLEM,
     DELETE_PROBLEM,
     CLONE_PROBLEM,
@@ -34,7 +35,7 @@ enum Actions {
     DIFFICULTY1,
     DIFFICULTY2,
     EXIT,
-    END
+    END,
 }
 
 public class ChessView{

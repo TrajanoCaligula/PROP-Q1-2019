@@ -27,7 +27,7 @@ public class ProblemView extends JPanel {
     private JPanel piecePicker;
     private Tile[] pieces = new Tile[12];
     public Tile pieceSelected = null;
-    private JButton createProblem = new JButton();
+    private JButton createProblem = new JButton("Create problem");
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -112,13 +112,6 @@ public class ProblemView extends JPanel {
         setPiecePicker();
     }
 
-    /**
-     * Sets the text field of the button create problem/ modify problem depending on the view
-     * @param c_m
-     */
-    public void setOp(String c_m){
-        this.createProblem.setText(c_m);
-    }
 
     /**
      * Shows if player1 won o lost.

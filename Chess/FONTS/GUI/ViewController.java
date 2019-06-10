@@ -56,6 +56,7 @@ public class ViewController {
             currentPlayerTurn = false;
         }
 
+        tileSelected = null;
         domainController.newGameComplete(idPr, player1, player1type, 2, player2, player2type, 3);
         view.startMatch(splitted[0]);
         matchStarted = true;
@@ -74,7 +75,6 @@ public class ViewController {
 
     public void play() {
 
-        //player 1
         if ((domainController.getTurn() % 2) != 0) {
             if (domainController.getPlayer1Type() != 0) {
                 humanMoves = false;
@@ -95,17 +95,6 @@ public class ViewController {
             } else {
                 humanMoves = true;
             }
-        }
-    }
-
-    public void createProblem() {
-        int N = view.newProblemCard.getRounds();
-        String FEN = view.newProblemCard.getFEN();
-        int id = 0;
-        try {
-            id = domainController.createProblem(FEN, N);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -141,7 +130,6 @@ public class ViewController {
                 view.menuCard.showDifficulty2();
             } else if (evt.getActionCommand().equals(Actions.NEW_PROBLEM.name())) {
                 view.newProblem();
-                view.newProblemCard.setOp("Create Problem!");
             } else if (evt.getActionCommand().equals(Actions.SET.name())) {
                 Tile currentTile = (Tile) evt.getSource();
                 view.newProblemCard.move(currentTile);
@@ -161,9 +149,16 @@ public class ViewController {
                     e.printStackTrace();
                 }
             } else if (evt.getActionCommand().equals(Actions.CREATE_PROBLEM.name())) {
-                createProblem();
-                if (view.newProblemCard.endDialog("Done!") == 0) {
-                    view.back();
+                String FEN = view.menuCard.getFENtoCreate();
+                int probN = view.menuCard.getN();
+                try {
+                    if(domainController.createProblem(FEN, probN) != -1){
+                        view.menuCard.createDialog("Problem created!");
+                    } else {
+                        view.menuCard.createDialog("Couldn't create the problem!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             } else if (evt.getActionCommand().equals(Actions.MODIFY_PROBLEM.name())) {
                 String str = view.menuCard.getIdProblemToManage();
@@ -174,7 +169,6 @@ public class ViewController {
                     String FEN = domainController.getFENFromId(idProblemToManage);
                     splitted = FEN.split("\\s");
                     view.newProblemCard.setMatchBoard(splitted[0]);
-                    view.newProblemCard.setOp("Modify Problem!");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

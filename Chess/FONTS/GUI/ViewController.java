@@ -85,12 +85,12 @@ public class ViewController {
             }
         }
         if(domainController.getTurn() > (domainController.getN()*2)){
-            view.matchCard.gameEnd("Game Over");
+            view.matchCard.gameOver();
         }
         if ((domainController.getTurn() % 2) != 0) {
             if (domainController.getPlayer1Type() != 0) {
                 humanMoves = false;
-                String currentFEN = domainController.playMachine(0);
+                String currentFEN = domainController.playMachine(1);
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
                 updateTerminal("f");
@@ -101,7 +101,7 @@ public class ViewController {
         } else {
             if (domainController.getPlayer2Type() != 0) {
                 humanMoves = false;
-                String currentFEN = domainController.playMachine(0);
+                String currentFEN = domainController.playMachine(1);
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
                 updateTerminal("f");

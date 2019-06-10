@@ -190,9 +190,7 @@ public class MatchView extends JPanel {
     public boolean legalMove(ArrayList<String> legalMoves, String move){
         boolean valid = false;
         for(int  i = 0; i < legalMoves.size() && !valid; i++){
-            System.out.println(move);
             String aux = legalMoves.get(i).charAt(0) + " " + legalMoves.get(i).charAt(1);
-            System.out.println(aux);
             if(aux.equals(move))
                 valid = true;
         }

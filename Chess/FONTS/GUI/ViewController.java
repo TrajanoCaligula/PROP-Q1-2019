@@ -23,6 +23,7 @@ public class ViewController {
     private boolean matchStarted = false;
     private boolean humanMoves = false;
     private Tile tileSelected = null;
+    private String firstPlayer;
     private boolean currentPlayerTurn; //true - white, false - black
 
     public ViewController(ChessView currentView) throws IOException {
@@ -50,14 +51,15 @@ public class ViewController {
 
 
         //set first player to move
-        if (splitted[1].equals("w")) {
+        firstPlayer = splitted[1];
+        if (firstPlayer.equals("w")) {
             currentPlayerTurn = true;
         } else {
             currentPlayerTurn = false;
         }
 
         tileSelected = null;
-        domainController.newGameComplete(idPr, player1, player1type, 2, player2, player2type, 3);
+        domainController.newGameComplete(idPr, player1, player1type, 1, player2, player2type, 1);
         view.startMatch(splitted[0]);
         matchStarted = true;
         play();
@@ -69,18 +71,29 @@ public class ViewController {
         } else {
             view.matchCard.addTermLine(moveMade, domainController.getPlayer2Name());
         }
+        view.matchCard.updateN(domainController.getTurn()/2);
         view.matchCard.updatedScore(domainController.getScore());
     }
 
 
     public void play() {
-
+        if(domainController.youAreDonete(currentPlayerTurn)){
+            if(currentPlayerTurn){
+                view.matchCard.gameEnd(domainController.getPlayer1Name());
+            } else {
+                view.matchCard.gameEnd(domainController.getPlayer2Name());
+            }
+        }
+        if(domainController.getTurn() > (domainController.getN()*2)){
+            view.matchCard.gameEnd("Game Over");
+        }
         if ((domainController.getTurn() % 2) != 0) {
             if (domainController.getPlayer1Type() != 0) {
                 humanMoves = false;
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
+                updateTerminal("f");
                 play();
             } else {
                 humanMoves = true;
@@ -91,6 +104,7 @@ public class ViewController {
                 String currentFEN = domainController.playMachine();
                 view.matchCard.updateBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
+                updateTerminal("f");
                 play();
             } else {
                 humanMoves = true;
@@ -161,7 +175,24 @@ public class ViewController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (evt.getActionCommand().equals(Actions.MODIFY_PROBLEM.name())) {
+            } else if(evt.getActionCommand().equals(Actions.MODIFY_PROBLEM.name())){
+                String FEN = view.newProblemCard.getFEN();
+                int N = view.newProblemCard.getRounds();
+                FEN = FEN + " " + view.newProblemCard.getFirstPlayer();
+                try {
+                    if(domainController.createProblem(FEN, N) != -1){
+                        if(view.newProblemCard.endDialog("This problem either has no solution or fen is invalid") == 0){
+                            view.back();
+                        }
+                    } else {
+                        if(view.newProblemCard.endDialog("Created!") == 0){
+                            view.back();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (evt.getActionCommand().equals(Actions.PROBLEM_VIEW.name())) {
                 String str = view.menuCard.getIdProblemToManage();
                 String[] splitted = str.split("-");
                 splitted = splitted[1].split("\\s");
@@ -219,6 +250,8 @@ public class ViewController {
                                 String fenRes = domainController.makeMove(coords, endCoordsN);
                                 view.matchCard.updateBoard(fenRes);
                                 currentPlayerTurn = !currentPlayerTurn;
+                                updateTerminal("f");
+                                play();
                             }
                             tileSelected = null;
                         }

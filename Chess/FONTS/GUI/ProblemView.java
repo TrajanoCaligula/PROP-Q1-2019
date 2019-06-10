@@ -266,7 +266,7 @@ public class ProblemView extends JPanel {
             pieces[i].setActionCommand(Actions.SET.name());
             pieces[i].addActionListener(mal);
         }
-        createProblem.setActionCommand(Actions.CREATE_PROBLEM.name());
+        createProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
         createProblem.addActionListener(mal);
     }
     //      1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1

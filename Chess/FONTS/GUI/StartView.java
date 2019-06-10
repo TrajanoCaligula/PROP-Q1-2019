@@ -293,7 +293,7 @@ public class StartView extends JPanel {
         problemsRanking.setActionCommand(Actions.SCORES.name());
         problemsRanking.addActionListener(mal);
 
-        modifyExistingProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
+        modifyExistingProblem.setActionCommand(Actions.PROBLEM_VIEW.name());
         modifyExistingProblem.addActionListener(mal);
 
         deleteProblem.setActionCommand(Actions.DELETE_PROBLEM.name());

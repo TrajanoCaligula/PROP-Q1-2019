@@ -48,7 +48,6 @@ public class Problem{
             System.out.println(FEN);
             String[] splitted = FEN.split("\\s");
             this.firstPlayer = splitted[1];
-            this.N = Integer.parseInt(splitted[6]);
         }
     }
 

@@ -41,12 +41,15 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        Random rand = new Random();
-        this.id = rand.nextInt(1000*1000);
-        this.FEN = FEN;
-        System.out.println(FEN);
-        String[] splitted = FEN.split("\\s");
-        this.firstPlayer = splitted[1];
+        if(validateFen(FEN)) {
+            Random rand = new Random();
+            this.id = rand.nextInt(1000 * 1000);
+            this.FEN = FEN;
+            System.out.println(FEN);
+            String[] splitted = FEN.split("\\s");
+            this.firstPlayer = splitted[1];
+            this.N = Integer.parseInt(splitted[6]);
+        }
     }
 
     /**
@@ -205,7 +208,7 @@ public class Problem{
      * @return Devuelve si el problema tiene un fen valido o no
      */
     public boolean validateFen(String inputFEN){
-        String[] splits = inputFEN.split(" ");
+        String[] splits = inputFEN.split("\\s");
         /*if(splits.length != 6){
             System.out.println("The FEN introduced it's not in the correct format. EXAMPLE: ");
             System.out.println("1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1");
@@ -214,7 +217,6 @@ public class Problem{
 
         String vFEN = splits[0];
         this.FEN = vFEN;
-        this.firstPlayer = splits[1];
 
         boolean valid = true;
         int i = 0;

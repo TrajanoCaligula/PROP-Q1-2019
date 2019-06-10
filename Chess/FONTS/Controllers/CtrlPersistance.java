@@ -393,8 +393,7 @@ public class CtrlPersistance {
      */
     void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {//FUNCIONA
         File problemFile = new File(filePath+ "P-" +  id + ".txt");
-        String aux = FEN+" "+N+" "+difficulty;
-        if(!problemExists(aux)) {
+        String aux = FEN+" "+difficulty;
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
                 writer.write(aux);
@@ -403,7 +402,6 @@ public class CtrlPersistance {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
     }
     /**
      *  Checks if the problem already exists in our directory, we use it for the class Ranking to check if a ranking is being created of a problem

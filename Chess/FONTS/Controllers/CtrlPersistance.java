@@ -393,8 +393,16 @@ public class CtrlPersistance {
      */
     void saveProblem(String FEN,int id, int N, String difficulty) throws IOException {//FUNCIONA
         File problemFile = new File(filePath+ "P-" +  id + ".txt");
+
+        String test[]= FEN.split("\\s");
         String aux = FEN+" "+difficulty;
-            try {
+        System.out.println(aux+"+++++++++++++++");
+        if(test.length <= 6) aux = FEN+" "+ N +" "+difficulty;
+        else if(test[6].equals(Integer.toString(N))) aux = FEN+" "+difficulty;
+
+        System.out.println(aux+"--------------------");
+
+        try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
                 writer.write(aux);
                 writer.flush();

@@ -263,7 +263,6 @@ public class CtrlDomain {
             prob.setDifficulty(difficulty);
             prob.setN(N);
             int id = prob.getId();
-            System.out.println(N+"     ppp");
             ctrlIO.saveProblem(FEN, id, N, difficulty);
             problems.put(id, prob);
             return id;

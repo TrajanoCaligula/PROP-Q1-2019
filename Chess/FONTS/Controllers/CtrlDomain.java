@@ -254,7 +254,7 @@ public class CtrlDomain {
      * @throws IOException
      */
     public int createProblem(String FEN,int N) throws IOException {
-        Problem prob = new Problem(FEN + " " + N);
+        Problem prob = new Problem(FEN);
         String difficulty;
         if(prob.validateFen(FEN)) {
             if(N <= 5) difficulty = "Hard";

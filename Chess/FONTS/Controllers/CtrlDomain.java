@@ -263,6 +263,7 @@ public class CtrlDomain {
             prob.setDifficulty(difficulty);
             prob.setN(N);
             int id = prob.getId();
+            System.out.println(N+"     ppp");
             ctrlIO.saveProblem(FEN, id, N, difficulty);
             problems.put(id, prob);
             return id;
@@ -277,6 +278,7 @@ public class CtrlDomain {
     public void copyProblem(int id) throws IOException {
         Problem prob = problems.get(id);
         probToMod = new Problem(prob.getFen());
+        System.out.println(probToMod.getN() +"---------------");
         createProblem(probToMod.getFen(),probToMod.getN());
     }
 
@@ -373,10 +375,17 @@ public class CtrlDomain {
         return ctrlIO.listRankingsid();
     }
 
-    public String playMachine(){
-        players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
-        match.setRound();
-        return this.match.getBoard().toFEN();
+    public String playMachine(int i){
+        if(i == 0){
+                players[0].play(match.getBoard(), this.match.getBlackScore(), Color.WHITE);
+                match.setRound();
+                return this.match.getBoard().toFEN();
+        }
+        else{
+            players[1].play(match.getBoard(), this.match.getBlackScore(), Color.BLACK);
+            match.setRound();
+            return this.match.getBoard().toFEN();
+        }
     }
 
     public void setRound(){

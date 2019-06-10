@@ -171,12 +171,6 @@ public class MatchView extends JPanel {
         x++;
     }
 
-    public String[] getTilesInMove(){
-        String[] tilesInMove = new String[2];
-        tilesInMove[0] = this.tilesMove[0].getTileX() + " " + this.tilesMove[0].getTileY();
-        tilesInMove[1] = this.tilesMove[1].getTileX() + " " + this.tilesMove[1].getTileY();
-        return tilesInMove;
-    }
 
     public void highilghtLegalMoves(ArrayList<String> tileLegalMoves){
         for(int i = 0; i < tileLegalMoves.size(); i++){
@@ -195,28 +189,6 @@ public class MatchView extends JPanel {
         }
     }
 
-    public boolean tileAction(Tile pressedTile, boolean turn, ArrayList<String> legalMoves){
-        boolean moveMade = false;
-        if(this.tilesMove[0] == null){
-            if ((pressedTile.getPiece() != null) && pieceYourColor(turn, pressedTile)){
-                highilghtLegalMoves(legalMoves);
-                this.tilesMove[0] = pressedTile;
-                pressedTile.highlightTile();
-            }
-        } else {
-            this.tilesMove[0].undoHighlightTile();
-            undoHighlightLegalMoves(legalMoves);
-            if(!pressedTile.equals(this.tilesMove[0])) {
-                String pos = pressedTile.getTileY() + " " + pressedTile.getTileX();
-                if(legalMove(legalMoves, pos)) {
-                    this.tilesMove[1] = pressedTile;
-                    move(this.tilesMove[0], tilesMove[1]);
-                    moveMade = true;
-                }
-            }
-        }
-        return  moveMade;
-    }
 
     public boolean legalMove(ArrayList<String> legalMoves, String move){
         boolean valid = false;
@@ -228,15 +200,6 @@ public class MatchView extends JPanel {
                 valid = true;
         }
         return valid;
-    }
-
-    public boolean pieceYourColor(Boolean turn, Tile piece){
-        return ((turn && Character.isLowerCase(piece.getPiece())) || (!turn && Character.isUpperCase(piece.getPiece())));
-    }
-
-    public void resetTilesInMove(){
-        this.tilesMove[0] = null;
-        this.tilesMove[1] = null;
     }
 
 
@@ -271,15 +234,6 @@ public class MatchView extends JPanel {
             input = JOptionPane.showOptionDialog(this, "You LOST!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         }
         return input;
-    }
-    public void move(Tile init, Tile end){
-        tilesMove[0] = init;
-        tilesMove[1] = end;
-
-        this.chessBoardSquares[end.getTileY()][end.getTileX()].setIcon(init.getIcon());
-        this.chessBoardSquares[end.getTileY()][end.getTileX()].setPiece(init.getPiece());
-        this.chessBoardSquares[init.getTileY()][init.getTileX()].setIcon(null);
-        this.chessBoardSquares[init.getTileY()][init.getTileX()].setPiece(null);
     }
 
     public void addActionListenerBoard(ActionListener mal) {

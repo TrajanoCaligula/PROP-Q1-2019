@@ -83,4 +83,8 @@ public class Tile extends JButton {
     public boolean getColor(){
         return Character.isUpperCase(this.piece);
     }
+
+    public boolean isOccupied(){
+        return this.piece != 0;
+    }
 }

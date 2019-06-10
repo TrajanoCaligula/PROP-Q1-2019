@@ -154,6 +154,7 @@ public class ViewController {
                 try {
                     if(domainController.createProblem(FEN, probN) != -1){
                         view.menuCard.createDialog("Problem created!");
+                        view.menuCard.setProblemsToManage(domainController.listProblems());
                     } else {
                         view.menuCard.createDialog("Couldn't create the problem!");
                     }
@@ -191,6 +192,7 @@ public class ViewController {
                 int idProblemToManage = Integer.parseInt(splitted[0]);
                 try {
                     domainController.copyProblem(idProblemToManage);
+                    view.menuCard.setProblemsToManage(domainController.listProblems());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -199,7 +199,9 @@ public class CtrlDomain {
     public int createProblem(String FEN,int N) throws IOException {
         Problem prob = new Problem(FEN);
         String difficulty;
-        if(prob.validateFen(FEN)) {
+        System.out.println("FFFFFFFFFFFFFFFF");
+        if(prob.validateFen(FEN) && prob.validateProblem()) {
+            System.out.println("8888888888888888888");
             if(N <= 5) difficulty = "Hard";
             else if(N <= 10) difficulty = "Normal";
             else difficulty = "Easy";
@@ -220,7 +222,6 @@ public class CtrlDomain {
     public void copyProblem(int id) throws IOException {
         Problem prob = problems.get(id);
         probToMod = new Problem(prob.getFen());
-        System.out.println(probToMod.getN() +"---------------");
         createProblem(probToMod.getFen(),probToMod.getN());
     }
 
@@ -240,12 +241,9 @@ public class CtrlDomain {
      * @throws IOException
      */
     public int saveModProb() throws IOException {
-        if(probToMod.validateFen(probToMod.getFen()) && probToMod.validateProblem()){
             ctrlIO.saveProblem(probToMod.getFen(),probToMod.getId(),probToMod.getN(),probToMod.getDifficulty());
             problems.put(probToMod.getId(),probToMod);
             return probToMod.getId();
-        }
-        return -1;
     }
 
     /**

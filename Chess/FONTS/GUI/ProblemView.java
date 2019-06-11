@@ -24,6 +24,7 @@ public class ProblemView extends JPanel {
     private JTextField round = new JTextField("2");
     String[] players = { "White", "Black"};
     private JComboBox firstPlayer = new JComboBox(players);
+    private JButton exitButton = new JButton("Exit");
     private JPanel piecePicker;
     private Tile[] pieces = new Tile[12];
     public Tile pieceSelected = null;
@@ -60,7 +61,8 @@ public class ProblemView extends JPanel {
         piecePicker.setBackground(new Color(43, 43, 43));
         piecePicker.setPreferredSize(new Dimension(200, 0));
         eastPanel.add(piecePicker);
-        eastPanel.add(createProblem, BorderLayout.SOUTH);
+        eastPanel.add(exitButton, BorderLayout.SOUTH);
+        eastPanel.add(createProblem, BorderLayout.NORTH);
         eastPanel.setBackground(new Color(43, 43, 43));
         this.add(eastPanel, BorderLayout.EAST);
 
@@ -268,6 +270,9 @@ public class ProblemView extends JPanel {
         }
         createProblem.setActionCommand(Actions.MODIFY_PROBLEM.name());
         createProblem.addActionListener(mal);
+
+        exitButton.setActionCommand(Actions.EXIT.name());
+        exitButton.addActionListener(mal);
     }
     //      1N1b4/6nr/R5n1/2Ppk2r/K2p2qR/8/2N1PQ2/B6B w - - 0 1
 

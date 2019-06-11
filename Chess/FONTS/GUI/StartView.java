@@ -220,7 +220,9 @@ public class StartView extends JPanel {
         scores[0][2].setText("          Score");
 
 
+        System.out.println(scoresToAdd.size());
         for(int i = 0; i < scoresToAdd.size(); i++){
+            System.out.println(scoresToAdd.get(i));
             String[] splitted = scoresToAdd.get(i).split("\\s");
             scores[i+1][1].setText(splitted[0]);
             scores[i+1][2].setText(splitted[1]);

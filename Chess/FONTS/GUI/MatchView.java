@@ -30,14 +30,13 @@ public class MatchView extends JPanel {
 
 
     public MatchView() {
-
         this.setLayout(new BorderLayout(3, 3));
         this.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.setPreferredSize(new Dimension(850, 500));
         this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(SwingConstants.RIGHT, 10, 5));
-        labelN = new JLabel("Round: 2", JLabel.LEFT);
-        labelScore = new JLabel("Score: 34", JLabel.CENTER);
+        labelN = new JLabel("0", JLabel.LEFT);
+        labelScore = new JLabel("0", JLabel.CENTER);
         topBar.setBackground(new Color(255, 255, 255));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
         topBar.add(new JLabel("Score:"));
@@ -106,7 +105,6 @@ public class MatchView extends JPanel {
         }
 
     }
-
 
     public final void initMatch(String matchFEN){
         term.setText("...Match Started!\n");
@@ -223,13 +221,13 @@ public class MatchView extends JPanel {
 
     public int gameEnd(String playerWhoWon){
         int input;
-        input = JOptionPane.showOptionDialog(this, playerWhoWon + " WIN!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+        input = JOptionPane.showOptionDialog(this, playerWhoWon + " WIN!", " END", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         return input;
     }
 
     public int gameOver(){
         int input;
-        input = JOptionPane.showOptionDialog(this, "Game Over!", " END", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+        input = JOptionPane.showOptionDialog(this, "Game Over!", " END", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         return input;
     }
 

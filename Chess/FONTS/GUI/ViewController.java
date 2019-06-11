@@ -23,6 +23,7 @@ public class ViewController {
     private boolean matchStarted = false;
     private boolean humanMoves = false;
     private Tile tileSelected = null;
+    private int currentIdProb;
     private String firstPlayer;
     private boolean currentPlayerTurn; //true - white, false - black
 
@@ -30,7 +31,7 @@ public class ViewController {
         this.view = currentView;
         domainController = CtrlDomain.getInstance();
 
-        this.view.addActionListenerTiles(new ActionListenerChess());
+        this.view.addActionListenerToStartView(new ActionListenerChess());
     }
 
 
@@ -44,9 +45,9 @@ public class ViewController {
         String prob = view.menuCard.getidProblem();
         String[] splitted = prob.split("-");
         splitted = splitted[1].split("\\s");
-        int idPr = Integer.parseInt(splitted[0]);
+        currentIdProb = Integer.parseInt(splitted[0]);
 
-        String matchFEN = domainController.getFENFromId(idPr);
+        String matchFEN = domainController.getFENFromId(currentIdProb);
         splitted = matchFEN.split("\\s");
 
 
@@ -59,8 +60,9 @@ public class ViewController {
         }
 
         tileSelected = null;
-        domainController.newGameComplete(idPr, player1, player1type, 1, player2, player2type, 1);
+        domainController.newGameComplete(currentIdProb, player1, player1type, 1, player2, player2type, 1);
         view.startMatch(splitted[0]);
+        view.addActionListenersMatch(new ActionListenerChess());
         matchStarted = true;
         play();
     }
@@ -76,16 +78,24 @@ public class ViewController {
     }
 
 
-    public void play() {
+    public void play() throws IOException {
         if(domainController.youAreDonete(currentPlayerTurn)){
+            System.out.println(domainController.getScore());
+            domainController.addScore(domainController.getPlayer1Name(), String.valueOf(domainController.getScore()), currentIdProb);
             if(currentPlayerTurn){
-                view.matchCard.gameEnd(domainController.getPlayer1Name());
+                if(view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0){
+                    view.back();
+                }
             } else {
-                view.matchCard.gameEnd(domainController.getPlayer2Name());
+                if(view.matchCard.gameEnd(domainController.getPlayer2Name()) == 0){
+                    view.back();
+                }
             }
         }
         if(domainController.getTurn() > (domainController.getN()*2)){
-            view.matchCard.gameOver();
+            if(view.matchCard.gameOver() == 0){
+                view.back();
+            }
         }
         if ((domainController.getTurn() % 2) != 0) {
             if (domainController.getPlayer1Type() != 0) {
@@ -199,7 +209,6 @@ public class ViewController {
                 try {
                     String FEN = domainController.getFENFromId(idProblemToManage);
                     splitted = FEN.split("\\s");
-                    view.newProblemCard = new ProblemView();
                     view.newProblemCard.setMatchBoard(splitted[0]);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -251,7 +260,11 @@ public class ViewController {
                                 view.matchCard.updateBoard(fenRes);
                                 currentPlayerTurn = !currentPlayerTurn;
                                 updateTerminal("f");
-                                play();
+                                try {
+                                    play();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             tileSelected = null;
                         }

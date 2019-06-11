@@ -172,6 +172,10 @@ public class CtrlDomain {
         else match = new Match(players[0],players[1],test,roundn,Color.WHITE);
     }
 
+
+    public void addScore(String player, String score, int id) throws IOException {
+        ctrlIO.addScore(player, score, id);
+    }
     /**
      * Moves a piece into a new position
      * @param piece string that describes the position of the piece you want to move

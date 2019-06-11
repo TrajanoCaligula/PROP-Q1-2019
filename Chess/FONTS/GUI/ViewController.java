@@ -27,6 +27,7 @@ public class ViewController {
     private int currentIdProb;
     private int currentScore = 0;
     private String firstPlayer;
+    private boolean ended = false;
     private int K = 0;
     private boolean twoMachines = false;
     private boolean currentPlayerTurn; //true - white, false - black
@@ -71,6 +72,7 @@ public class ViewController {
         updateTerminal();
 
         matchStarted = true;
+        ended = false;
         if(twoMachines){
             K = view.menuCard.getK();
         }
@@ -99,51 +101,56 @@ public class ViewController {
 
     public void play() throws IOException {
 
-        if(domainController.getTurn() <= (domainController.getN()*2)) {
-            if (domainController.youAreDonete(currentPlayerTurn)) {
-                if (currentPlayerTurn) {
-                    if (view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0) {
-                        view.back();
-                    }
-                } else {
-                    if (view.matchCard.gameEnd(domainController.getPlayer2Name()) == 0) {
-                        view.back();
+        if (!ended) {
+            if (domainController.getTurn() <= (domainController.getN() * 2)) {
+                if (domainController.youAreDonete(currentPlayerTurn)) {
+                    ended = true;
+                    if (currentPlayerTurn) {
+                        if (view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0) {
+                            view.back();
+                        }
+                    } else {
+                        if (view.matchCard.gameEnd(domainController.getPlayer2Name()) == 0) {
+                            view.back();
+                        }
                     }
                 }
-            }
-            if ((domainController.getTurn() % 2) != 0) {
-                if (domainController.getPlayer1Type() != 0) {
-                    humanMoves = false;
-                    String currentFEN = domainController.playMachine(1);
-                    view.matchCard.setBoard(currentFEN);
-                    currentPlayerTurn = !currentPlayerTurn;
-                    updateTerminal();
-                    setCurrentScore();
-                    play();
+                if ((domainController.getTurn() % 2) != 0) {
+                    if (domainController.getPlayer1Type() != 0) {
+                        humanMoves = false;
+                        String currentFEN = domainController.playMachine(1);
+                        view.matchCard.setBoard(currentFEN);
+                        currentPlayerTurn = !currentPlayerTurn;
+                        updateTerminal();
+                        setCurrentScore();
+                        play();
+                    } else {
+                        humanMoves = true;
+                    }
                 } else {
-                    humanMoves = true;
+                    if (domainController.getPlayer2Type() != 0) {
+                        humanMoves = false;
+                        String currentFEN = domainController.playMachine(1);
+                        view.matchCard.setBoard(currentFEN);
+                        currentPlayerTurn = !currentPlayerTurn;
+                        updateTerminal();
+                        setCurrentScore();
+                        play();
+                    } else {
+                        humanMoves = true;
+                    }
                 }
             } else {
-                if (domainController.getPlayer2Type() != 0) {
-                    humanMoves = false;
-                    String currentFEN = domainController.playMachine(1);
-                    view.matchCard.setBoard(currentFEN);
-                    currentPlayerTurn = !currentPlayerTurn;
-                    updateTerminal();
-                    setCurrentScore();
-                    play();
+                if (twoMachines && K > 0) {
+                    startMatch();
+                    K--;
                 } else {
-                    humanMoves = true;
+                    ended = true;
                 }
-            }
-        } else {
-            if(twoMachines && K > 0){
-                startMatch();
-                K--;
-            }
-            domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
-            if (view.matchCard.gameOver() == 0) {
-                view.back();
+                domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
+                if (view.matchCard.gameOver() == 0) {
+                    view.back();
+                }
             }
         }
     }

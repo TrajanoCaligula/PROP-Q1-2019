@@ -227,9 +227,11 @@ public class CtrlDomain {
         char c;
         if(prob.getFirstPlayer() == Color.WHITE) c = 'w';
         else c = 'b';
-        String FFEN = prob.getFen()+" "+c+" - - 0 1";
-        System.out.println("+++++++++++++++---------- "+FFEN);
+        String FFEN = prob.getFen();
+        String[] line = prob.getFen().split("\\s");
+        if(line.length == 1) FFEN = prob.getFen() +" "+c+" - - 0 1";
         probToMod = new Problem(FFEN);
+        probToMod.setN(prob.getN());
         createProblem(probToMod.getFen(),probToMod.getN());
     }
 

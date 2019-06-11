@@ -77,24 +77,26 @@ public class CtrlPersistance {
         if(existsRanking(id)) {
             ArrayList<String> scores = loadScores(id);
             File del = getFile("R-" + id);
-            del.delete();
             boolean trobat = false;
+            String[] aux;
             ArrayList<String> res = new ArrayList<String>();
-            for (int i = 0; i < scores.size(); i += 2) {
-                if (!trobat && Integer.parseInt(scores.get(i + 1)) < Integer.parseInt(points)) {
+            for (int i = 0; i < scores.size(); i ++) {
+                aux = scores.get(i).split("\\s");
+                if (!trobat && Integer.parseInt(aux[1]) < Integer.parseInt(points)) {
                     res.add(name);
                     res.add(points);
                     trobat = true;
-                    i -= 2;
+                    i --;
                 } else {
-                    res.add(scores.get(i));
-                    res.add(scores.get(i + 1));
+                    res.add(aux[0]);
+                    res.add(aux[1]);
                 }
             }
             if (!trobat && scores.size() < 10) {
                 res.add(name);
                 res.add(points);
             }
+            del.delete();
             saveRanking(res, id);
         }else{
             ArrayList<String> str = new ArrayList<String>();

@@ -79,16 +79,18 @@ public class Machine extends Player {
         }
 
         Random r = new Random();
-        int i = r.nextInt(bestMoves.size());
-        Move move = bestMoves.get(i);
-        System.out.println("Moving "+move.getPiece().toString()+" from "+move.getPiece().getPosition().toRealCoord()+" to "+move.getPiece().getPosition().add(move.getFinalPos()).toRealCoord());
-        if (board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())) != null) {
-            score += board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())).getValue() * 100;
+        if(bestMoves.size()!=0) {
+            int i = r.nextInt(bestMoves.size());
+            Move move = bestMoves.get(i);
+            System.out.println("Moving " + move.getPiece().toString() + " from " + move.getPiece().getPosition().toRealCoord() + " to " + move.getPiece().getPosition().add(move.getFinalPos()).toRealCoord());
+            if (board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())) != null) {
+                score += board.getPieceInCoord(move.getPiece().getPosition().add(move.getFinalPos())).getValue() * 100;
+            }
+            board.movePiece(move.getPiece(), move.getPiece().getPosition().add(move.getFinalPos()));
+            //long finish = System.currentTimeMillis();
+            //long elapsedTime = finish - start;
+            //System.out.println(elapsedTime);
         }
-        board.movePiece(move.getPiece(), move.getPiece().getPosition().add(move.getFinalPos()));
-        //long finish = System.currentTimeMillis();
-        //long elapsedTime = finish - start;
-        //System.out.println(elapsedTime);
     }
 
     /**

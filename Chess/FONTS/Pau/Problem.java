@@ -15,6 +15,7 @@ public class Problem{
     private String FEN;
     private String problemDifficulty;
     private String firstPlayer;
+    private String machinePlayer;
     private ArrayList<Piece> whitePieces = new ArrayList<Piece>();
     private ArrayList<Piece> blackPieces = new ArrayList<Piece>();
     private int N; //We get n from theme - (ex: Mat en 2 --> N = 2 )
@@ -41,14 +42,17 @@ public class Problem{
      * @param FEN The starting state of the problem written in FEN notation (String).
      */
     public Problem(String FEN){
-        if(validateFen(FEN)) {
-            Random rand = new Random();
-            this.id = rand.nextInt(1000 * 1000);
-            this.FEN = FEN;
-            System.out.println(FEN);
-            String[] splitted = FEN.split("\\s");
-            this.firstPlayer = splitted[1];
-        }
+        Random rand = new Random();
+        this.id = rand.nextInt(1000*1000);
+        this.FEN = FEN;
+        System.out.println(FEN);
+        String[] splitted = FEN.split("\\s");
+        this.firstPlayer = splitted[1];
+        if(this.firstPlayer.equals("w")) {this.machinePlayer = "b";}
+        else {this.machinePlayer = "w";}
+        Board board = new Board(FEN);
+        this.whitePieces = board.getWhitePieces();
+        this.blackPieces = board.getBlackPieces();
     }
 
     /**
@@ -69,6 +73,11 @@ public class Problem{
                 this.firstPlayer = lineSplitted[2];
                 this.N = Integer.parseInt(lineSplitted[3]);
                 reader.close();
+                if(this.firstPlayer.equals("w")) {this.machinePlayer = "b";}
+                else {this.machinePlayer = "w";}
+                Board board = new Board(this.FEN);
+                this.whitePieces = board.getWhitePieces();
+                this.blackPieces = board.getBlackPieces();
             } catch (IOException e) {
 
             }
@@ -102,6 +111,18 @@ public class Problem{
         else
             return Color.BLACK;
     }
+
+    /**
+     * Getter of the Second Player.
+     * @return Returns the Second Player color.
+     */
+    public Color getSecondPlayer(){
+        if(this.machinePlayer.equals("w"))
+            return Color.WHITE;
+        else
+            return Color.BLACK;
+    }
+
     /**
      * Getter of the Problem state in FEN notation.
      * @return Returns the problem FEN notation
@@ -191,8 +212,70 @@ public class Problem{
      * @return Returns true if it does, have a solution, otherwise returns false;
      */
     public boolean validateProblem(){
-        Backtracking btValidator = new Backtracking(this, N, Color.WHITE);
-        return btValidator.backtracking();
+
+        //Mirar que haya al menos dos piezas por color
+        if(whitePieces.size() < 2 && blackPieces.size() < 2) { return false; }  //Al menos uno de los dos color tiene que tener más de una pieza
+
+        //Mirar que haya un rey de cada color
+        boolean found = false;
+        for(Piece piece : whitePieces) {
+            if(piece instanceof King) { found = true; }
+        }
+        if(!found) { return false; }
+        found = false;
+        for(Piece piece : blackPieces) {
+            if(piece instanceof King) { found = true; }
+        }
+        if(!found) { return false; }
+
+        //Si se cumple, backtracking
+        Board board = new Board(FEN);
+        return backtracking(board, N, this.getFirstPlayer());
+
+    }
+
+    private boolean backtracking(Board board, int roundsLeft, Color playingColor) {
+        boolean result = false;
+        //Esta es la iteracion sobre el color del jugador
+        if(playingColor == this.getFirstPlayer()) {
+            //Condiciones inciales
+            if(board.isGameOver(this.getFirstPlayer())) {return false;}
+
+            //Caso recursivo
+            ArrayList<Piece> pieces = new ArrayList<>();
+            if(playingColor == Color.WHITE) { pieces = board.getWhitePieces(); }
+            else { pieces = board.getBlackPieces(); }
+            for(Piece piece : pieces) {
+                for(Coord move : piece.getLegalMoves(board)) {
+                    Board newBoard = new Board(board);
+                    newBoard.movePiece(newBoard.getPieceInCoord(piece.getPosition()), piece.getPosition().add(move));
+                    result = result || backtracking(newBoard, roundsLeft - 1, this.getSecondPlayer());
+                }
+            }
+        }
+
+        //Esta es la iteracion sobre el color de la maquina
+        else {
+            //Condiciones inciales
+            if(board.isGameOver(this.getSecondPlayer())) {
+                board.printBoard();
+                return true;}
+            else if(roundsLeft == 0) {return false;}
+
+            //Caso recursivo
+            ArrayList<Piece> pieces = new ArrayList<>();
+            if(playingColor == Color.WHITE) { pieces = board.getWhitePieces(); }
+            else { pieces = board.getBlackPieces(); }
+            for(Piece piece : pieces) {
+                for(Coord move : piece.getLegalMoves(board)) {
+                    Board newBoard = new Board(board);
+                    newBoard.movePiece(newBoard.getPieceInCoord(piece.getPosition()), piece.getPosition().add(move));
+                    result = result || backtracking(newBoard, roundsLeft, this.getFirstPlayer());
+                }
+            }
+        }
+
+        return result;
     }
 
     public String getDifficulty(){

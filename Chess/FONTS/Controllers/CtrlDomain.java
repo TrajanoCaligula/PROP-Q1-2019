@@ -199,14 +199,17 @@ public class CtrlDomain {
     public int createProblem(String FEN,int N) throws IOException {
         Problem prob = new Problem(FEN);
         String difficulty;
-        System.out.println("FFFFFFFFFFFFFFFF");
+        prob.setN(N);
+        if(prob.validateFen(FEN)) System.out.println("FEN apt");
+        else System.out.println("FEN not valid");
+        if(prob.validateProblem()) System.out.println("Problem apt");
+        else System.out.println("Problem not valid");
         if(prob.validateFen(FEN) && prob.validateProblem()) {
             System.out.println("8888888888888888888");
             if(N <= 5) difficulty = "Hard";
             else if(N <= 10) difficulty = "Normal";
             else difficulty = "Easy";
             prob.setDifficulty(difficulty);
-            prob.setN(N);
             int id = prob.getId();
             ctrlIO.saveProblem(FEN, id, N, difficulty);
             problems.put(id, prob);
@@ -221,7 +224,14 @@ public class CtrlDomain {
      */
     public void copyProblem(int id) throws IOException {
         Problem prob = problems.get(id);
-        probToMod = new Problem(prob.getFen());
+        char c;
+        if(prob.getFirstPlayer() == Color.WHITE) c = 'w';
+        else c = 'b';
+        String FFEN = prob.getFen();
+        String[] line = prob.getFen().split("\\s");
+        if(line.length == 1) FFEN = prob.getFen() +" "+c+" - - 0 1";
+        probToMod = new Problem(FFEN);
+        probToMod.setN(prob.getN());
         createProblem(probToMod.getFen(),probToMod.getN());
     }
 
@@ -265,7 +275,7 @@ public class CtrlDomain {
         for(int i = 0; i < aux.size(); i++) {
             String[] splitted = aux.get(i).split("-");
             int id = Integer.parseInt(splitted[1]);
-            String FEN = splitted[2]+"- -"+splitted[3];
+            String FEN = splitted[2]+"- - ";
             splitted = splitted[4].split("\\s");
             FEN += splitted[0]+splitted[1]+" "+splitted[2]+" "+splitted[3];
             int N = Integer.parseInt(splitted[3]);

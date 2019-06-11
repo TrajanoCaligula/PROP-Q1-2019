@@ -31,7 +31,7 @@ public class ViewController {
         this.view = currentView;
         domainController = CtrlDomain.getInstance();
 
-        this.view.addActionListenerToStartView(new ActionListenerChess());
+        this.view.addActionListenerTiles(new ActionListenerChess());
     }
 
 
@@ -62,16 +62,25 @@ public class ViewController {
         tileSelected = null;
         domainController.newGameComplete(currentIdProb, player1, player1type, 1, player2, player2type, 1);
         view.startMatch(splitted[0]);
-        view.addActionListenersMatch(new ActionListenerChess());
+        view.matchCard.resetTerm();
+        updateTerminal();
         matchStarted = true;
         play();
     }
 
-    public void updateTerminal(String moveMade) {
-        if (!currentPlayerTurn) {
-            view.matchCard.addTermLine(moveMade, domainController.getPlayer1Name());
+    public void updateTerminal() {
+        if(firstPlayer.equals("w")) {
+            if (currentPlayerTurn) {
+                view.matchCard.addTermLine(domainController.getPlayer1Name());
+            } else {
+                view.matchCard.addTermLine(domainController.getPlayer2Name());
+            }
         } else {
-            view.matchCard.addTermLine(moveMade, domainController.getPlayer2Name());
+            if (!currentPlayerTurn) {
+                view.matchCard.addTermLine(domainController.getPlayer1Name());
+            } else {
+                view.matchCard.addTermLine(domainController.getPlayer2Name());
+            }
         }
         view.matchCard.updateN(domainController.getTurn()/2);
         view.matchCard.updatedScore(domainController.getScore());
@@ -101,9 +110,9 @@ public class ViewController {
             if (domainController.getPlayer1Type() != 0) {
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(1);
-                view.matchCard.updateBoard(currentFEN);
+                view.matchCard.setBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
-                updateTerminal("f");
+                updateTerminal();
                 play();
             } else {
                 humanMoves = true;
@@ -112,9 +121,9 @@ public class ViewController {
             if (domainController.getPlayer2Type() != 0) {
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(1);
-                view.matchCard.updateBoard(currentFEN);
+                view.matchCard.setBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
-                updateTerminal("f");
+                updateTerminal();
                 play();
             } else {
                 humanMoves = true;
@@ -209,7 +218,7 @@ public class ViewController {
                 try {
                     String FEN = domainController.getFENFromId(idProblemToManage);
                     splitted = FEN.split("\\s");
-                    view.newProblemCard.setMatchBoard(splitted[0]);
+                    view.newProblemCard.setBoard(splitted[0]);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -257,9 +266,9 @@ public class ViewController {
                             String endCoordsN = currentTile.getTileX() + " " + currentTile.getTileY();
                             if(view.matchCard.legalMove(movements, endCoords)){
                                 String fenRes = domainController.makeMove(coords, endCoordsN);
-                                view.matchCard.updateBoard(fenRes);
+                                view.matchCard.setBoard(fenRes);
                                 currentPlayerTurn = !currentPlayerTurn;
-                                updateTerminal("f");
+                                updateTerminal();
                                 try {
                                     play();
                                 } catch (IOException e) {

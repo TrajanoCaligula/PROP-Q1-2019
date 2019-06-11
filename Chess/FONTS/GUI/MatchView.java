@@ -106,11 +106,6 @@ public class MatchView extends JPanel {
 
     }
 
-    public final void initMatch(String matchFEN){
-        term.setText("...Match Started!\n");
-        this.setMatchBoard(matchFEN);
-    }
-
 
     public final void setMatchBoard(String matchFEN){
         int i = 0, y = 0, x = 0;
@@ -196,7 +191,7 @@ public class MatchView extends JPanel {
     }
 
 
-    public void updateBoard(String fen){
+    public void setBoard(String fen){
         for(int i = 0; i < chessBoardSquares.length; i++){
             for(int j = 0; j < chessBoardSquares[0].length; j++){
                 chessBoardSquares[i][j].setPiece(null);
@@ -206,8 +201,7 @@ public class MatchView extends JPanel {
         setMatchBoard(fen);
     }
 
-    public void addTermLine(String moveLine, String lineToAdd){
-        this.term.append(moveLine);
+    public void addTermLine(String lineToAdd){
         this.term.append(lineToAdd + "'s turn\n");
     }
 
@@ -245,6 +239,10 @@ public class MatchView extends JPanel {
     public int exitDialog(){
         int input = JOptionPane.showOptionDialog(this, "Are you sure you want to exit the game?", "Match", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         return input;
+    }
+
+    public void resetTerm(){
+        this.term.setText("");
     }
 
 }

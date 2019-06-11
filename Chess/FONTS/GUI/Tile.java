@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Tile extends JButton {
     private int tx, ty;
-    private Character piece = '0';
+    private Character piece = null;
     private boolean highlighted = false;
     private boolean isPicker = false;
 
@@ -72,6 +72,6 @@ public class Tile extends JButton {
     }
 
     public boolean isOccupied(){
-        return this.piece != 0;
+        return this.piece != null;
     }
 }

@@ -104,7 +104,7 @@ public class StartView extends JPanel {
 
         //... Add a titled border to the button panel.
         radioPanel1.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Player 1"));
+                BorderFactory.createEtchedBorder(), "White Player"));
 
         players.add(radioPanel1);
 
@@ -128,7 +128,7 @@ public class StartView extends JPanel {
 
         //... Add a titled border to the button panel.
         radioPanel2.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Player 2"));
+                BorderFactory.createEtchedBorder(), "Black Player"));
         players.add(radioPanel2);
 
         playOptions.add(players, BorderLayout.CENTER);

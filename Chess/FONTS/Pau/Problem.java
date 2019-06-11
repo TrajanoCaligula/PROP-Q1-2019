@@ -235,13 +235,11 @@ public class Problem{
     }
 
     private boolean backtracking(Board board, int roundsLeft, Color playingColor) {
-        if (roundsLeft <= 0)
-            return false;
         boolean result = false;
         //Esta es la iteracion sobre el color del jugador
         if(playingColor == this.getFirstPlayer()) {
             //Condiciones inciales
-            if(board.isGameOver(this.getFirstPlayer())) {return false;}
+            if(roundsLeft <= 0 || board.isGameOver(this.getFirstPlayer())) {return false;}
 
             //Caso recursivo
             ArrayList<Piece> pieces = new ArrayList<>();
@@ -260,7 +258,7 @@ public class Problem{
         else {
             //Condiciones inciales
             if(board.isGameOver(this.getSecondPlayer())) {
-                board.printBoard();
+                //board.printBoard();
                 return true;}
 
             //Caso recursivo

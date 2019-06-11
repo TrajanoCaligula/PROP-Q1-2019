@@ -27,6 +27,8 @@ public class ViewController {
     private int currentIdProb;
     private int currentScore = 0;
     private String firstPlayer;
+    private int K = 0;
+    private boolean twoMachines = false;
     private boolean currentPlayerTurn; //true - white, false - black
 
     public ViewController(ChessView currentView) throws IOException {
@@ -44,6 +46,7 @@ public class ViewController {
         Integer player1type = view.menuCard.getPlayer1Type();
         Integer player2type = view.menuCard.getPlayer2Type();
 
+        twoMachines = (player1type != 0 && player2type != 0);
         String prob = view.menuCard.getidProblem();
         String[] splitted = prob.split("-");
         splitted = splitted[1].split("\\s");
@@ -66,7 +69,9 @@ public class ViewController {
         view.startMatch(splitted[0]);
         view.matchCard.resetTerm();
         updateTerminal();
+
         matchStarted = true;
+        K = view.menuCard.getK();
         currentScore = 0;
         play();
     }
@@ -130,6 +135,10 @@ public class ViewController {
                 }
             }
         } else {
+            if(twoMachines && K > 0){
+                startMatch();
+                K--;
+            }
             domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
             if (view.matchCard.gameOver() == 0) {
                 view.back();

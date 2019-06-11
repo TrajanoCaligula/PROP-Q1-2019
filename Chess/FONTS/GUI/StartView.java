@@ -31,6 +31,7 @@ public class StartView extends JPanel {
     private JRadioButton machineP2 = new JRadioButton("Machine");
     private JRadioButton machineP2easy = new JRadioButton("Easy");
     private JRadioButton machineP2hard = new JRadioButton("Hard");
+    private JTextField inK = new JTextField("k");
     private JComboBox problemsToManage;
     private JTextField nameP1 = new JTextField("...");
     private JTextField nameP2 = new JTextField("...");
@@ -117,7 +118,7 @@ public class StartView extends JPanel {
         JPanel radioPanel2 = new JPanel();
         radioPanel2.setLayout(new GridLayout(3, 1));
         radioPanel2.add(nameP2);
-        radioPanel2.add(new JPanel());
+        radioPanel2.add(inK);
         radioPanel2.add(humanP2);
         radioPanel2.add(machineP2);
         radioPanel2.add(machineP2easy);
@@ -222,7 +223,7 @@ public class StartView extends JPanel {
 
         System.out.println(scoresToAdd.size());
         for(int i = 0; i < scoresToAdd.size(); i++){
-
+            System.out.println(scoresToAdd.get(i));
             String[] splitted = scoresToAdd.get(i).split("\\s");
             scores[i+1][1].setText(splitted[0]);
             scores[i+1][2].setText(splitted[1]);
@@ -397,4 +398,7 @@ public class StartView extends JPanel {
         return input;
     }
 
+    public int getK(){
+        return Integer.parseInt(inK.getText());
+    }
 }

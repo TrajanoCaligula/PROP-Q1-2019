@@ -71,7 +71,9 @@ public class ViewController {
         updateTerminal();
 
         matchStarted = true;
-        K = view.menuCard.getK();
+        if(twoMachines){
+            K = view.menuCard.getK();
+        }
         currentScore = 0;
         play();
     }

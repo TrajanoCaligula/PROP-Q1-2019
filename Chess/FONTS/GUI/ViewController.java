@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -24,6 +25,7 @@ public class ViewController {
     private boolean humanMoves = false;
     private Tile tileSelected = null;
     private int currentIdProb;
+    private int currentScore = 0;
     private String firstPlayer;
     private boolean currentPlayerTurn; //true - white, false - black
 
@@ -65,6 +67,7 @@ public class ViewController {
         view.matchCard.resetTerm();
         updateTerminal();
         matchStarted = true;
+        currentScore = 0;
         play();
     }
 
@@ -83,53 +86,57 @@ public class ViewController {
             }
         }
         view.matchCard.updateN(domainController.getTurn()/2);
-        view.matchCard.updatedScore(domainController.getScore());
+        view.matchCard.updatedScore(currentScore);
     }
 
 
     public void play() throws IOException {
-        if(domainController.youAreDonete(currentPlayerTurn)){
-            System.out.println(domainController.getScore());
-            domainController.addScore(domainController.getPlayer1Name(), String.valueOf(domainController.getScore()), currentIdProb);
-            if(currentPlayerTurn){
-                if(view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0){
-                    view.back();
-                }
-            } else {
-                if(view.matchCard.gameEnd(domainController.getPlayer2Name()) == 0){
-                    view.back();
+
+        if(domainController.getTurn() <= (domainController.getN()*2)) {
+            if (domainController.youAreDonete(currentPlayerTurn)) {
+                if (currentPlayerTurn) {
+                    if (view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0) {
+                        view.back();
+                    }
+                } else {
+                    if (view.matchCard.gameEnd(domainController.getPlayer2Name()) == 0) {
+                        view.back();
+                    }
                 }
             }
-        }
-        if(domainController.getTurn() > (domainController.getN()*2)){
-            if(view.matchCard.gameOver() == 0){
+            if ((domainController.getTurn() % 2) != 0) {
+                if (domainController.getPlayer1Type() != 0) {
+                    humanMoves = false;
+                    String currentFEN = domainController.playMachine(1);
+                    view.matchCard.setBoard(currentFEN);
+                    currentPlayerTurn = !currentPlayerTurn;
+                    updateTerminal();
+                    setCurrentScore();
+                    play();
+                } else {
+                    humanMoves = true;
+                }
+            } else {
+                if (domainController.getPlayer2Type() != 0) {
+                    humanMoves = false;
+                    String currentFEN = domainController.playMachine(1);
+                    view.matchCard.setBoard(currentFEN);
+                    currentPlayerTurn = !currentPlayerTurn;
+                    updateTerminal();
+                    setCurrentScore();
+                    play();
+                } else {
+                    humanMoves = true;
+                }
+            }
+        } else {
+            domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
+            if (view.matchCard.gameOver() == 0) {
                 view.back();
             }
         }
-        if ((domainController.getTurn() % 2) != 0) {
-            if (domainController.getPlayer1Type() != 0) {
-                humanMoves = false;
-                String currentFEN = domainController.playMachine(1);
-                view.matchCard.setBoard(currentFEN);
-                currentPlayerTurn = !currentPlayerTurn;
-                updateTerminal();
-                play();
-            } else {
-                humanMoves = true;
-            }
-        } else {
-            if (domainController.getPlayer2Type() != 0) {
-                humanMoves = false;
-                String currentFEN = domainController.playMachine(1);
-                view.matchCard.setBoard(currentFEN);
-                currentPlayerTurn = !currentPlayerTurn;
-                updateTerminal();
-                play();
-            } else {
-                humanMoves = true;
-            }
-        }
     }
+
 
 
     class ActionListenerChess implements ActionListener {
@@ -198,10 +205,8 @@ public class ViewController {
                 String FEN = view.newProblemCard.getFEN();
                 int N = view.newProblemCard.getRounds();
                 try {
-                    if(domainController.createProblem(FEN, N) != -1){
-                        if(view.newProblemCard.endDialog("This problem either has no solution or fen is invalid") == 0){
-                            view.back();
-                        }
+                    if(domainController.createProblem(FEN, N) == -1){
+                        view.newProblemCard.endDialog("This problem either has no solution or fen is invalid");
                     } else {
                         if(view.newProblemCard.endDialog("Created!") == 0){
                             view.back();
@@ -269,6 +274,7 @@ public class ViewController {
                                 view.matchCard.setBoard(fenRes);
                                 currentPlayerTurn = !currentPlayerTurn;
                                 updateTerminal();
+                                setCurrentScore();
                                 try {
                                     play();
                                 } catch (IOException e) {
@@ -281,5 +287,10 @@ public class ViewController {
                 }
             }
         }
+    }
+
+    public void setCurrentScore(){
+        Random rand = new Random();
+        this.currentScore += rand.nextInt(348);
     }
 }

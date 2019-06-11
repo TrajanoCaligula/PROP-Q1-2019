@@ -20,10 +20,11 @@ public class MatchView extends JPanel {
 
     private Tile[][] chessBoardSquares = new Tile[8][8];
     private JPanel chessBoard;
-    private JLabel labelN;
+    private JLabel labelTurn;
     private JButton exitButton = new JButton("Exit");
     private JLabel labelScore;
     private JTextArea term;
+    private JLabel labelN = new JLabel("N: ");
 
     private static final String COLS = "abcdefgh";
     public static final int BLACK = 0, WHITE = 1;
@@ -35,13 +36,14 @@ public class MatchView extends JPanel {
         this.setPreferredSize(new Dimension(850, 500));
         this.setBackground(new Color(43, 43, 43));
         JPanel topBar = new JPanel(new FlowLayout(SwingConstants.RIGHT, 10, 5));
-        labelN = new JLabel("0", JLabel.LEFT);
+        labelTurn = new JLabel("0", JLabel.LEFT);
         labelScore = new JLabel("0", JLabel.CENTER);
         topBar.setBackground(new Color(255, 255, 255));
         topBar.setBorder(BorderFactory.createLineBorder(Color.black));
         topBar.add(new JLabel("Score:"));
         topBar.add(labelScore);
         topBar.add(new JLabel("Round:"));
+        topBar.add(labelTurn);
         topBar.add(labelN);
         chessBoard = new JPanel(new GridLayout(0, 9));
         chessBoard.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -210,7 +212,7 @@ public class MatchView extends JPanel {
     }
 
     public void updateN(int currentTurn){
-        this.labelN.setText(String.valueOf(currentTurn));
+        this.labelTurn.setText(String.valueOf(currentTurn));
     }
 
     public int gameEnd(String playerWhoWon){
@@ -245,4 +247,7 @@ public class MatchView extends JPanel {
         this.term.setText("");
     }
 
+    public void setN(String N){
+        this.labelN.setText("N: " + N);
+    }
 }

@@ -201,8 +201,7 @@ public class MatchView extends JPanel {
         setMatchBoard(fen);
     }
 
-    public void addTermLine(String moveLine, String lineToAdd){
-        this.term.append(moveLine);
+    public void addTermLine(String lineToAdd){
         this.term.append(lineToAdd + "'s turn\n");
     }
 
@@ -240,6 +239,10 @@ public class MatchView extends JPanel {
     public int exitDialog(){
         int input = JOptionPane.showOptionDialog(this, "Are you sure you want to exit the game?", "Match", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
         return input;
+    }
+
+    public void resetTerm(){
+        this.term.setText("");
     }
 
 }

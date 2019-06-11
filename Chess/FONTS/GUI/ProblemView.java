@@ -234,6 +234,16 @@ public class ProblemView extends JPanel {
         return null;
     }
 
+    public void setBoard(String fen){
+        for(int i = 0; i < chessBoardSquares.length; i++){
+            for(int j = 0; j < chessBoardSquares[0].length; j++){
+                chessBoardSquares[i][j].setPiece(null);
+                chessBoardSquares[i][j].setIcon(null);
+            }
+        }
+        setMatchBoard(fen);
+    }
+
     /**
      * moves a piece from initial tile to the final tile
      * @param pressedTile
@@ -286,7 +296,7 @@ public class ProblemView extends JPanel {
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 Tile currentTile = chessBoardSquares[i][j];
-                if(!currentTile.getPiece().equals('0')){
+                if(currentTile.getPiece() != null){
                     if(whiteTiles != 0){
                         FEN += whiteTiles;
                         whiteTiles = 0;

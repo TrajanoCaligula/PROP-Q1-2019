@@ -217,16 +217,16 @@ public class Problem{
         if(whitePieces.size() < 2 && blackPieces.size() < 2) { return false; }  //Al menos uno de los dos color tiene que tener más de una pieza
 
         //Mirar que haya un rey de cada color
-        boolean found = false;
+        int count = 0;
         for(Piece piece : whitePieces) {
-            if(piece instanceof King) { found = true; }
+            if(piece instanceof King) { count++; }
         }
-        if(!found) { return false; }
-        found = false;
+        if(count != 1) { return false; }
+        count = 0;
         for(Piece piece : blackPieces) {
-            if(piece instanceof King) { found = true; }
+            if(piece instanceof King) { count++; }
         }
-        if(!found) { return false; }
+        if(count != 1) { return false; }
 
         //Si se cumple, backtracking
         Board board = new Board(FEN);

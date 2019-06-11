@@ -398,8 +398,6 @@ public class CtrlPersistance {
         String aux = FEN+" "+difficulty;
         if(test.length <= 6) aux = FEN+" "+ N +" "+difficulty;
 
-        System.out.println(aux+"--------------------");
-
         try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(problemFile));
                 writer.write(aux);

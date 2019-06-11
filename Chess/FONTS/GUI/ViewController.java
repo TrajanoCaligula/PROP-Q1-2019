@@ -104,6 +104,7 @@ public class ViewController {
         if (!ended) {
             if (domainController.getTurn() <= (domainController.getN() * 2)) {
                 if (domainController.youAreDonete(currentPlayerTurn)) {
+                    domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
                     ended = true;
                     if (currentPlayerTurn) {
                         if (view.matchCard.gameEnd(domainController.getPlayer1Name()) == 0) {
@@ -147,7 +148,6 @@ public class ViewController {
                 } else {
                     ended = true;
                 }
-                domainController.addScore(domainController.getPlayer1Name(), String.valueOf(currentScore), currentIdProb);
                 if (view.matchCard.gameOver() == 0) {
                     view.back();
                 }

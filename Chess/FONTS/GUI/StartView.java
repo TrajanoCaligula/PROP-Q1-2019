@@ -35,6 +35,7 @@ public class StartView extends JPanel {
     private JComboBox problemsToManage;
     private JTextField nameP1 = new JTextField("...");
     private JTextField nameP2 = new JTextField("...");
+    private JButton displayR = new JButton("View Ranking");
     private JTextField fenProbl = new JTextField("FEN");
     private JLabel probNLabel = new JLabel("N:");
     private JTextField probN = new JTextField("2");
@@ -153,11 +154,15 @@ public class StartView extends JPanel {
         botonesInit.add(problemOptions);
 
         botonesInit.add(rankingsButton);
+        JPanel rankingP = new JPanel(new GridLayout(0,2));
         rankingPanel.setLayout(new BorderLayout());
         problemsRanking = new JComboBox();
 
-        rankingPanel.add(problemsRanking, BorderLayout.NORTH);
+        rankingP.add(problemsRanking);
+        rankingP.add(displayR);
+        rankingPanel.add(rankingP, BorderLayout.NORTH);
         this.problemsRanking.setVisible(false);
+        this.displayR.setVisible(false);
         rankingPanel.add(scoresRanking, BorderLayout.CENTER);
 
         botonesInit.add(rankingPanel);
@@ -244,6 +249,7 @@ public class StartView extends JPanel {
         this.problemsRanking.setVisible(false);
         this.rankingsButton.setVisible(true);
         this.scoresRanking.setVisible(false);
+        this.displayR.setVisible(false);
     }
 
     public void showProblemOptions(ArrayList<String> problems){
@@ -255,7 +261,7 @@ public class StartView extends JPanel {
         this.problemsRanking.setVisible(false);
         this.rankingsButton.setVisible(true);
         this.scoresRanking.setVisible(false);
-
+        this.displayR.setVisible(false);
     }
 
 
@@ -267,6 +273,7 @@ public class StartView extends JPanel {
         this.problemsRanking.setVisible(true);
         this.rankingsButton.setVisible(false);
         this.scoresRanking.setVisible(true);
+        this.displayR.setVisible(true);
         this.setRankings(rankings);
     }
 
@@ -293,8 +300,8 @@ public class StartView extends JPanel {
         fenSel.setActionCommand(Actions.CREATE_PROBLEM.name());
         fenSel.addActionListener(mal);
 
-        problemsRanking.setActionCommand(Actions.SCORES.name());
-        problemsRanking.addActionListener(mal);
+        displayR.setActionCommand(Actions.SCORES.name());
+        displayR.addActionListener(mal);
 
         modifyExistingProblem.setActionCommand(Actions.PROBLEM_VIEW.name());
         modifyExistingProblem.addActionListener(mal);

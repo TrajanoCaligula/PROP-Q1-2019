@@ -1,0 +1,3 @@
+DIRECTORI EXE
+
+data: conte els problemes i els seus respectius rankings, si en té, per tal de mantenir una base de dades del sistema.

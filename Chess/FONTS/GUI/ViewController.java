@@ -178,7 +178,6 @@ public class ViewController {
             } else if(evt.getActionCommand().equals(Actions.MODIFY_PROBLEM.name())){
                 String FEN = view.newProblemCard.getFEN();
                 int N = view.newProblemCard.getRounds();
-                FEN = FEN + " " + view.newProblemCard.getFirstPlayer();
                 try {
                     if(domainController.createProblem(FEN, N) != -1){
                         if(view.newProblemCard.endDialog("This problem either has no solution or fen is invalid") == 0){
@@ -200,6 +199,7 @@ public class ViewController {
                 try {
                     String FEN = domainController.getFENFromId(idProblemToManage);
                     splitted = FEN.split("\\s");
+                    view.newProblemCard = new ProblemView();
                     view.newProblemCard.setMatchBoard(splitted[0]);
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -399,6 +399,11 @@ public class StartView extends JPanel {
     }
 
     public int getK(){
-        return Integer.parseInt(inK.getText());
+        char number = inK.getText().charAt(0);
+        if(Character.isDigit(number)){
+            return Integer.parseInt(inK.getText());
+        } else {
+            return 0;
+        }
     }
 }

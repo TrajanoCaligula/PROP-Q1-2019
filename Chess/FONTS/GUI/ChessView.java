@@ -89,21 +89,19 @@ public class ChessView{
     }
 
 
-    public void addActionListenerToStartView(ActionListener mal) { menuCard.addActionListenerChess(mal); }
-
-    public void addActionListenersMatch(ActionListener mal) {
+    public void addActionListenerTiles(ActionListener mal) {
+        menuCard.addActionListenerChess(mal);
         matchCard.addActionListenerBoard(mal);
+        newProblemCard.addActionListenerBoard(mal);
     }
 
-    public void addActionListenersProblemView(ActionListener mal) { newProblemCard.addActionListenerBoard(mal); }
     /**
      * Sets the card "BOARD" in front and the board with the input FEN, so the player can start the match
      * @param matchFEN FEN of the new match you want to play
      */
     public void startMatch(String matchFEN){
-
         CardLayout cl = (CardLayout)(cards.getLayout());
-        matchCard.initMatch(matchFEN);
+        matchCard.setBoard(matchFEN);
         cl.show(cards, "BOARD");
     }
 

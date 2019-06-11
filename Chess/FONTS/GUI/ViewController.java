@@ -31,7 +31,7 @@ public class ViewController {
         this.view = currentView;
         domainController = CtrlDomain.getInstance();
 
-        this.view.addActionListenerToStartView(new ActionListenerChess());
+        this.view.addActionListenerTiles(new ActionListenerChess());
     }
 
 
@@ -62,7 +62,6 @@ public class ViewController {
         tileSelected = null;
         domainController.newGameComplete(currentIdProb, player1, player1type, 1, player2, player2type, 1);
         view.startMatch(splitted[0]);
-        view.addActionListenersMatch(new ActionListenerChess());
         matchStarted = true;
         play();
     }
@@ -101,7 +100,7 @@ public class ViewController {
             if (domainController.getPlayer1Type() != 0) {
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(1);
-                view.matchCard.updateBoard(currentFEN);
+                view.matchCard.setBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
                 updateTerminal("f");
                 play();
@@ -112,7 +111,7 @@ public class ViewController {
             if (domainController.getPlayer2Type() != 0) {
                 humanMoves = false;
                 String currentFEN = domainController.playMachine(1);
-                view.matchCard.updateBoard(currentFEN);
+                view.matchCard.setBoard(currentFEN);
                 currentPlayerTurn = !currentPlayerTurn;
                 updateTerminal("f");
                 play();
@@ -257,7 +256,7 @@ public class ViewController {
                             String endCoordsN = currentTile.getTileX() + " " + currentTile.getTileY();
                             if(view.matchCard.legalMove(movements, endCoords)){
                                 String fenRes = domainController.makeMove(coords, endCoordsN);
-                                view.matchCard.updateBoard(fenRes);
+                                view.matchCard.setBoard(fenRes);
                                 currentPlayerTurn = !currentPlayerTurn;
                                 updateTerminal("f");
                                 try {

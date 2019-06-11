@@ -111,67 +111,6 @@ public class CtrlDomain {
         return match.getBoard().toFEN();
     }
 
-    public void saveMatch(int round, String turn) throws IOException {
-        String FEN = match.getBoard().toFEN();
-        String type1,type2;
-        type1 = players[0].getType();
-        type2 = players[1].getType();
-        String depth1,depth2;
-        depth1 = Integer.toString(players[0].getDepth());
-        depth2 = Integer.toString(players[1].getDepth());
-        String player = getPlayer1Name() +" "+type1+" "+depth1+" "+ getPlayer2Name()+" "+type2+" "+depth2;
-
-        ctrlIO.saveMatchP(FEN,player,Integer.toString(round),turn);
-
-
-    }
-
-    public void loadMatch() throws IOException {
-        String aux = ctrlIO.loadMatch();
-        String auxSpli[] = (aux).split("\\s");
-        String FEN = auxSpli[0]+" "+auxSpli[1]+" "+auxSpli[2]+" "+auxSpli[3]+" "+auxSpli[4]+" "+auxSpli[5]+" "+auxSpli[6];
-
-        String player1 = auxSpli[7];
-        String type1 = auxSpli[8];
-        String depth1 = auxSpli[9];
-        String player2 = auxSpli[10];
-        String type2 = auxSpli[11];
-        String depth2 = auxSpli[12];
-
-        int roundn = Integer.parseInt(auxSpli[13]);
-
-        if(type1 == "M1") {
-            players[0] = new Human(player1, Color.WHITE);
-        }
-
-        else if(type1 == "M2"){
-            players[0] = new Machine(player1, Color.WHITE,Integer.parseInt(depth1));
-        }
-
-        else {
-            players[0] = new Machine2(player1, Color.WHITE,Integer.parseInt(depth1));
-        }
-
-        if(type2 == "M1") {
-            players[1] = new Human(player2, Color.WHITE);
-        }
-
-        else if(type2 == "M2"){
-            players[1] = new Machine(player2, Color.WHITE,Integer.parseInt(depth2));
-        }
-
-        else {
-            players[1] = new Machine2(player2, Color.WHITE,Integer.parseInt(depth2));
-        }
-
-        Problem test = new Problem(FEN);
-
-        int round = Integer.parseInt(auxSpli[13]);
-
-        if(auxSpli[14] == "BLACK") match = new Match(players[0],players[1],test,roundn,Color.BLACK);
-        else match = new Match(players[0],players[1],test,roundn,Color.WHITE);
-    }
-
 
     public void addScore(String player, String score, int id) throws IOException {
         ctrlIO.addScore(player, score, id);

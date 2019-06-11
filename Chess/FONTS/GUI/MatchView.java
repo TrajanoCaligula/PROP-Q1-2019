@@ -106,11 +106,6 @@ public class MatchView extends JPanel {
 
     }
 
-    public final void initMatch(String matchFEN){
-        term.setText("...Match Started!\n");
-        this.setMatchBoard(matchFEN);
-    }
-
 
     public final void setMatchBoard(String matchFEN){
         int i = 0, y = 0, x = 0;
@@ -196,7 +191,7 @@ public class MatchView extends JPanel {
     }
 
 
-    public void updateBoard(String fen){
+    public void setBoard(String fen){
         for(int i = 0; i < chessBoardSquares.length; i++){
             for(int j = 0; j < chessBoardSquares[0].length; j++){
                 chessBoardSquares[i][j].setPiece(null);
